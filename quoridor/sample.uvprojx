@@ -560,9 +560,24 @@
               <FilePath>.\game.c</FilePath>
             </File>
             <File>
-              <FileName>game.h</FileName>
+              <FileName>game_constants.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\game.h</FilePath>
+              <FilePath>.\game_constants.h</FilePath>
+            </File>
+            <File>
+              <FileName>game_structures.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\game_structures.h</FilePath>
+            </File>
+            <File>
+              <FileName>game_functions.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\game_functions.h</FilePath>
+            </File>
+            <File>
+              <FileName>game_draw.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\game_draw.h</FilePath>
             </File>
           </Files>
         </Group>

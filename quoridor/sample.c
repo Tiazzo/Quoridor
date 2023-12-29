@@ -27,7 +27,7 @@
 #include "RIT/RIT.h"
 #include "button_EXINT/button.h"
 #include "joystick/joystick.h"
-#include "game.h"
+#include "game_functions.h"
 
 #define SIMULATOR 1
 

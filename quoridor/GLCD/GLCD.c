@@ -669,11 +669,11 @@ void GUI_Text(uint16_t Xpos, uint16_t Ypos, uint8_t *str,uint16_t Color, uint16_
     while ( *str != 0 );
 }
 
-void LCD_DrawArray(uint16_t *array, int Xdim, int Ydim, int Xpos, int Ypos){
+void LCD_DrawArray(uint16_t *array, int xDim, int yDim, int xPos, int yPos){
 		int i, j;
-    for(i=0; i<Xdim; i++){
-			for(j=0; j<Ydim; j++){
-				LCD_SetPoint(j+Xpos,i+Ypos,array[Xdim*i+j]);
+    for(i=0; i<xDim; i++){
+			for(j=0; j<yDim; j++){
+				LCD_SetPoint(j+xPos,i+yPos,array[xDim*i+j]);
 			}
 		}
 }

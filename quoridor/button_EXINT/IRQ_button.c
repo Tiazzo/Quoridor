@@ -1,6 +1,5 @@
 #include "button.h"
 #include "lpc17xx.h"
-#include "./../game.h"
 
 int down_1;
 int down_2;

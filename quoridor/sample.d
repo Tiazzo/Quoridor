@@ -12,4 +12,6 @@
 .\sample.o: RIT/RIT.h
 .\sample.o: button_EXINT/button.h
 .\sample.o: joystick/joystick.h
-.\sample.o: game.h
+.\sample.o: game_functions.h
+.\sample.o: game_structures.h
+.\sample.o: game_constants.h
