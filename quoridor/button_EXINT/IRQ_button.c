@@ -1,11 +1,12 @@
 #include "button.h"
 #include "lpc17xx.h"
+#include "./../game.h"
 
 int down_1;
 int down_2;
 
 void EINT0_IRQHandler (void)	  	/* INT0														 */
-{		
+{
 	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
 }
 

@@ -27,6 +27,7 @@
 #include "RIT/RIT.h"
 #include "button_EXINT/button.h"
 #include "joystick/joystick.h"
+#include "game.h"
 
 #define SIMULATOR 1
 
@@ -37,6 +38,9 @@ extern uint8_t ScaleFlag; // <- ScaleFlag needs to visible in order for the emul
 int main(void)
 {
   SystemInit();  												/* System Initialization (i.e., PLL)  */
+	LCD_Initialization();
+	BUTTON_init();
+	draw_boardgame();
 	
 	//init_timer(0, 0x1312D0 ); 						/* 50ms * 25MHz = 1.25*10^6 = 0x1312D0 */
 	//init_timer(0, 0x6108 ); 						  /* 1ms * 25MHz = 25*10^3 = 0x6108 */
