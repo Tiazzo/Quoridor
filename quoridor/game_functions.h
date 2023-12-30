@@ -7,12 +7,12 @@
 void start_game(void);
 void initialize_game(GameStatus *game);
 void move_token_up(GameStatus *game);
-int isCellFree(GameStatus *game, int x, int y, int up, int right);
-void setInitialPlayerPositions(GameStatus *game);
+int is_cell_free(GameStatus *game, int x, int y, int up, int right);
+void set_initial_player_positions(GameStatus *game);
 
 //DRAWING FUNCTIONS
 void draw_boardgame(void);
-void write_remaining_walls_player1(void);
-void write_remaining_walls_player2(void);
+void write_remaining_walls_player1(GameStatus *game);
+void write_remaining_walls_player2(GameStatus *game);
 
 #endif

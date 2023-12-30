@@ -11,6 +11,9 @@
 #include "RIT.h"
 #include "../led/led.h"
 #include "../button_EXINT/button.h"
+#include "../game_constants.h"
+#include "../game_functions.h"
+#include "../game_structures.h"
 
 /******************************************************************************
 ** Function name:		RIT_IRQHandler
@@ -77,6 +80,7 @@ void RIT_IRQHandler (void)
 		J_down++;
 		switch(J_down){
 			case 1:
+				move_token_up(&game);
 				break;
 			default:
 				break;

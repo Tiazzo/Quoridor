@@ -12,13 +12,13 @@ typedef struct {
 
 typedef struct {
     int walls[BOARD_SIZE - 1][BOARD_SIZE][2];  // Muri orizzontali e verticali
-    int player1Walls;  // Numero di muri disponibili per il giocatore 1
-    int player2Walls;  // Numero di muri disponibili per il giocatore 2
 } Walls;
 
 typedef struct {
 	int x;
 	int y;
+	int pixelX;
+	int pixelY;
 	int walls;
 } Player;
 
@@ -34,4 +34,5 @@ typedef struct {
 	int currentPlayer;
 } GameStatus;
 
+extern GameStatus game;
 #endif 

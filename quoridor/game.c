@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <time.h>
 #include "LPC17xx.h"
 #include "GLCD/GLCD.h"
 #include "timer/timer.h"
@@ -16,6 +18,7 @@
 //int walls_player_two = 9;
 int firstTimePlayer1 = 1;
 int firstTimePlayer2 = 1;
+
 GameStatus game;
 
 
@@ -67,48 +70,51 @@ void draw_boardgame(void){
 				GUI_Text(x0+7, y0+2, (uint8_t *) "P2 Wall",Black, White );
 			}
 	}
+	//TODO da spostare poi nel handler del button
 	start_game();
 }
 
-void write_remaining_walls_player1(){
+void write_remaining_walls_player1(GameStatus *game){
 	char str1[20];
 	if(firstTimePlayer1)
 		firstTimePlayer1--;
 	else
-		game.players.player1.walls--;
+		game->players.player1.walls--;
 	
-	sprintf(str1, "%d", game.players.player1.walls);
+	sprintf(str1, "%d", game->players.player1.walls);
 	GUI_Text(40, 280, (uint8_t *) str1, Black, White );
 }
-void write_remaining_walls_player2(){
+void write_remaining_walls_player2(GameStatus *game){
 	char str2[20];
 		if(firstTimePlayer2)
 				firstTimePlayer2--;
 	else
-		game.players.player2.walls--;
-	sprintf(str2, "%d", game.players.player2.walls--);
+		game->players.player2.walls--;
+	sprintf(str2, "%d", game->players.player2.walls);
 	GUI_Text(192, 280,(uint8_t *) str2, Black, White );
 }
 
 	
 void start_game(){
-	write_remaining_walls_player1();
-	write_remaining_walls_player2();
-	setInitialPlayerPositions(&game);
+	initialize_game(&game);
 }
 
-void setInitialPlayerPositions(GameStatus *game){
-	game-> players.player1.x = 3;
-	game-> players.player1.y = 6;
+void set_initial_player_positions(GameStatus *game){
+	game->players.player1.x = 3;
+	game->players.player1.y = 6;
 	
-	game-> players.player2.x = 3;
-	game-> players.player2.y = 0;
+	game->players.player2.x = 3;
+	game->players.player2.y = 0;
 	
 	game->board.cells[game->players.player1.x][game->players.player1.y].type = PLAYER1;
 	game->board.cells[game->players.player2.x][game->players.player2.y].type = PLAYER2;
 	
 	LCD_DrawArray(player2_draw, 30, 30, 105, 3);
+	game->players.player2.pixelX = 105;
+	game->players.player2.pixelY = 3;
 	LCD_DrawArray(player1_draw, 30, 30, 105, 207);
+	game->players.player1.pixelX = 105;
+	game->players.player1.pixelY = 207;
 	
 	LCD_DrawArray(highlighted_cell, 30, 30, 139, 3);
 	LCD_DrawArray(highlighted_cell, 30, 30, 71, 3);
@@ -119,7 +125,14 @@ void setInitialPlayerPositions(GameStatus *game){
 	LCD_DrawArray(highlighted_cell, 30, 30, 71, 207);
 	LCD_DrawArray(highlighted_cell, 30, 30, 105, 173);
 }
-void initilize_game(GameStatus *game){
+
+void starting_player(GameStatus *game){
+	srand(time(NULL));
+	//game->currentPlayer = rand() % 2 + 1;
+	game->currentPlayer = 1;
+}
+
+void initialize_game(GameStatus *game){
 	int i,j;
 	for(i = 0; i < BOARD_SIZE; i++){
 		for(j = 0; j < BOARD_SIZE; j++){
@@ -128,11 +141,14 @@ void initilize_game(GameStatus *game){
 	}
 	game->players.player1.walls = 8;
 	game->players.player2.walls = 8;
-	setInitialPlayerPositions(game);
-	
+	starting_player(game);
+	set_initial_player_positions(game);
+	write_remaining_walls_player1(game);
+	write_remaining_walls_player2(game);
 }
 
-int isCellFree(GameStatus *game, int x, int y, int up, int right){
+
+int is_cell_free(GameStatus *game, int x, int y, int up, int right){
 	if ((x >= 0 && x < BOARD_SIZE) && (y >= 0 && y < BOARD_SIZE)){
 		if(game->board.cells[x][y].type == EMPTY){
 			return EMPTY;
@@ -173,6 +189,22 @@ int isCellFree(GameStatus *game, int x, int y, int up, int right){
 	return INVALID_MOVE; //aggiunta per togliere un warnings	
 }
 
+void cancel_actual_token_position(GameStatus *game){
+	if(game->currentPlayer == 1){
+		LCD_DrawArray(cell_background, 30, 30, game->players.player1.pixelX, game->players.player1.pixelY);
+	} else {
+		LCD_DrawArray(cell_background, 30, 30, game->players.player2.pixelX, game->players.player2.pixelY);
+	}
+}
+
+void draw_new_token_position(GameStatus *game, int x, int y){
+	if(game->currentPlayer == 1){
+		LCD_DrawArray(player1_draw, 30, 30, x, y);
+	} else {
+		LCD_DrawArray(player2_draw, 30, 30, x, y);
+	}
+}
+
 //Da chiamare quando clicclo select 
 void move_token_up(GameStatus *game){
 	if(game->currentPlayer == 1){
@@ -181,16 +213,20 @@ void move_token_up(GameStatus *game){
 		int newX = currentX - 1;
     int newY = currentY;
 
-		int cellUp = isCellFree(game,newX, newY, 1, 0);
+		int cellUp = is_cell_free(game,newX, newY, 1, 0);
 		
 		if(cellUp == EMPTY){
 			//Restore cell to empty 
 			game->board.cells[currentX][currentY].type = EMPTY;
+			//Cancel token from actual position LCD
+			cancel_actual_token_position(game);
 			game-> players.player1.x = newX;
 			game-> players.player1.y = newY;
+			game->players.player1.pixelY = game->players.player1.pixelY - 34;
 			//Update cell to Player1
 			game->board.cells[game->players.player1.x][game->players.player1.y].type = PLAYER1;
 			//TODO: Call token_drawing() function
+			draw_new_token_position(game, game->players.player1.pixelX, game->players.player1.pixelY);
 		} else if (cellUp == ANOTHER_PLAYER){	//poi modificare
 			//Restore cell to empty 
 			game->board.cells[currentX][currentY].type = EMPTY;
@@ -199,6 +235,7 @@ void move_token_up(GameStatus *game){
 			//Update cell to Player1
 			game->board.cells[game->players.player1.x][game->players.player1.y].type = PLAYER1;
 			//TODO: Call token_drawing() function
+
 		}
 	} else {
 		int currentX = game->players.player2.x;
@@ -206,7 +243,7 @@ void move_token_up(GameStatus *game){
 		int newX = currentX-1;
     int newY = currentY;
 
-		int cellUp = isCellFree(game,newX, newY,1,0);
+		int cellUp = is_cell_free(game,newX, newY,1,0);
 		
 		if(cellUp == EMPTY){
 			//Restore cell to empty 
@@ -246,22 +283,21 @@ void availablePlayerCell (GameStatus *game){
 	if(game->currentPlayer == 1){
 		currentX = game->players.player1.x;
 		currentY = game->players.player1.y;
-		cellUp = isCellFree(game,currentX-1,currentY,1,0);
-		cellDown = isCellFree(game,currentX+1,currentY,1,1);
-		cellLeft = isCellFree(game,currentX,currentY-1,0,0);
-		cellRight = isCellFree(game,currentX,currentY+1,0,1);
+		cellUp = is_cell_free(game,currentX-1,currentY,1,0);
+		cellDown = is_cell_free(game,currentX+1,currentY,1,1);
+		cellLeft = is_cell_free(game,currentX,currentY-1,0,0);
+		cellRight = is_cell_free(game,currentX,currentY+1,0,1);
 		highlight_cell(cellUp, cellDown, cellLeft, cellRight);
 	} else {
 		currentX = game->players.player2.x;
 		currentY = game->players.player2.y;
-		cellUp = isCellFree(game,currentX-1,currentY,1,0);
-		cellDown = isCellFree(game,currentX+1,currentY,1,1);
-		cellLeft = isCellFree(game,currentX,currentY-1,0,0);
-		cellRight = isCellFree(game,currentX,currentY+1,0,1);
+		cellUp = is_cell_free(game,currentX-1,currentY,1,0);
+		cellDown = is_cell_free(game,currentX+1,currentY,1,1);
+		cellLeft = is_cell_free(game,currentX,currentY-1,0,0);
+		cellRight = is_cell_free(game,currentX,currentY+1,0,1);
 	}
-	
-	
 }
+
 
 
 

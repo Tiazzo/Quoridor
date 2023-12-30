@@ -10,3 +10,6 @@
 .\irq_rit.o: RIT\RIT.h
 .\irq_rit.o: RIT\../led/led.h
 .\irq_rit.o: RIT\../button_EXINT/button.h
+.\irq_rit.o: RIT\../game_constants.h
+.\irq_rit.o: RIT\../game_functions.h
+.\irq_rit.o: RIT\../game_structures.h
