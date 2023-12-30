@@ -12,7 +12,9 @@ void set_initial_player_positions(GameStatus *game);
 
 //DRAWING FUNCTIONS
 void draw_boardgame(void);
-void write_remaining_walls_player1(GameStatus *game);
-void write_remaining_walls_player2(GameStatus *game);
+void write_remaining_walls_player1(GameStatus*);
+void write_remaining_walls_player2(GameStatus*);
+void highlight_cell(GameStatus*,int, int, int, int);
+void print_value_on_screen (GameStatus*, int, int);
 
 #endif

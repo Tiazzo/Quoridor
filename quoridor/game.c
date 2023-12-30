@@ -94,58 +94,16 @@ void write_remaining_walls_player2(GameStatus *game){
 	GUI_Text(192, 280,(uint8_t *) str2, Black, White );
 }
 
-	
-void start_game(){
-	initialize_game(&game);
-}
 
-void set_initial_player_positions(GameStatus *game){
-	game->players.player1.x = 3;
-	game->players.player1.y = 6;
-	
-	game->players.player2.x = 3;
-	game->players.player2.y = 0;
-	
-	game->board.cells[game->players.player1.x][game->players.player1.y].type = PLAYER1;
-	game->board.cells[game->players.player2.x][game->players.player2.y].type = PLAYER2;
-	
-	LCD_DrawArray(player2_draw, 30, 30, 105, 3);
-	game->players.player2.pixelX = 105;
-	game->players.player2.pixelY = 3;
-	LCD_DrawArray(player1_draw, 30, 30, 105, 207);
-	game->players.player1.pixelX = 105;
-	game->players.player1.pixelY = 207;
-	
-	LCD_DrawArray(highlighted_cell, 30, 30, 139, 3);
-	LCD_DrawArray(highlighted_cell, 30, 30, 71, 3);
-	LCD_DrawArray(highlighted_cell, 30, 30, 105, 37);
-	
-	
-	LCD_DrawArray(highlighted_cell, 30, 30, 139, 207);
-	LCD_DrawArray(highlighted_cell, 30, 30, 71, 207);
-	LCD_DrawArray(highlighted_cell, 30, 30, 105, 173);
+void print_value_on_screen (GameStatus *game, int x, int y){
+	char str2[20];
+	sprintf(str2, "%d", x);
+	GUI_Text(80, 280,(uint8_t *) str2, Red, White );
+	sprintf(str2, "%d", y);
+	GUI_Text(90, 280,(uint8_t *) str2, Blue, White );
 }
+	
 
-void starting_player(GameStatus *game){
-	srand(time(NULL));
-	//game->currentPlayer = rand() % 2 + 1;
-	game->currentPlayer = 1;
-}
-
-void initialize_game(GameStatus *game){
-	int i,j;
-	for(i = 0; i < BOARD_SIZE; i++){
-		for(j = 0; j < BOARD_SIZE; j++){
-			game->board.cells[i][j].type = EMPTY;
-		}
-	}
-	game->players.player1.walls = 8;
-	game->players.player2.walls = 8;
-	starting_player(game);
-	set_initial_player_positions(game);
-	write_remaining_walls_player1(game);
-	write_remaining_walls_player2(game);
-}
 
 
 int is_cell_free(GameStatus *game, int x, int y, int up, int right){
@@ -265,16 +223,55 @@ void move_token_up(GameStatus *game){
 	}
 }
 
-void highlight_cell(int cellUp, int cellDown, int cellLeft, int cellRight){
-	
+void highlight_cell(GameStatus *game,int cellUp, int cellDown, int cellLeft, int cellRight){
+	if(game->currentPlayer == 1){
+		if(cellUp == EMPTY){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
+		} else if(cellUp == ANOTHER_PLAYER){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-68);
+		}
+		if(cellDown == EMPTY){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player1.pixelX , game-> players.player1.pixelY+34);
+		} else if(cellDown == ANOTHER_PLAYER){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY+68);
+		}
+		if(cellLeft == EMPTY){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
+		} else if(cellLeft == ANOTHER_PLAYER){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player1.pixelX-68, game-> players.player1.pixelY);
+		}
+		if(cellRight == EMPTY){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
+		} else if(cellRight == ANOTHER_PLAYER){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player1.pixelX+68, game-> players.player1.pixelY);
+		}
+	}else{
+		if(cellUp == EMPTY){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
+		} else if(cellUp == ANOTHER_PLAYER){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-68);
+		}
+		if(cellDown == EMPTY){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+34);
+		} else if(cellDown == ANOTHER_PLAYER){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+68);
+		}
+		if(cellLeft == EMPTY){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
+		} else if(cellLeft == ANOTHER_PLAYER){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player2.pixelX-38, game-> players.player2.pixelY);
+		}
+		if(cellRight == EMPTY){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
+		} else if(cellRight == ANOTHER_PLAYER){
+			LCD_DrawArray(highlighted_cell, 30, 30, game-> players.player2.pixelX+68, game-> players.player2.pixelY);
+		}
+	}
 }
 
 void availablePlayerCell (GameStatus *game){
-	int i;
-	int currentX = game->players.player2.x;
-	int currentY = game->players.player2.y;
-	int newX = currentX;
-	int newY = currentY - 1;
+	int currentX;
+	int currentY;
 	int cellUp;
 	int cellDown;
 	int cellLeft;
@@ -283,21 +280,79 @@ void availablePlayerCell (GameStatus *game){
 	if(game->currentPlayer == 1){
 		currentX = game->players.player1.x;
 		currentY = game->players.player1.y;
-		cellUp = is_cell_free(game,currentX-1,currentY,1,0);
-		cellDown = is_cell_free(game,currentX+1,currentY,1,1);
-		cellLeft = is_cell_free(game,currentX,currentY-1,0,0);
-		cellRight = is_cell_free(game,currentX,currentY+1,0,1);
-		highlight_cell(cellUp, cellDown, cellLeft, cellRight);
+	
+		cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+		cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+		cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+		cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		highlight_cell(game, cellUp, cellDown, cellLeft, cellRight);
 	} else {
 		currentX = game->players.player2.x;
 		currentY = game->players.player2.y;
-		cellUp = is_cell_free(game,currentX-1,currentY,1,0);
-		cellDown = is_cell_free(game,currentX+1,currentY,1,1);
-		cellLeft = is_cell_free(game,currentX,currentY-1,0,0);
-		cellRight = is_cell_free(game,currentX,currentY+1,0,1);
+		cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+		cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+		cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+		cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		highlight_cell(game, cellUp, cellDown, cellLeft, cellRight);
 	}
 }
 
+void start_game(){
+	initialize_game(&game);
+}
+
+void set_initial_player_positions(GameStatus *game){
+	//Initialization player 1
+	game->players.player1.x = 3;
+	game->players.player1.y = 6;
+	game->players.player1.pixelX = 105;
+	game->players.player1.pixelY = 207;
+	game->board.cells[game->players.player1.x][game->players.player1.y].type = PLAYER1;
+	
+	//Initialization player 2
+	game->players.player2.x = 3;
+	game->players.player2.y = 0;
+	game->players.player2.pixelX = 105;
+	game->players.player2.pixelY = 3;
+	game->board.cells[game->players.player2.x][game->players.player2.y].type = PLAYER2;
+	
+	//Drawing token players
+	LCD_DrawArray(player1_draw, 30, 30, 105, 207);
+	LCD_DrawArray(player2_draw, 30, 30, 105, 3);
+	
+	availablePlayerCell(game);
+	/*
+	LCD_DrawArray(highlighted_cell, 30, 30, 139, 3);
+	LCD_DrawArray(highlighted_cell, 30, 30, 71, 3);
+	LCD_DrawArray(highlighted_cell, 30, 30, 105, 37);
+	
+	
+	LCD_DrawArray(highlighted_cell, 30, 30, 139, 207);
+	LCD_DrawArray(highlighted_cell, 30, 30, 71, 207);
+	LCD_DrawArray(highlighted_cell, 30, 30, 105, 173);
+	*/
+}
+
+void starting_player(GameStatus *game){
+	//srand(time(NULL));
+	//game->currentPlayer = rand() % 2 + 1;
+	game->currentPlayer = 2;
+}
+
+void initialize_game(GameStatus *game){
+	int i,j;
+	for(i = 0; i < BOARD_SIZE; i++){
+		for(j = 0; j < BOARD_SIZE; j++){
+			game->board.cells[i][j].type = EMPTY;
+		}
+	}
+	game->players.player1.walls = 8;
+	game->players.player2.walls = 8;
+	starting_player(game);
+	set_initial_player_positions(game);
+	write_remaining_walls_player1(game);
+	write_remaining_walls_player2(game);
+}
 
 
 
