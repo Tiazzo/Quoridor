@@ -271,77 +271,121 @@ void highlight_cell(GameStatus *game,int cellUp, int cellDown, int cellLeft, int
 	}
 }
 
-void restore_highlighted_cells(GameStatus *game,int cellUp, int cellDown, int cellLeft, int cellRight){
+void restore_highlighted_cells(GameStatus *game,int cellUp, int cellDown, int cellLeft, int cellRight, int byPassed){
 	if(game->currentPlayer == 1){
 		if(cellUp == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
 		} else if(cellUp == ANOTHER_PLAYER){
-			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-68);
+			if(!(byPassed == UP)){
+				LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-68);
+			} 
 		}
 		if(cellDown == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX , game-> players.player1.pixelY+34);
 		} else if(cellDown == ANOTHER_PLAYER){
+			if(!(byPassed == DOWN)){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY+68);
+			}
 		}
 		if(cellLeft == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
 		} else if(cellLeft == ANOTHER_PLAYER){
+			if(!(byPassed == LEFT)){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-68, game-> players.player1.pixelY);
+			}
 		}
 		if(cellRight == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
 		} else if(cellRight == ANOTHER_PLAYER){
+			if(!(byPassed == RIGHT)){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+68, game-> players.player1.pixelY);
+			}
 		}
 	}else{
 		if(cellUp == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
 		} else if(cellUp == ANOTHER_PLAYER){
+			if(!(byPassed == UP)){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-68);
+			}
 		}
 		if(cellDown == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+34);
 		} else if(cellDown == ANOTHER_PLAYER){
+			if(!(byPassed == DOWN)){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+68);
+			}
 		}
 		if(cellLeft == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
 		} else if(cellLeft == ANOTHER_PLAYER){
+			if(!(byPassed == LEFT)){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-38, game-> players.player2.pixelY);
+			}
 		}
 		if(cellRight == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
 		} else if(cellRight == ANOTHER_PLAYER){
+			if(!(byPassed == RIGHT)){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+68, game-> players.player2.pixelY);
+			}
 		}
 	}
 }
 
-void restore_available_player_cells(GameStatus *game){
+void restore_available_player_cells(GameStatus *game, int byPassed){
 	int currentX;
 	int currentY;
-	int cellUp;
-	int cellDown;
-	int cellLeft;
-	int cellRight;
+	int cellUp = NOTHING;
+	int cellDown = NOTHING;
+	int cellLeft = NOTHING;
+	int cellRight = NOTHING;
 	
 	if(game->currentPlayer == 1){
 		currentX = game->players.player1.x;
 		currentY = game->players.player1.y;
-	
-		cellUp = is_cell_free(game,currentX,currentY-1,1,0);
-		cellDown = is_cell_free(game,currentX,currentY+1,1,1);
-		cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
-		cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		restore_highlighted_cells(game, cellUp, cellDown, cellLeft, cellRight);
+		
+		if((game->players.player1.tempX == currentX && game->players.player1.tempY == currentY-1) || (game->players.player1.tempX == currentX && game->players.player1.tempY == currentY-2)){
+			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		} else if ((game->players.player1.tempX == currentX && game->players.player1.tempY == currentY+1) || (game->players.player1.tempX == currentX && game->players.player1.tempY == currentY+2)){
+			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		} else if((game->players.player1.tempX == currentX-1 && game->players.player1.tempY == currentY) || (game->players.player1.tempX-2 == currentX && game->players.player1.tempY == currentY)) {
+			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		}	else if((game->players.player1.tempX == currentX+1 && game->players.player1.tempY == currentY) || (game->players.player1.tempX+2 == currentX && game->players.player1.tempY == currentY)) {
+			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+		}
+		restore_highlighted_cells(game, cellUp, cellDown, cellLeft, cellRight, byPassed);
 	} else {
 		currentX = game->players.player2.x;
 		currentY = game->players.player2.y;
-		cellUp = is_cell_free(game,currentX,currentY-1,1,0);
-		cellDown = is_cell_free(game,currentX,currentY+1,1,1);
-		cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
-		cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		restore_highlighted_cells(game, cellUp, cellDown, cellLeft, cellRight);
+
+		if((game->players.player2.tempX == currentX && game->players.player2.tempY == currentY-1) || (game->players.player2.tempX == currentX && game->players.player2.tempY == currentY-2)){
+			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		} else if ((game->players.player2.tempX == currentX && game->players.player2.tempY == currentY+1) || (game->players.player2.tempX == currentX && game->players.player2.tempY == currentY+2)){
+			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		} else if((game->players.player2.tempX == currentX-1 && game->players.player2.tempY == currentY) || (game->players.player2.tempX-2 == currentX && game->players.player2.tempY == currentY)) {
+			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		}	else if((game->players.player2.tempX == currentX+1 && game->players.player2.tempY == currentY) || (game->players.player2.tempX+2 == currentX && game->players.player2.tempY == currentY)) {
+			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+		}
+		
+		restore_highlighted_cells(game, cellUp, cellDown, cellLeft, cellRight, byPassed);
 	}
 }
 
@@ -373,9 +417,23 @@ void availablePlayerCells (GameStatus *game){
 	}
 }
 
-
+//Change turn due to end of timer 
 void change_player_turn(GameStatus *game){
-	restore_available_player_cells(game);
+	restore_available_player_cells(game, 0);
+	if(game->currentPlayer == 1){
+		draw_new_token_position(game, game->players.player1.pixelX, game->players.player1.pixelY);
+		game->currentPlayer = 2;
+	}else{
+		draw_new_token_position(game, game->players.player2.pixelX, game->players.player2.pixelY);
+		game->currentPlayer = 1;
+	}
+	//TODO Invoke timer 20s
+	availablePlayerCells(game);
+}
+
+
+
+void change_player_turn_after_confirm(GameStatus *game){
 	if(game->currentPlayer == 1){
 		draw_new_token_position(game, game->players.player1.pixelX, game->players.player1.pixelY);
 		game->currentPlayer = 2;
@@ -389,6 +447,17 @@ void change_player_turn(GameStatus *game){
 
 void start_game(){
 	initialize_game(&game);
+}
+
+void set_new_player_position(GameStatus *game){
+	
+	if(game->currentPlayer == 1){
+		game->board.cells[game->players.player1.x][game->players.player1.y].type = EMPTY;
+		game->board.cells[game->players.player1.tempX][game->players.player1.tempY].type = PLAYER1;
+	}else{
+		game->board.cells[game->players.player2.x][game->players.player2.y].type = EMPTY;
+		game->board.cells[game->players.player2.tempX][game->players.player2.tempY].type = PLAYER2;
+	}
 }
 
 void set_initial_player_positions(GameStatus *game){
@@ -424,10 +493,24 @@ void set_initial_player_positions(GameStatus *game){
 }
 
 void conferm_player_move(GameStatus *game){
+	int byPassed;
 	if(game->currentPlayer == 1){
+		if((game->players.player1.tempX == game->players.player1.x) && (game->players.player1.tempY == game->players.player1.y-2)){
+			byPassed = UP;
+		}else if((game->players.player1.tempX == game->players.player1.x) && (game->players.player1.tempY == game->players.player1.y+2)){
+			byPassed = DOWN;
+		} else if((game->players.player1.tempX == game->players.player1.x-2) && (game->players.player1.tempY == game->players.player1.y)){
+			byPassed = LEFT;
+		} else if((game->players.player1.tempX == game->players.player1.x+2) && (game->players.player1.tempY == game->players.player1.y)){
+			byPassed = RIGHT;
+		}
+		restore_available_player_cells(game, byPassed);
+		
+		set_new_player_position(game);
 		game->players.player1.x = game->players.player1.tempX;
-		game->players.player1.pixelX = game->players.player1.tempPixelX;
 		game->players.player1.y = game->players.player1.tempY;
+		
+		game->players.player1.pixelX = game->players.player1.tempPixelX;
 		game->players.player1.pixelY = game->players.player1.tempPixelY;
 		
 		game->players.player1.tempX = game->players.player1.x;
@@ -436,11 +519,22 @@ void conferm_player_move(GameStatus *game){
 		game->players.player1.tempPixelY = game->players.player1.pixelY; 
 		
 		draw_new_token_position(game,game->players.player1.tempPixelX, game->players.player1.tempPixelY);
-		change_player_turn(game);
+		change_player_turn_after_confirm(game);
 	} else {
+		if((game->players.player2.tempX == game->players.player2.x) && (game->players.player2.tempY == game->players.player2.y-2)){
+			byPassed = UP;
+		}else if((game->players.player2.tempX == game->players.player2.x) && (game->players.player2.tempY == game->players.player2.y+2)){
+			byPassed = DOWN;
+		} else if((game->players.player2.tempX == game->players.player2.x-2) && (game->players.player2.tempY == game->players.player2.y)){
+			byPassed = LEFT;
+		} else if((game->players.player2.tempX == game->players.player2.x+2) && (game->players.player2.tempY == game->players.player2.y)){
+			byPassed = RIGHT;
+		}
+		restore_available_player_cells(game, byPassed);
+		set_new_player_position(game);
 		game->players.player2.x = game->players.player2.tempX;
-		game->players.player2.pixelX = game->players.player2.tempPixelX;
 		game->players.player2.y = game->players.player2.tempY;
+		game->players.player2.pixelX = game->players.player2.tempPixelX;
 		game->players.player2.pixelY = game->players.player2.tempPixelY;
 		
 		game->players.player2.tempX = game->players.player2.x;
@@ -449,8 +543,7 @@ void conferm_player_move(GameStatus *game){
 		game->players.player2.tempPixelY = game->players.player2.pixelY; 
 		
 		draw_new_token_position(game,game->players.player2.tempPixelX, game->players.player2.tempPixelY);
-		
-		change_player_turn(game);
+		change_player_turn_after_confirm(game);
 	}
 }
 

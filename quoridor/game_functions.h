@@ -10,8 +10,10 @@ void move_token_up(GameStatus *game);
 int is_cell_free(GameStatus *game, int x, int y, int up, int right);
 void set_initial_player_positions(GameStatus *game);
 void change_player_turn(GameStatus *);
+void change_player_turn_after_confirm(GameStatus*);
 void set_temp_cordinates_player(GameStatus *, int, int, int, int);
 void conferm_player_move(GameStatus* );
+void set_new_player_position(GameStatus *);
 
 //DRAWING FUNCTIONS
 void draw_boardgame(void);
