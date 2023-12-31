@@ -50,7 +50,7 @@ int main(void)
 	enable_timer(0);
 	BUTTON_init();												/* BUTTON Initialization              */
 	joystick_init();											/* Joystick Initialization            */
-	init_RIT(0x004C4B40);									/* RIT Initialization 50 msec       	*/
+	init_RIT(0x186a0);									/* RIT Initialization 50 msec       	*/
 	enable_RIT();													/* RIT enabled												*/
 	
 	LPC_SC->PCON |= 0x1;									/* power-down	mode										*/

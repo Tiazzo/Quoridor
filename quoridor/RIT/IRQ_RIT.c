@@ -42,6 +42,7 @@ void RIT_IRQHandler (void)
 		J_up++;
 		switch(J_up){
 			case 1:
+				preview_move_token(&game, UP);
 				break;
 			default:
 				break;
@@ -54,6 +55,7 @@ void RIT_IRQHandler (void)
 		J_right++;
 		switch(J_right){
 			case 1:
+				preview_move_token(&game, RIGHT);
 				break;
 			default:
 				break;
@@ -66,6 +68,7 @@ void RIT_IRQHandler (void)
 		J_left++;
 		switch(J_left){
 			case 1:
+				preview_move_token(&game, LEFT);
 				break;
 			default:
 				break;
@@ -80,7 +83,22 @@ void RIT_IRQHandler (void)
 		J_down++;
 		switch(J_down){
 			case 1:
-				move_token_up(&game);
+				preview_move_token(&game, DOWN);	
+			//move_token_up(&game);
+				break;
+			default:
+				break;
+		}
+	}
+	else if((LPC_GPIO1->FIOPIN & (1<<25)) == 0){
+		J_up = 0;
+		J_right = 0;
+		J_left = 0;
+		J_down = 0;
+		J_select++;
+		switch(J_select){
+			case 1:
+					conferm_player_move(&game);
 				break;
 			default:
 				break;

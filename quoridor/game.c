@@ -95,7 +95,7 @@ void write_remaining_walls_player2(GameStatus *game){
 }
 
 
-void print_value_on_screen (GameStatus *game, int x, int y){
+void print_value_on_screen (int x, int y){
 	char str2[20];
 	sprintf(str2, "%d", x);
 	GUI_Text(80, 280,(uint8_t *) str2, Red, White );
@@ -162,6 +162,8 @@ void draw_new_token_position(GameStatus *game, int x, int y){
 		LCD_DrawArray(player2_draw, 30, 30, x, y);
 	}
 }
+
+
 
 //Da chiamare quando clicclo select 
 void move_token_up(GameStatus *game){
@@ -269,7 +271,81 @@ void highlight_cell(GameStatus *game,int cellUp, int cellDown, int cellLeft, int
 	}
 }
 
-void availablePlayerCell (GameStatus *game){
+void restore_highlighted_cells(GameStatus *game,int cellUp, int cellDown, int cellLeft, int cellRight){
+	if(game->currentPlayer == 1){
+		if(cellUp == EMPTY){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
+		} else if(cellUp == ANOTHER_PLAYER){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-68);
+		}
+		if(cellDown == EMPTY){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX , game-> players.player1.pixelY+34);
+		} else if(cellDown == ANOTHER_PLAYER){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY+68);
+		}
+		if(cellLeft == EMPTY){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
+		} else if(cellLeft == ANOTHER_PLAYER){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-68, game-> players.player1.pixelY);
+		}
+		if(cellRight == EMPTY){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
+		} else if(cellRight == ANOTHER_PLAYER){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+68, game-> players.player1.pixelY);
+		}
+	}else{
+		if(cellUp == EMPTY){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
+		} else if(cellUp == ANOTHER_PLAYER){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-68);
+		}
+		if(cellDown == EMPTY){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+34);
+		} else if(cellDown == ANOTHER_PLAYER){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+68);
+		}
+		if(cellLeft == EMPTY){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
+		} else if(cellLeft == ANOTHER_PLAYER){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-38, game-> players.player2.pixelY);
+		}
+		if(cellRight == EMPTY){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
+		} else if(cellRight == ANOTHER_PLAYER){
+			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+68, game-> players.player2.pixelY);
+		}
+	}
+}
+
+void restore_available_player_cells(GameStatus *game){
+	int currentX;
+	int currentY;
+	int cellUp;
+	int cellDown;
+	int cellLeft;
+	int cellRight;
+	
+	if(game->currentPlayer == 1){
+		currentX = game->players.player1.x;
+		currentY = game->players.player1.y;
+	
+		cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+		cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+		cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+		cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		restore_highlighted_cells(game, cellUp, cellDown, cellLeft, cellRight);
+	} else {
+		currentX = game->players.player2.x;
+		currentY = game->players.player2.y;
+		cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+		cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+		cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+		cellRight = is_cell_free(game,currentX+1,currentY,0,1);
+		restore_highlighted_cells(game, cellUp, cellDown, cellLeft, cellRight);
+	}
+}
+
+void availablePlayerCells (GameStatus *game){
 	int currentX;
 	int currentY;
 	int cellUp;
@@ -297,6 +373,20 @@ void availablePlayerCell (GameStatus *game){
 	}
 }
 
+
+void change_player_turn(GameStatus *game){
+	restore_available_player_cells(game);
+	if(game->currentPlayer == 1){
+		draw_new_token_position(game, game->players.player1.pixelX, game->players.player1.pixelY);
+		game->currentPlayer = 2;
+	}else{
+		draw_new_token_position(game, game->players.player2.pixelX, game->players.player2.pixelY);
+		game->currentPlayer = 1;
+	}
+	//TODO Invoke timer 20s
+	availablePlayerCells(game);
+}
+
 void start_game(){
 	initialize_game(&game);
 }
@@ -320,7 +410,7 @@ void set_initial_player_positions(GameStatus *game){
 	LCD_DrawArray(player1_draw, 30, 30, 105, 207);
 	LCD_DrawArray(player2_draw, 30, 30, 105, 3);
 	
-	availablePlayerCell(game);
+	availablePlayerCells(game);
 	/*
 	LCD_DrawArray(highlighted_cell, 30, 30, 139, 3);
 	LCD_DrawArray(highlighted_cell, 30, 30, 71, 3);
@@ -331,6 +421,37 @@ void set_initial_player_positions(GameStatus *game){
 	LCD_DrawArray(highlighted_cell, 30, 30, 71, 207);
 	LCD_DrawArray(highlighted_cell, 30, 30, 105, 173);
 	*/
+}
+
+void conferm_player_move(GameStatus *game){
+	if(game->currentPlayer == 1){
+		game->players.player1.x = game->players.player1.tempX;
+		game->players.player1.pixelX = game->players.player1.tempPixelX;
+		game->players.player1.y = game->players.player1.tempY;
+		game->players.player1.pixelY = game->players.player1.tempPixelY;
+		
+		game->players.player1.tempX = game->players.player1.x;
+		game->players.player1.tempY = game->players.player1.y;
+		game->players.player1.tempPixelX = game->players.player1.pixelX; 
+		game->players.player1.tempPixelY = game->players.player1.pixelY; 
+		
+		draw_new_token_position(game,game->players.player1.tempPixelX, game->players.player1.tempPixelY);
+		change_player_turn(game);
+	} else {
+		game->players.player2.x = game->players.player2.tempX;
+		game->players.player2.pixelX = game->players.player2.tempPixelX;
+		game->players.player2.y = game->players.player2.tempY;
+		game->players.player2.pixelY = game->players.player2.tempPixelY;
+		
+		game->players.player2.tempX = game->players.player2.x;
+		game->players.player2.tempY = game->players.player2.y;
+		game->players.player2.tempPixelX = game->players.player2.pixelX; 
+		game->players.player2.tempPixelY = game->players.player2.pixelY; 
+		
+		draw_new_token_position(game,game->players.player2.tempPixelX, game->players.player2.tempPixelY);
+		
+		change_player_turn(game);
+	}
 }
 
 void starting_player(GameStatus *game){
@@ -353,6 +474,167 @@ void initialize_game(GameStatus *game){
 	write_remaining_walls_player1(game);
 	write_remaining_walls_player2(game);
 }
+
+void set_temp_cordinates_player(GameStatus *game, int x, int y, int pixelX, int pixelY){
+	if (game->currentPlayer == 1){
+		game->players.player1.tempX = x;
+		game->players.player1.tempPixelX = pixelX;
+		game->players.player1.tempY = y;
+		game->players.player1.tempPixelY = pixelY;
+	}else{
+		game->players.player2.tempX = x;
+		game->players.player2.tempPixelX = pixelX;
+		game->players.player2.tempY = y;
+		game->players.player2.tempPixelY = pixelY;
+	}
+}
+
+void preview_move_token (GameStatus *game, int direction){
+	int currentX;
+	int currentY;
+	int currentPixelX;
+	int currentPixelY;
+	int cellUp;
+	int cellDown;
+	int cellLeft;
+	int cellRight;
+	
+	if(game->currentPlayer == 1){
+		currentX = game->players.player1.x;
+		currentY = game->players.player1.y;
+		currentPixelX = game->players.player1.pixelX;
+		currentPixelY = game->players.player1.pixelY;
+		
+			switch (direction) {
+        case UP:
+					cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+					if(cellUp == EMPTY){
+						cancel_actual_token_position(game);
+						availablePlayerCells(game);
+						draw_new_token_position(game, currentPixelX, currentPixelY-34);
+						set_temp_cordinates_player(game, currentX, currentY-1, currentPixelX, currentPixelY-34);
+					}else if(cellUp == ANOTHER_PLAYER){
+						cancel_actual_token_position(game);
+						availablePlayerCells(game);
+						draw_new_token_position(game, currentPixelX, currentPixelY-68);
+						set_temp_cordinates_player(game, currentX, currentY-2, currentPixelX, currentPixelY-68);
+					}
+					break;
+        case DOWN:
+					cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+					if(cellDown == EMPTY){
+						cancel_actual_token_position(game);
+						availablePlayerCells(game);
+						draw_new_token_position(game, currentPixelX, currentPixelY+34);
+						set_temp_cordinates_player(game, currentX, currentY+1, currentPixelX, currentPixelY+34);
+					}else if(cellDown == ANOTHER_PLAYER){
+						cancel_actual_token_position(game);
+						availablePlayerCells(game);
+						draw_new_token_position(game, currentPixelX, currentPixelY+68);
+						set_temp_cordinates_player(game, currentX, currentY+2, currentPixelX, currentPixelY+68);
+					}
+					break;
+        case LEFT:
+					cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+					if(cellLeft == EMPTY){
+						cancel_actual_token_position(game);
+						availablePlayerCells(game);
+						draw_new_token_position(game, currentPixelX-34, currentPixelY);
+						set_temp_cordinates_player(game, currentX-1, currentY, currentPixelX-34, currentPixelY);
+					}else if(cellLeft == ANOTHER_PLAYER){
+						cancel_actual_token_position(game);
+						availablePlayerCells(game);
+						draw_new_token_position(game, currentPixelX-68, currentPixelY);
+						set_temp_cordinates_player(game, currentX-2, currentY, currentPixelX-68, currentPixelY);
+					}
+					break;
+        case RIGHT:
+					cellRight = is_cell_free(game,currentX+1,currentY,0,1); //CONTROLLARE
+					if(cellRight == EMPTY){
+						cancel_actual_token_position(game);
+						availablePlayerCells(game);
+						draw_new_token_position(game, currentPixelX+34, currentPixelY);
+						set_temp_cordinates_player(game, currentX+1, currentY, currentPixelX+34, currentPixelY);
+					}else if(cellRight == ANOTHER_PLAYER){
+						cancel_actual_token_position(game);
+						availablePlayerCells(game);
+						draw_new_token_position(game, currentPixelX+68, currentPixelY);
+						set_temp_cordinates_player(game, currentX+2, currentY, currentPixelX+68, currentPixelY);
+					}
+					break;
+        default:
+					break;
+    }
+		
+	}else{
+		currentX = game->players.player2.x;
+		currentY = game->players.player2.y;
+		currentPixelX = game->players.player2.pixelX;
+		currentPixelY = game->players.player2.pixelY;
+		
+		switch (direction) {
+			case UP:
+				cellUp = is_cell_free(game,currentX,currentY-1,1,0);
+				if(cellUp == EMPTY){
+					cancel_actual_token_position(game);
+					availablePlayerCells(game);
+					draw_new_token_position(game, currentPixelX, currentPixelY-34);
+					set_temp_cordinates_player(game, currentX, currentY-1, currentPixelX, currentPixelY-34);
+				}else if(cellUp == ANOTHER_PLAYER){
+					cancel_actual_token_position(game);
+					availablePlayerCells(game);
+					draw_new_token_position(game, currentPixelX, currentPixelY-68);
+					set_temp_cordinates_player(game, currentX, currentY-2, currentPixelX, currentPixelY-68);
+				}
+				break;
+			case DOWN:
+				cellDown = is_cell_free(game,currentX,currentY+1,1,1);
+				if(cellDown == EMPTY){
+					cancel_actual_token_position(game);
+					availablePlayerCells(game);
+					draw_new_token_position(game, currentPixelX, currentPixelY+34);
+					set_temp_cordinates_player(game, currentX, currentY+1, currentPixelX, currentPixelY+34);
+				}else if(cellDown == ANOTHER_PLAYER){
+					cancel_actual_token_position(game);
+					availablePlayerCells(game);
+					draw_new_token_position(game, currentPixelX, currentPixelY+68);
+					set_temp_cordinates_player(game, currentX, currentY+2, currentPixelX, currentPixelY+68);
+				}
+				break;
+			case LEFT:
+				cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
+				if(cellLeft == EMPTY){
+					cancel_actual_token_position(game);
+					availablePlayerCells(game);
+					draw_new_token_position(game, currentPixelX-34, currentPixelY);
+					set_temp_cordinates_player(game, currentX-1, currentY, currentPixelX-34, currentPixelY);
+				}else if(cellLeft == ANOTHER_PLAYER){
+					cancel_actual_token_position(game);
+					availablePlayerCells(game);
+					draw_new_token_position(game, currentPixelX-68, currentPixelY);
+					set_temp_cordinates_player(game, currentX-2, currentY, currentPixelX-68, currentPixelY);
+				}
+				break;
+			case RIGHT:
+				cellRight = is_cell_free(game,currentX+1,currentY,0,1); //CONTROLLARE
+				if(cellRight == EMPTY){
+					cancel_actual_token_position(game);
+					availablePlayerCells(game);
+					draw_new_token_position(game, currentPixelX+34, currentPixelY);
+					set_temp_cordinates_player(game, currentX+1, currentY, currentPixelX+34, currentPixelY);
+				}else if(cellRight == ANOTHER_PLAYER){
+					cancel_actual_token_position(game);
+					availablePlayerCells(game);
+					draw_new_token_position(game, currentPixelX+68, currentPixelY);
+					set_temp_cordinates_player(game, currentX+2, currentY, currentPixelX+68, currentPixelY);
+				}
+				break;
+			default:
+				break;
+    }
+	}
+}
+
 
 
 

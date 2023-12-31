@@ -19,6 +19,10 @@ typedef struct {
 	int y;
 	int pixelX;
 	int pixelY;
+	int tempX;
+	int tempY;
+	int tempPixelX;
+	int tempPixelY;
 	int walls;
 } Player;
 

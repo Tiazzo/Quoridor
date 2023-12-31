@@ -9,6 +9,11 @@
 #define VERTICAL_WALL 4
 #define ANOTHER_PLAYER 5
 #define INVALID_MOVE 6
+#define UP 1
+#define DOWN 2
+#define LEFT 3
+#define RIGHT 4
+#define SELECT 5
 
 #define CELL_SIZE 33
 #define SCREEN_WIDTH 240
