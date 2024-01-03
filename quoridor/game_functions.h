@@ -13,7 +13,8 @@ void change_player_turn(GameStatus *);
 void change_player_turn_after_confirm(GameStatus*);
 void set_temp_cordinates_player(GameStatus *, int, int, int, int);
 void conferm_player_move(GameStatus* );
-void set_new_player_position(GameStatus *);
+void set_new_board_player_position(GameStatus *);
+void winner_player(GameStatus *game);
 
 //DRAWING FUNCTIONS
 void draw_boardgame(void);
@@ -22,5 +23,6 @@ void write_remaining_walls_player2(GameStatus*);
 void highlight_cell(GameStatus*,int, int, int, int);
 void print_value_on_screen (int, int);
 void preview_move_token(GameStatus*, int);
+
 
 #endif
