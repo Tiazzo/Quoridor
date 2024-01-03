@@ -499,22 +499,22 @@ void restore_available_player_cells_no_confirmation(GameStatus *game, int byPass
 		currentX = game->players.player2.x;
 		currentY = game->players.player2.y;
 		
-		if(game->board.cells[game->players.player2.tempX][game->players.player2.tempY-1].type == PLAYER1){
+		if(game->board.cells[currentX][currentY-1].type == PLAYER1){
 			cellUp = ANOTHER_PLAYER;
 			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
 			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
 			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		} else if (game->board.cells[game->players.player2.tempX][game->players.player2.tempY+1].type == PLAYER1){
+		} else if (game->board.cells[currentX][currentY+1].type == PLAYER1){
 			cellDown = ANOTHER_PLAYER;
 			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
 			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
 			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		} else if(game->board.cells[game->players.player2.tempX-1][game->players.player2.tempY].type == PLAYER1) {
+		} else if(game->board.cells[currentX-1][currentY].type == PLAYER1) {
 			cellLeft = ANOTHER_PLAYER;
 			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
 			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
 			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		}	else if(game->board.cells[game->players.player2.tempX+1][game->players.player2.tempY].type == PLAYER1) {
+		}	else if(game->board.cells[currentX+1][currentY].type == PLAYER1) {
 			cellRight = ANOTHER_PLAYER;
 			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
 			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
