@@ -11,7 +11,16 @@ typedef struct {
 } Board;
 
 typedef struct {
-    int walls[BOARD_SIZE - 1][BOARD_SIZE][2];  // Muri orizzontali e verticali
+	int type;
+} Wall;
+typedef struct {
+    Wall walls[BOARD_SIZE][BOARD_SIZE];
+		int tempX;
+		int tempY;
+		int tempPixelX;
+		int tempPixelY;
+		int tempCellDirection;
+		int wallVerse;
 } Walls;
 
 typedef struct {
@@ -36,6 +45,7 @@ typedef struct {
 	Walls walls;
 	Players players;
 	int currentPlayer;
+	int gameMode;
 } GameStatus;
 
 extern GameStatus game;

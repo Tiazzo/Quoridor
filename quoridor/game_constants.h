@@ -1,6 +1,8 @@
 #ifndef GAME_CONSTANTS_H
 #define GAME_CONSTANTS_H
 
+#define MOVE_MODE 1
+#define WALLS_MODE 2
 #define BOARD_SIZE 7
 #define EMPTY 0
 #define PLAYER1 1
@@ -22,6 +24,13 @@
 #define SCREEN_HEIGHT 320
 #define SPACE 5
 #define MATRIX_SIZE 7
+
+#define NO_WALL 1
+#define WALL_TOP 2
+#define WALL_BOTTOM 3
+#define WALL_LEFT 5
+#define WALL_RIGHT 7
+#define WALL_ALREADY_PRESENT 0
 
 #define NOTHING 10
 #endif

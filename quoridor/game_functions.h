@@ -15,6 +15,7 @@ void set_temp_cordinates_player(GameStatus *, int, int, int, int);
 void conferm_player_move(GameStatus* );
 void set_new_board_player_position(GameStatus *);
 void winner_player(GameStatus *game);
+void change_game_mode(GameStatus *);
 
 //DRAWING FUNCTIONS
 void draw_boardgame(void);
@@ -24,5 +25,8 @@ void highlight_cell(GameStatus*,int, int, int, int);
 void print_value_on_screen (int, int);
 void preview_move_token(GameStatus*, int);
 
-
+//WALLS FUNCTIONS
+void walls_mode(GameStatus *);
+void move_preview_horizontal_wall(GameStatus *, int);
+int confirm_move_wall(GameStatus *game);
 #endif

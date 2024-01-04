@@ -26,6 +26,7 @@ void EINT1_IRQHandler (void)	  	/* KEY1														 */
 void EINT2_IRQHandler (void)	  	/* KEY2														 */
 {
 	down_2=1;
+	change_game_mode(&game);
 	NVIC_DisableIRQ(EINT2_IRQn);		/* disable Button interrupts			 */
 	LPC_PINCON->PINSEL4    &= ~(1 << 24);     /* GPIO pin selection */
   LPC_SC->EXTINT &= (1 << 2);     /* clear pending interrupt         */    

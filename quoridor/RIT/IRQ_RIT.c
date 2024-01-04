@@ -42,7 +42,14 @@ void RIT_IRQHandler (void)
 		J_up++;
 		switch(J_up){
 			case 1:
-				preview_move_token(&game, UP);
+				if(game.gameMode == MOVE_MODE)
+					preview_move_token(&game, UP);
+				else {
+					if(game.walls.wallVerse == HORIZONTAL_WALL){
+						move_preview_horizontal_wall(&game, UP);
+					} else {
+					}
+				}
 				break;
 			default:
 				break;
@@ -98,7 +105,12 @@ void RIT_IRQHandler (void)
 		J_select++;
 		switch(J_select){
 			case 1:
+				if(game.gameMode == MOVE_MODE)
 					conferm_player_move(&game);
+				else {
+					confirm_move_wall(&game);
+				}
+					
 				break;
 			default:
 				break;
