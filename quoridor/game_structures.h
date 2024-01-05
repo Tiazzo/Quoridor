@@ -21,6 +21,7 @@ typedef struct {
 		int tempPixelY;
 		int tempCellDirection;
 		int wallVerse;
+		int canPlaceWall;
 } Walls;
 
 typedef struct {

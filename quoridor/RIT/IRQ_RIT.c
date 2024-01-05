@@ -62,7 +62,14 @@ void RIT_IRQHandler (void)
 		J_right++;
 		switch(J_right){
 			case 1:
-				preview_move_token(&game, RIGHT);
+				if(game.gameMode == MOVE_MODE)
+					preview_move_token(&game, RIGHT);
+				else {
+					if(game.walls.wallVerse == HORIZONTAL_WALL){
+						move_preview_horizontal_wall(&game, RIGHT);
+					} else {
+					}
+				}
 				break;
 			default:
 				break;
@@ -75,7 +82,14 @@ void RIT_IRQHandler (void)
 		J_left++;
 		switch(J_left){
 			case 1:
-				preview_move_token(&game, LEFT);
+				if(game.gameMode == MOVE_MODE)
+					preview_move_token(&game, LEFT);
+				else {
+					if(game.walls.wallVerse == HORIZONTAL_WALL){
+						move_preview_horizontal_wall(&game, LEFT);
+					} else {
+					}
+				}
 				break;
 			default:
 				break;
@@ -90,8 +104,14 @@ void RIT_IRQHandler (void)
 		J_down++;
 		switch(J_down){
 			case 1:
-				preview_move_token(&game, DOWN);	
-			//move_token_up(&game);
+				if(game.gameMode == MOVE_MODE)
+					preview_move_token(&game, DOWN);	
+				else {
+					if(game.walls.wallVerse == HORIZONTAL_WALL){
+						move_preview_horizontal_wall(&game, DOWN);
+					} else {
+					}
+				}				
 				break;
 			default:
 				break;

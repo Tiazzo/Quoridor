@@ -17,7 +17,12 @@ void EINT0_IRQHandler (void)	  	/* INT0														 */
 void EINT1_IRQHandler (void)	  	/* KEY1														 */
 {
 	down_1=1;
-	conferm_player_move(&game);
+	if(game.gameMode == MOVE_MODE)
+		conferm_player_move(&game);
+	else {
+		confirm_move_wall(&game);
+	}
+	//conferm_player_move(&game);
 	NVIC_DisableIRQ(EINT1_IRQn);		/* disable Button interrupts			 */
 	LPC_PINCON->PINSEL4    &= ~(1 << 22);     /* GPIO pin selection */
 	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt         */
