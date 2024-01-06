@@ -9,7 +9,11 @@ int down_2;
 
 void EINT0_IRQHandler (void)	  	/* INT0														 */
 {
-	change_player_turn(&game);
+	if(game.gameMode == MOVE_MODE)
+		change_player_turn(&game);
+	else {
+		rotate_wall(&game);
+	}
 	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
 }
 

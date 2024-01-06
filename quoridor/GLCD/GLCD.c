@@ -678,6 +678,14 @@ void LCD_DrawArray(uint16_t *array, int xDim, int yDim, int xPos, int yPos){
 		}
 }
 
+void LCD_DrawVerticalArray(uint16_t *array, int xDim, int yDim, int xPos, int yPos) {
+	int i, j;
+	for (i = 0; i < xDim; i++) {
+			for (j = 0; j < yDim; j++) {
+					LCD_SetPoint(j + xPos, i + yPos, array[xDim * j + i]);
+			}
+	}
+}
 
 /*********************************************************************************************************
       END FILE

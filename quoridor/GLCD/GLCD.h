@@ -97,6 +97,7 @@ void LCD_DrawLine( uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1 , uint16_t
 void PutChar( uint16_t Xpos, uint16_t Ypos, uint8_t ASCI, uint16_t charColor, uint16_t bkColor );
 void GUI_Text(uint16_t Xpos, uint16_t Ypos, uint8_t *str,uint16_t Color, uint16_t bkColor);
 void LCD_DrawArray(uint16_t *array,int, int, int, int);
+void LCD_DrawVerticalArray(uint16_t *array, int xDim, int yDim, int xPos, int yPos);
 
 #endif 
 
