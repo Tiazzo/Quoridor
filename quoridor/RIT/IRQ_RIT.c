@@ -48,6 +48,7 @@ void RIT_IRQHandler (void)
 					if(game.walls.wallVerse == HORIZONTAL_WALL){
 						move_preview_horizontal_wall(&game, UP);
 					} else {
+						move_preview_vertical_wall(&game, UP);
 					}
 				}
 				break;
@@ -68,6 +69,7 @@ void RIT_IRQHandler (void)
 					if(game.walls.wallVerse == HORIZONTAL_WALL){
 						move_preview_horizontal_wall(&game, RIGHT);
 					} else {
+						move_preview_vertical_wall(&game, RIGHT);
 					}
 				}
 				break;
@@ -88,6 +90,7 @@ void RIT_IRQHandler (void)
 					if(game.walls.wallVerse == HORIZONTAL_WALL){
 						move_preview_horizontal_wall(&game, LEFT);
 					} else {
+						move_preview_vertical_wall(&game, LEFT);
 					}
 				}
 				break;
@@ -110,6 +113,7 @@ void RIT_IRQHandler (void)
 					if(game.walls.wallVerse == HORIZONTAL_WALL){
 						move_preview_horizontal_wall(&game, DOWN);
 					} else {
+						move_preview_vertical_wall(&game, DOWN);
 					}
 				}				
 				break;

@@ -27,9 +27,9 @@
 
 #define NO_WALL 1
 #define WALL_TOP 2
-#define WALL_BOTTOM 3
+#define WALL_BOTTOM 7
 #define WALL_LEFT 5
-#define WALL_RIGHT 7
+#define WALL_RIGHT 3
 #define WALL_ALREADY_PRESENT 0
 
 #define NOTHING 10
