@@ -1064,19 +1064,44 @@ void change_game_mode(GameStatus *game){
 
 /********* WALLS FUNCTIONS *********/
 void rotate_wall(GameStatus *game){
+	//Da orizzontale a verticale
 	if (game->walls.wallVerse == HORIZONTAL_WALL){
 		//controllo che non ruoto sopra a un muro posizionato
-		restore_empty_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
-		game->walls.wallVerse = VERTICAL_WALL;
-		draw_wall_preview(game, game->walls.tempPixelX-4,game->walls.tempPixelY+4);
-		game->walls.tempPixelX = game->walls.tempPixelX-4;
-		game->walls.tempPixelY = game->walls.tempPixelY+4;
-	} else {
-		restore_empty_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
-		game->walls.wallVerse = HORIZONTAL_WALL;
-		draw_wall_preview(game, game->walls.tempPixelX+4,game->walls.tempPixelY-4);
-		game->walls.tempPixelX = game->walls.tempPixelX+4;
-		game->walls.tempPixelY = game->walls.tempPixelY-4;
+		if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 2 == 0 && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type % 2 == 0){
+			restore_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
+			game->walls.wallVerse = VERTICAL_WALL;
+			draw_wall_preview(game, game->walls.tempPixelX+30,game->walls.tempPixelY-30);
+			game->walls.tempPixelX = game->walls.tempPixelX+30;
+			game->walls.tempPixelY = game->walls.tempPixelY-30;
+			game->walls.tempX = game->walls.tempX+1;
+			game->walls.tempY = game->walls.tempY-1;
+		} else {
+			restore_empty_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
+			game->walls.wallVerse = VERTICAL_WALL;
+			draw_wall_preview(game, game->walls.tempPixelX+30,game->walls.tempPixelY-30);
+			game->walls.tempPixelX = game->walls.tempPixelX+30;
+			game->walls.tempPixelY = game->walls.tempPixelY-30;
+			game->walls.tempX = game->walls.tempX+1;
+			game->walls.tempY = game->walls.tempY-1;
+		}		
+	}else{	//Da verticale a orizzontale
+		if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 5 == 0 && game->walls.walls[game->walls.tempX][game->walls.tempY+1].type % 5 == 0){
+			restore_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
+			game->walls.wallVerse = HORIZONTAL_WALL;
+			draw_wall_preview(game, game->walls.tempPixelX-30,game->walls.tempPixelY+30);
+			game->walls.tempPixelX = game->walls.tempPixelX-30;
+			game->walls.tempPixelY = game->walls.tempPixelY+30;
+			game->walls.tempX = game->walls.tempX-1;
+			game->walls.tempY = game->walls.tempY+1;
+		}else {
+			restore_empty_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
+			game->walls.wallVerse = HORIZONTAL_WALL;
+			draw_wall_preview(game, game->walls.tempPixelX-30,game->walls.tempPixelY+30);
+			game->walls.tempPixelX = game->walls.tempPixelX-30;
+			game->walls.tempPixelY = game->walls.tempPixelY+30;
+			game->walls.tempX = game->walls.tempX-1;
+			game->walls.tempY = game->walls.tempY+1;
+		}
 	}
 }
 

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\sample.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\sample.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Jan 06 16:31:41 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Jan 06 17:21:22 2024
 <BR><P>
 <H3>Maximum Stack Usage =        244 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -849,6 +849,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode_no_confirm
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
 </UL>
 
 <P><STRONG><a name="[7c]"></a>restore_empty_wall</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, game.o(.text))
@@ -914,11 +915,12 @@ Global Symbols
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
 </UL>
 
-<P><STRONG><a name="[4f]"></a>rotate_wall</STRONG> (Thumb, 110 bytes, Stack size 8 bytes, game.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = rotate_wall &rArr; draw_wall_preview &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+<P><STRONG><a name="[4f]"></a>rotate_wall</STRONG> (Thumb, 236 bytes, Stack size 16 bytes, game.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = rotate_wall &rArr; draw_wall_preview &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_empty_wall
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_wall
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT0_IRQHandler
 </UL>
@@ -958,7 +960,7 @@ Global Symbols
 <LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[64]"></a>move_preview_horizontal_wall</STRONG> (Thumb, 994 bytes, Stack size 48 bytes, game.o(.text))
+<P><STRONG><a name="[64]"></a>move_preview_horizontal_wall</STRONG> (Thumb, 996 bytes, Stack size 48 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = move_preview_horizontal_wall &rArr; draw_wall_preview &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_wall_presence
