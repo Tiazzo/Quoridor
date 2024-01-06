@@ -34,4 +34,5 @@ void restore_wall(GameStatus *, int, int);
 void restore_empty_wall(GameStatus *, int, int);
 void rotate_wall(GameStatus *);
 void draw_wall_preview(GameStatus *, int, int);
+void restore_horizontal_wall_movement(GameStatus *, int);
 #endif

@@ -1318,20 +1318,7 @@ void move_preview_horizontal_wall(GameStatus *game, int direction){
 		case UP:
 			//TODO implementare funzione trap giocatore
 			cellUp = check_wall_presence(game, currentWallX, currentWallY-1, UP);
-		
-			if(game->walls.tempY-1 > 0){
-				if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_TOP && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == WALL_TOP){
-					restore_wall(game, currentWallPixelX, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_TOP && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == NO_WALL){
-					restore_wall(game, currentWallPixelX-30, currentWallPixelY);
-					restore_empty_wall(game, currentWallPixelX+30, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == NO_WALL && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == WALL_TOP){
-					restore_wall(game, currentWallPixelX+30, currentWallPixelY);
-					restore_empty_wall(game, currentWallPixelX-30, currentWallPixelY);
-				} else {
-					restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
-				}
-			}
+			restore_horizontal_wall_movement(game, UP);
 			if(cellUp == NO_WALL){
 				//restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
 				draw_wall_preview(game, currentWallPixelX, currentWallPixelY-34);
@@ -1347,52 +1334,21 @@ void move_preview_horizontal_wall(GameStatus *game, int direction){
 			}
 			break;
 		case DOWN:
-			//TODO implementare funzione trap giocatore
 			cellDown = check_wall_presence(game, currentWallX, currentWallY+1, DOWN);
-			if(game->walls.tempY+1 < BOARD_SIZE){
-				if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_TOP && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == WALL_TOP){
-					restore_wall(game, currentWallPixelX, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_TOP && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == NO_WALL){
-					restore_wall(game, currentWallPixelX-30, currentWallPixelY);
-					restore_empty_wall(game, currentWallPixelX+30, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == NO_WALL && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == WALL_TOP){
-					restore_wall(game, currentWallPixelX+30, currentWallPixelY);
-					restore_empty_wall(game, currentWallPixelX-30, currentWallPixelY);
-				}else{
-					restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
-				}
-			}
-
+			restore_horizontal_wall_movement(game, DOWN);
 			if(cellDown == NO_WALL){
 				draw_wall_preview(game, currentWallPixelX, currentWallPixelY+34);
 				set_temp_cordinates_wall(game, currentWallX, currentWallY+1, currentWallPixelX, currentWallPixelY+34, DOWN);
 				game->walls.canPlaceWall = 1;
 			} else if(cellDown == WALL_ALREADY_PRESENT) {
-				//restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
 				draw_wall_preview(game, currentWallPixelX, currentWallPixelY+34);
 				set_temp_cordinates_wall(game, currentWallX, currentWallY+1, currentWallPixelX, currentWallPixelY+34, DOWN);
 				game->walls.canPlaceWall = 0;
 			}
 			break;
 		case LEFT:
-			//TODO implementare funzione trap giocatore
 			cellLeft = check_wall_presence(game, currentWallX-1, currentWallY, LEFT);
-			if(game->walls.tempX-1 >= 0){
-				if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_TOP && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == WALL_TOP){
-					restore_wall(game, currentWallPixelX, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_TOP && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == NO_WALL){
-					restore_wall(game, currentWallPixelX-30, currentWallPixelY);
-					restore_empty_wall(game, currentWallPixelX+30, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == NO_WALL && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == WALL_TOP){
-					restore_wall(game, currentWallPixelX+30, currentWallPixelY);
-					restore_empty_wall(game, currentWallPixelX-30, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_RIGHT){
-					restore_wall(game, currentWallPixelX, currentWallPixelY);
-				}else {
-					restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
-				}
-			}
-
+			restore_horizontal_wall_movement(game, LEFT);
 			if(cellLeft == NO_WALL){
 				draw_wall_preview(game, currentWallPixelX-34, currentWallPixelY);
 				set_temp_cordinates_wall(game, currentWallX-1, currentWallY, currentWallPixelX-34, currentWallPixelY, LEFT);
@@ -1404,24 +1360,8 @@ void move_preview_horizontal_wall(GameStatus *game, int direction){
 			}
 			break;
 		case RIGHT:
-			//TODO implementare funzione trap giocatore
 			cellRight = check_wall_presence(game, currentWallX+1, currentWallY, RIGHT);
-		if(game->walls.tempX+2 < BOARD_SIZE){
-				if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_TOP && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == WALL_TOP){
-					restore_wall(game, currentWallPixelX, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_TOP && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == NO_WALL){
-					restore_wall(game, currentWallPixelX-30, currentWallPixelY);
-					restore_empty_wall(game, currentWallPixelX+30, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == NO_WALL && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type == WALL_TOP){
-					restore_wall(game, currentWallPixelX+30, currentWallPixelY);
-					restore_empty_wall(game, currentWallPixelX-30, currentWallPixelY);
-				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_LEFT){
-					restore_wall(game, currentWallPixelX, currentWallPixelY);
-				}else {
-					restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
-				}
-			}
-
+			restore_horizontal_wall_movement(game, RIGHT);
 			if(cellRight == NO_WALL){
 				draw_wall_preview(game, currentWallPixelX+34, currentWallPixelY);
 				set_temp_cordinates_wall(game, currentWallX+1, currentWallY, currentWallPixelX+34, currentWallPixelY, RIGHT);
@@ -1461,7 +1401,13 @@ void move_preview_vertical_wall(GameStatus *game, int direction){
 				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == NO_WALL && game->walls.walls[game->walls.tempX][game->walls.tempY+1].type == WALL_LEFT){
 					restore_wall(game, currentWallPixelX, currentWallPixelY+30);
 					restore_empty_wall(game, currentWallPixelX, currentWallPixelY-30);
-				} else {
+				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7 == 0 && game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7 == 0){
+					//sono nel caso di una croce
+					game->walls.wallVerse = HORIZONTAL_WALL;
+					restore_wall(game, currentWallPixelX-30, currentWallPixelY-30);
+					restore_empty_wall(game, currentWallPixelX, currentWallPixelY-30);
+					game->walls.wallVerse = VERTICAL_WALL;
+				}else {
 					restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
 				}
 			}
@@ -1491,6 +1437,12 @@ void move_preview_vertical_wall(GameStatus *game, int direction){
 				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == NO_WALL && game->walls.walls[game->walls.tempX][game->walls.tempY+1].type == WALL_LEFT){
 					restore_wall(game, currentWallPixelX, currentWallPixelY+30);
 					restore_empty_wall(game, currentWallPixelX, currentWallPixelY-30);
+				}else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7 == 0 && game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7 == 0){
+					//sono nel caso di una croce
+					game->walls.wallVerse = HORIZONTAL_WALL;
+					restore_wall(game, currentWallPixelX, currentWallPixelY+30);
+					restore_empty_wall(game, currentWallPixelX, currentWallPixelY-30);
+					game->walls.wallVerse = VERTICAL_WALL;
 				}else{
 					restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
 				}
@@ -1521,6 +1473,12 @@ void move_preview_vertical_wall(GameStatus *game, int direction){
 					restore_empty_wall(game, currentWallPixelX, currentWallPixelY-30);
 				} else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_RIGHT){
 					restore_wall(game, currentWallPixelX, currentWallPixelY);
+				}else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7 == 0 && game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7 == 0){
+					//sono nel caso di una croce
+					game->walls.wallVerse = HORIZONTAL_WALL;
+					restore_wall(game, currentWallPixelX, currentWallPixelY+30);
+					restore_empty_wall(game, currentWallPixelX, currentWallPixelY-30);
+					game->walls.wallVerse = VERTICAL_WALL;
 				}else {
 					restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
 				}
@@ -1550,7 +1508,13 @@ void move_preview_vertical_wall(GameStatus *game, int direction){
 					restore_empty_wall(game, currentWallPixelX, currentWallPixelY-30);
 				} /*else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type == WALL_LEFT){
 					restore_wall(game, currentWallPixelX, currentWallPixelY);
-				}*/else {
+				}*/else if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7 == 0 && game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7 == 0){
+					//sono nel caso di una croce
+					game->walls.wallVerse = HORIZONTAL_WALL;
+					restore_wall(game, currentWallPixelX, currentWallPixelY+30);
+					restore_empty_wall(game, currentWallPixelX, currentWallPixelY-30);
+					game->walls.wallVerse = VERTICAL_WALL;
+				}else {
 					restore_empty_wall(game, currentWallPixelX, currentWallPixelY);
 				}
 			}
@@ -1571,3 +1535,31 @@ void move_preview_vertical_wall(GameStatus *game, int direction){
 }
 
 
+void restore_horizontal_wall_movement(GameStatus *game, int direction){
+	int currentWallX = game->walls.tempX;
+	int	currentWallY = game->walls.tempY;
+	int currentWallPixelX = game->walls.tempPixelX;
+	int	currentWallPixelY = game->walls.tempPixelY;
+	int previousWall = 0;
+	int i;
+	if ((direction == UP && game->walls.tempY-1 > 0) || (direction == DOWN && game->walls.tempY+1 < BOARD_SIZE) || (direction == LEFT && game->walls.tempX-1 >= 0) || (direction == RIGHT && game->walls.tempX+2 < BOARD_SIZE)){
+		if(game->walls.walls[currentWallX][currentWallY].type % 2 == 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 == 0){
+			for(i=0;i<currentWallX;i++){
+				if(game->walls.walls[i][currentWallY].type % 2 == 0)
+					previousWall++;
+			}
+			if(previousWall % 2 == 0)
+				LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX, currentWallPixelY);
+			else 
+				LCD_DrawArray(restore_two_separate_walls,4, 64, currentWallPixelX, currentWallPixelY);			
+		} else if (game->walls.walls[currentWallX][currentWallY].type % 2 != 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 != 0){
+			LCD_DrawArray(empty_horizontal_wall,4, 64, currentWallPixelX, currentWallPixelY);
+		} else if (game->walls.walls[currentWallX][currentWallY].type % 2 == 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 != 0){
+			LCD_DrawArray(restore_left_wall,4, 64, currentWallPixelX, currentWallPixelY);
+		} else if (game->walls.walls[currentWallX][currentWallY].type % 2 != 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 == 0){
+			LCD_DrawArray(restore_right_wall,4, 64, currentWallPixelX, currentWallPixelY);	
+		} else if (game->walls.walls[currentWallX][currentWallY].type % 3 == 0 && game->walls.walls[currentWallX][currentWallY-1].type % 3 == 0 && game->walls.walls[currentWallX][currentWallY].type % 2 != 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 != 0){
+			LCD_DrawArray(restore_central_space,4, 64, currentWallPixelX, currentWallPixelY);
+		}
+	}
+}	
