@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\sample.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\sample.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Jan 06 02:33:21 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Jan 06 12:04:57 2024
 <BR><P>
 <H3>Maximum Stack Usage =        244 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -577,6 +577,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_empty_wall
 </UL>
 
 <P><STRONG><a name="[2a]"></a>RIT_IRQHandler</STRONG> (Thumb, 310 bytes, Stack size 16 bytes, irq_rit.o(.text))
@@ -840,10 +841,11 @@ Global Symbols
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
 </UL>
 
-<P><STRONG><a name="[7b]"></a>restore_empty_wall</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, game.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = restore_empty_wall &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+<P><STRONG><a name="[7b]"></a>restore_empty_wall</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, game.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = restore_empty_wall &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
 </UL>
 <BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode_no_confirm
@@ -900,7 +902,7 @@ Global Symbols
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
 </UL>
 
-<P><STRONG><a name="[4f]"></a>rotate_wall</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, game.o(.text))
+<P><STRONG><a name="[4f]"></a>rotate_wall</STRONG> (Thumb, 110 bytes, Stack size 8 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = rotate_wall &rArr; draw_wall_preview &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
@@ -945,7 +947,7 @@ Global Symbols
 <LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[64]"></a>move_preview_horizontal_wall</STRONG> (Thumb, 950 bytes, Stack size 48 bytes, game.o(.text))
+<P><STRONG><a name="[64]"></a>move_preview_horizontal_wall</STRONG> (Thumb, 946 bytes, Stack size 48 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = move_preview_horizontal_wall &rArr; draw_wall_preview &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_wall_presence

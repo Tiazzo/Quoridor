@@ -1047,13 +1047,13 @@ void rotate_wall(GameStatus *game){
 		game->walls.wallVerse = VERTICAL_WALL;
 		draw_wall_preview(game, game->walls.tempPixelX-4,game->walls.tempPixelY+4);
 		game->walls.tempPixelX = game->walls.tempPixelX-4;
-		game->walls.tempPixelX = game->walls.tempPixelY+4;
+		game->walls.tempPixelY = game->walls.tempPixelY+4;
 	} else {
 		restore_empty_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
 		game->walls.wallVerse = HORIZONTAL_WALL;
-		draw_wall_preview(game, game->walls.tempPixelX,game->walls.tempPixelY);
+		draw_wall_preview(game, game->walls.tempPixelX+4,game->walls.tempPixelY-4);
 		game->walls.tempPixelX = game->walls.tempPixelX+4;
-		game->walls.tempPixelX = game->walls.tempPixelY-4;
+		game->walls.tempPixelY = game->walls.tempPixelY-4;
 	}
 }
 
@@ -1089,7 +1089,7 @@ void restore_empty_wall(GameStatus *game, int x, int  y){
 	if(game->walls.wallVerse == HORIZONTAL_WALL){
 		LCD_DrawArray(empty_horizontal_wall,4, 64, x, y);
 	} else {
-		LCD_DrawArray(empty_vertical_wall,64, 4, x, y);
+		LCD_DrawVerticalArray(empty_vertical_wall,64, 4, x, y);
 	}
 }
 
