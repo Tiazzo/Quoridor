@@ -1,7 +1,7 @@
 #ifndef GAME_STRUCTURES_H
 #define GAME_STRUCTURES_H
 #include "game_constants.h"
-
+#include <stdint.h>
 typedef struct {
 	int type;
 } Cell;
@@ -46,7 +46,8 @@ typedef struct {
 	Walls walls;
 	Players players;
 	int currentPlayer;
-	int gameMode;
+	int gameMode;	
+	uint8_t rountTimer;
 } GameStatus;
 
 extern GameStatus game;

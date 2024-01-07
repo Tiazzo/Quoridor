@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 #include "LPC17xx.h"
 #include "GLCD/GLCD.h"
@@ -107,39 +108,61 @@ void cancel_value_on_screen(char str2[], int x, int y){
 int is_cell_free(GameStatus *game, int x, int y, int up, int right){
 	if ((x >= 0 && x < BOARD_SIZE) && (y >= 0 && y < BOARD_SIZE)){
 		if(game->board.cells[x][y].type == EMPTY){
-			return EMPTY;
-		} else if(game->board.cells[x][y].type == HORIZONTAL_WALL){
+			if(up==1 && right==0){
+				if(game->walls.walls[x][y].type % 7 != 0)
+					return EMPTY;
+				else
 					return INVALID_MOVE;
-		} else {	//another player
+			} else if(up==1 && right==1){
+				if(game->walls.walls[x][y].type % 2 != 0)
+					return EMPTY;
+				else
+					return INVALID_MOVE;
+			} else if(up==0 && right==1){
+				if(game->walls.walls[x][y].type % 5 != 0)
+					return EMPTY;
+				else
+					return INVALID_MOVE;
+			} else if(up==0 && right==0){
+				if(game->walls.walls[x][y].type % 3 != 0)
+					return EMPTY;
+				else
+					return INVALID_MOVE;
+			}
+		}else{	//another player
+			if((x-1 >= 0 && x+1 < BOARD_SIZE) && (y-1 >= 0 && y+1 < BOARD_SIZE)){
 				if(up==1 && right==0){ //up
 					if (x-1 >= 0 && x-1 < BOARD_SIZE){
-						if(game->board.cells[x-1][y].type != HORIZONTAL_WALL)
+						if(game->walls.walls[x][y].type % 7 != 0 && game->walls.walls[x][y].type % 2 != 0)
 							return ANOTHER_PLAYER;
 					}else{
 						return INVALID_MOVE;
 					}
 				}else if(up==1 && right==1){ //down
 					if (x+1 >= 0 && x+1 < BOARD_SIZE){
-						if(game->board.cells[x+1][y].type != HORIZONTAL_WALL)
+						if(game->walls.walls[x][y].type % 2 != 0 && game->walls.walls[x][y].type % 7 != 0)
 							return ANOTHER_PLAYER;
 					}else{
 						return INVALID_MOVE;
 					}
 				}else if (up==0 && right==1){ //right
 					if (y+1>= 0 && y+1 < BOARD_SIZE){
-						if(game->board.cells[x][y+1].type != HORIZONTAL_WALL)
+						if(game->walls.walls[x][y].type % 5 != 0 && game->walls.walls[x][y].type % 3 != 0)
 							return ANOTHER_PLAYER;
 					}else{
 						return INVALID_MOVE;
 					}
-				} else if(up==0 && right==0){	//left
-						if (y-1 >= 0 && y-1 < BOARD_SIZE){
-							if(game->board.cells[x][y-1].type != HORIZONTAL_WALL)
-								return ANOTHER_PLAYER;
-						}else{
+				}else if(up==0 && right==0){	//left
+					if(y-1 >= 0 && y-1 < BOARD_SIZE){
+						if(game->walls.walls[x][y].type % 3 != 0 && game->walls.walls[x][y].type % 5 != 0)
+							return ANOTHER_PLAYER;
+					}else{
 							return INVALID_MOVE;
-						}
+					}
 				}					
+			}else{
+			return INVALID_MOVE;
+		}
 		}
 	}
 	return INVALID_MOVE; //aggiunta per togliere un warnings	
@@ -271,6 +294,7 @@ void highlight_cell(GameStatus *game,int cellUp, int cellDown, int cellLeft, int
 
 void restore_highlighted_cells(GameStatus *game,int cellUp, int cellDown, int cellLeft, int cellRight, int byPassed, int confirm){
 	if(game->currentPlayer == 1){
+		/*
 		if((game->players.player1.x == game->players.player1.tempX) && (game->players.player1.y == game->players.player1.tempY)){
 			if(game->players.player1.y == 0){
 				if(game->players.player2.x == 0){
@@ -322,6 +346,7 @@ void restore_highlighted_cells(GameStatus *game,int cellUp, int cellDown, int ce
 				}
 			} 
 		}
+		*/
 		if(cellUp == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
 		} else if(cellUp == ANOTHER_PLAYER){
@@ -351,6 +376,7 @@ void restore_highlighted_cells(GameStatus *game,int cellUp, int cellDown, int ce
 			}
 		}
 	}else{
+		/*
 		if((game->players.player2.x == game->players.player2.tempX) && (game->players.player2.y == game->players.player2.tempY)){
 			if(game->players.player2.y == 0){
 				if(game->players.player2.x == 0){
@@ -402,6 +428,7 @@ void restore_highlighted_cells(GameStatus *game,int cellUp, int cellDown, int ce
 				}
 			}	
 		}
+		*/
 		if(cellUp == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
 		} else if(cellUp == ANOTHER_PLAYER){
@@ -663,6 +690,7 @@ void change_player_turn(GameStatus *game){
 	//TODO Invoke timer 20s
 	availablePlayerCells(game);
 	game->gameMode = MOVE_MODE;
+	enable_timer(0);
 }
 
 
@@ -707,6 +735,7 @@ void set_new_board_player_position(GameStatus *game){
 		game->board.cells[game->players.player2.tempX][game->players.player2.tempY].type = PLAYER2;
 	}
 }
+
 
 void set_initial_player_positions(GameStatus *game){
 	//Initialization player 1
@@ -824,6 +853,11 @@ void initialize_game(GameStatus *game){
 			game->board.cells[i][j].type = EMPTY;
 		}
 	}
+	for(i = 0; i < BOARD_SIZE; i++){
+		for(j=0; j< BOARD_SIZE; j++){
+			game->walls.walls[i][j].type = NO_WALL;
+		}
+	}
 	game->gameMode = MOVE_MODE;
 	game->players.player1.walls = 8;
 	game->players.player2.walls = 8;
@@ -831,12 +865,9 @@ void initialize_game(GameStatus *game){
 	set_initial_player_positions(game);
 	write_remaining_walls_player1(game);
 	write_remaining_walls_player2(game);
-	
-	for(i = 0; i < BOARD_SIZE; i++){
-		for(j=0; j< BOARD_SIZE; j++){
-			game->walls.walls[i][j].type = NO_WALL;
-		}
-	}
+	game->rountTimer = 20;
+	enable_timer(0);
+
 }
 
 void set_temp_cordinates_player(GameStatus *game, int x, int y, int pixelX, int pixelY){
@@ -1002,9 +1033,9 @@ void preview_move_token (GameStatus *game, int direction){
 
 void winner_player(GameStatus *game){
 	if(game->currentPlayer == 1) {
-		GUI_Text(70, 242,(uint8_t *) "Player 1 win", White, Black );
+		GUI_Text(70, 242,(uint8_t *) "Player 1 win", Green, White );
 	}else {
-		GUI_Text(70, 242,(uint8_t *) "Player 2 win", Red, Black );
+		GUI_Text(70, 242,(uint8_t *) "Player 2 win", Green, White );
 	}
 	
 	//TODO stop the program
@@ -1017,13 +1048,16 @@ void change_game_mode_no_confirm(GameStatus *game){
 		walls_mode(game);
 	} else {
 		if(game->walls.wallVerse == HORIZONTAL_WALL){
+			/*
 			if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7 != 0){
 				restore_empty_wall(game, game->walls.tempX, game->walls.tempY);
 			}
 			else {
 				restore_wall(game, game->walls.tempX, game->walls.tempY);
-			}
+			}*/
+			restore_horizontal_wall_movement(game, 0);
 		}else{
+			restore_vertical_wall_movement(game,0);
 			//LO STESSO MA PER IL VERTICALE
 		}
 		
@@ -1087,7 +1121,7 @@ void rotate_wall(GameStatus *game){
 			game->walls.tempY = game->walls.tempY-1;
 		}*/	
 			restore_horizontal_wall_movement(game, 0);
-								game->walls.wallVerse = VERTICAL_WALL;
+			game->walls.wallVerse = VERTICAL_WALL;
 			draw_wall_preview(game, game->walls.tempPixelX+30,game->walls.tempPixelY-30);
 			game->walls.tempPixelX = game->walls.tempPixelX+30;
 			game->walls.tempPixelY = game->walls.tempPixelY-30;
@@ -1113,12 +1147,12 @@ void rotate_wall(GameStatus *game){
 			game->walls.tempY = game->walls.tempY+1;
 		}*/
 		restore_vertical_wall_movement(game,0);
-					game->walls.wallVerse = HORIZONTAL_WALL;
-			draw_wall_preview(game, game->walls.tempPixelX-30,game->walls.tempPixelY+30);
-			game->walls.tempPixelX = game->walls.tempPixelX-30;
-			game->walls.tempPixelY = game->walls.tempPixelY+30;
-			game->walls.tempX = game->walls.tempX-1;
-			game->walls.tempY = game->walls.tempY+1;
+		game->walls.wallVerse = HORIZONTAL_WALL;
+		draw_wall_preview(game, game->walls.tempPixelX-30,game->walls.tempPixelY+30);
+		game->walls.tempPixelX = game->walls.tempPixelX-30;
+		game->walls.tempPixelY = game->walls.tempPixelY+30;
+		game->walls.tempX = game->walls.tempX-1;
+		game->walls.tempY = game->walls.tempY+1;
 	}
 }
 
@@ -1174,9 +1208,6 @@ void set_temp_cordinates_wall(GameStatus *game, int tempX, int tempY, int tempPi
 	game->walls.tempPixelY = tempPixelY;
 	game->walls.tempCellDirection = direction;
 }	
-
-//aggiungo sia alla cella sopra (ma muro sotto, sia alla cella sotto ma muro sopra)
-
 
 
 //aggiungere secondo me direzione e cordinate come parametri
@@ -1465,7 +1496,7 @@ void move_preview_vertical_wall(GameStatus *game, int direction){
 	}
 }
 
-
+//TODO: fixare i casi riportati su notion
 void restore_horizontal_wall_movement(GameStatus *game, int direction){
 	int currentWallX = game->walls.tempX;
 	int	currentWallY = game->walls.tempY;
@@ -1508,7 +1539,7 @@ void restore_horizontal_wall_movement(GameStatus *game, int direction){
 	}
 }
 
-
+//TODO: fixare i casi riportati su notion
 void restore_vertical_wall_movement(GameStatus *game, int direction){
 	int currentWallX = game->walls.tempX;
 	int	currentWallY = game->walls.tempY;
@@ -1539,12 +1570,13 @@ void restore_vertical_wall_movement(GameStatus *game, int direction){
 			LCD_DrawVerticalArray(restore_right_wall,64, 4, currentWallPixelX, currentWallPixelY);	
 		}
 		if (game->walls.walls[currentWallX][currentWallY].type % 7 == 0 && game->walls.walls[currentWallX-1][currentWallY].type % 7 == 0){
+			LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);
 			if(game->walls.walls[currentWallX][currentWallY].type % 5 == 0){
 				LCD_DrawVerticalArray(restore_left_wall,64, 4, currentWallPixelX, currentWallPixelY);
-				LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);
+				//LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);
 			}else if(game->walls.walls[currentWallX][currentWallY+1].type % 5 == 0){
 				LCD_DrawVerticalArray(restore_right_wall,64, 4, currentWallPixelX, currentWallPixelY);
-				LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);			
+				//LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);			
 			} else {
 				LCD_DrawVerticalArray(empty_vertical_wall,64, 4, currentWallPixelX, currentWallPixelY);
 				LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);
@@ -1552,3 +1584,5 @@ void restore_vertical_wall_movement(GameStatus *game, int direction){
 		} 		
 	}
 }
+
+//bool canPlayerReachOppositeBorder

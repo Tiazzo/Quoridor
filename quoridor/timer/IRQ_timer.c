@@ -7,8 +7,13 @@
 ** Correlated files:    timer.h
 **--------------------------------------------------------------------------------------------------------
 *********************************************************************************************************/
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 #include "lpc17xx.h"
 #include "timer.h"
+#include "../game_functions.h"
 
 /******************************************************************************
 ** Function name:		Timer0_IRQHandler
@@ -22,7 +27,19 @@
 
 void TIMER0_IRQHandler (void)
 {
-
+	char str1[20];
+	char str2[] = " s";
+	sprintf(str1, "%02d", game.rountTimer);
+	strcat(str1,str2);
+	if(game.rountTimer == 0){
+		print_value_on_screen(str1, 104, 275);
+		reset_timer(0);
+		game.rountTimer = 20;
+		change_player_turn(&game);
+	}else{
+		print_value_on_screen(str1, 104, 275);
+		game.rountTimer--;
+	}
   LPC_TIM0->IR = 1;			/* clear interrupt flag */
   return;
 }
