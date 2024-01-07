@@ -96,11 +96,12 @@ void write_remaining_walls_player2(GameStatus *game){
 
 
 void print_value_on_screen (char str2[], int x, int y){
-	sprintf(str2, "%d", x);
 	GUI_Text(x, y,(uint8_t *) str2, Red, White );
 }
 	
-
+void cancel_value_on_screen(char str2[], int x, int y){
+	GUI_Text(x, y,(uint8_t *) str2, White, White );
+}
 
 
 int is_cell_free(GameStatus *game, int x, int y, int up, int right){
@@ -1277,21 +1278,15 @@ int check_wall_presence(GameStatus *game, int x, int y, int direction){
 }
 
 int confirm_move_wall(GameStatus *game){
-	//int initialCell;
-	//Initial wall position (no move)
-	/*
-	initialCell = check_wall_presence(game, game->walls.tempX, game->walls.tempY, NOTHING);
-	if(initialCell == EMPTY){
-			game->walls.walls[game->walls.tempX][game->walls.tempY].type = WALL_BOTTOM;
-			game->walls.walls[game->walls.tempX][game->walls.tempY+1].type = WALL_TOP;
-			draw_wall(game, game->walls.tempPixelX, game->walls.tempPixelY);
-	}else {
-	}
-	*/
+	int i;
+	char str2[20];
 	
 	if(game->walls.wallVerse == HORIZONTAL_WALL){
-		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 2) == 0) && ((game->walls.walls[game->walls.tempX+1][game->walls.tempY].type % 2) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 3) == 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY-1].type % 3)== 0))){
-			print_value_on_screen("Wall already present",70,242);
+		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 2) == 0) || ((game->walls.walls[game->walls.tempX+1][game->walls.tempY].type % 2) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 3) == 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY-1].type % 3)== 0))){
+			print_value_on_screen("Wall already present",40,242);
+			for(i=0; i < 3000; i++){
+			}
+			cancel_value_on_screen("Wall already present",40,242);
 		} else {
 			game->walls.walls[game->walls.tempX][game->walls.tempY].type = game->walls.walls[game->walls.tempX][game->walls.tempY].type * WALL_TOP;
 			game->walls.walls[game->walls.tempX][game->walls.tempY-1].type = game->walls.walls[game->walls.tempX][game->walls.tempY-1].type * WALL_BOTTOM;
@@ -1299,13 +1294,13 @@ int confirm_move_wall(GameStatus *game){
 			game->walls.walls[game->walls.tempX+1][game->walls.tempY-1].type = game->walls.walls[game->walls.tempX+1][game->walls.tempY-1].type * WALL_BOTTOM;
 			draw_wall(game, game->walls.tempPixelX, game->walls.tempPixelY);
 			change_player_turn_after_confirm(game);
-			//if(((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7) != 0) && (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 3) && (game->walls.walls[game->walls.tempX][game->walls.tempY-1].type % 3))!= 0)){
-
 		}
 	} else { // CASO MURO VERTICALE
-		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 5) == 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY+1].type % 5) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7) == 0) && ((game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7)== 0))){
-			print_value_on_screen("Wall already present",70,242);
-			//TODO: aggiungere un timer alla scritta
+		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 5) == 0) || ((game->walls.walls[game->walls.tempX][game->walls.tempY+1].type % 5) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7) == 0) && ((game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7)== 0))){
+			print_value_on_screen("Wall already present",40,242);
+			for(i=0; i < 3000; i++){
+			}
+			cancel_value_on_screen("Wall already present",40,242);
 		} else {
 			//if(((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 5) != 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY+1].type % 5) != 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7) != 0) && ((game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7)!= 0))
 			game->walls.walls[game->walls.tempX][game->walls.tempY].type = game->walls.walls[game->walls.tempX][game->walls.tempY].type * WALL_LEFT;
@@ -1316,8 +1311,6 @@ int confirm_move_wall(GameStatus *game){
 			change_player_turn_after_confirm(game);
 		}
 	}
-	//change_player_turn(game);
-	//change_game_mode(game);
 }
 
 void move_preview_horizontal_wall(GameStatus *game, int direction){
@@ -1559,4 +1552,3 @@ void restore_vertical_wall_movement(GameStatus *game, int direction){
 		} 		
 	}
 }
-//&& game->walls.walls[currentWallX][currentWallY].type % 2 != 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 != 0
