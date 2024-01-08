@@ -13,3 +13,4 @@
 .\irq_rit.o: RIT\../game_constants.h
 .\irq_rit.o: RIT\../game_functions.h
 .\irq_rit.o: RIT\../game_structures.h
+.\irq_rit.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdbool.h

@@ -2,6 +2,7 @@
 #define GAME_FUNCTIONS_H
 
 #include "game_structures.h"
+#include <stdbool.h>
 
 //LOGIC FUNCTIONS
 void start_game(void);
@@ -38,4 +39,5 @@ void rotate_wall(GameStatus *);
 void draw_wall_preview(GameStatus *, int, int);
 void restore_horizontal_wall_movement(GameStatus *, int);
 void restore_vertical_wall_movement(GameStatus *, int);
+bool can_player_reach_opposite_border(GameStatus *, int, int, int);
 #endif

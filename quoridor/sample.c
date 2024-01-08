@@ -53,7 +53,7 @@ int main(void)
 	joystick_init();											/* Joystick Initialization            */
 	init_RIT(0x186a0);									/* RIT Initialization 50 msec       	*/
 	enable_RIT();													/* RIT enabled												*/
-	draw_boardgame();
+	
 	LPC_SC->PCON |= 0x1;									/* power-down	mode										*/
 	LPC_SC->PCON &= ~(0x2);						
 	

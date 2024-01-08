@@ -39,6 +39,7 @@ void RIT_IRQHandler (void)
 		J_right = 0;
 		J_left = 0;
 		J_down = 0;
+		J_select = 0;
 		J_up++;
 		switch(J_up){
 			case 1:
@@ -60,6 +61,7 @@ void RIT_IRQHandler (void)
 		J_up = 0;
 		J_left = 0;
 		J_down = 0;
+		J_select = 0;
 		J_right++;
 		switch(J_right){
 			case 1:
@@ -81,6 +83,7 @@ void RIT_IRQHandler (void)
 		J_up = 0;
 		J_right = 0;
 		J_down = 0;
+		J_select = 0;
 		J_left++;
 		switch(J_left){
 			case 1:
@@ -104,6 +107,7 @@ void RIT_IRQHandler (void)
 		J_up = 0;
 		J_right = 0;
 		J_left = 0;
+		J_select = 0;
 		J_down++;
 		switch(J_down){
 			case 1:
@@ -130,7 +134,7 @@ void RIT_IRQHandler (void)
 		switch(J_select){
 			case 1:
 				if(game.gameMode == MOVE_MODE)
-					conferm_player_move(&game);
+   					conferm_player_move(&game);
 				else
 					confirm_move_wall(&game);		
 				break;
@@ -143,6 +147,7 @@ void RIT_IRQHandler (void)
 		J_right	= 0;
 		J_left = 0;
 		J_down=0;
+		J_select = 0;
 	}
 	
 	/* button management */

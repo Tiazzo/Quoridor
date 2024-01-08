@@ -15,3 +15,4 @@
 .\sample.o: game_functions.h
 .\sample.o: game_structures.h
 .\sample.o: game_constants.h
+.\sample.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdbool.h

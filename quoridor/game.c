@@ -810,7 +810,7 @@ void set_initial_player_positions(GameStatus *game){
 void conferm_player_move(GameStatus *game){
 	int byPassed;
 	if(game->currentPlayer == 1){
-		if((game->players.player1.x != game->players.player1.tempX) && (game->players.player1.y != game->players.player1.tempY)){
+		if((game->players.player1.x != game->players.player1.tempX) || (game->players.player1.y != game->players.player1.tempY)){
 			if(game->players.player1.tempY == 0 && game->board.cells[game->players.player1.tempX][game->players.player1.tempY].type != PLAYER2){
 				winner_player(game);
 			} else {
@@ -848,7 +848,7 @@ void conferm_player_move(GameStatus *game){
 			}
 		}
 	} else {
-		if((game->players.player2.x != game->players.player2.tempX) && (game->players.player2.y != game->players.player2.tempY)){
+		if((game->players.player2.x != game->players.player2.tempX) || (game->players.player2.y != game->players.player2.tempY)){
 			if(game->players.player2.tempY == BOARD_SIZE-1 && game->board.cells[game->players.player2.tempX][game->players.player2.tempY].type != PLAYER1){
 				winner_player(game);
 			} else {
@@ -1086,7 +1086,6 @@ void winner_player(GameStatus *game){
 	
 	//TODO stop the program
 }
-
 
 
 void change_game_mode(GameStatus *game){
@@ -1346,6 +1345,8 @@ int check_wall_presence(GameStatus *game, int x, int y, int direction){
 int confirm_move_wall(GameStatus *game){
 	int i;
 	char str2[20];
+	bool player1CanWin;
+	bool player2CanWin;
 	if(game->currentPlayer == 1){
 		gameMove.PlayerID = 0;
 	}else{ 
@@ -1354,6 +1355,8 @@ int confirm_move_wall(GameStatus *game){
 	gameMove.PlayerMove_WallPlacement = 1;
 	
 	
+
+	
 	
 	if(game->walls.wallVerse == HORIZONTAL_WALL){
 		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 2) == 0) || ((game->walls.walls[game->walls.tempX+1][game->walls.tempY].type % 2) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 3) == 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY-1].type % 3)== 0))){
@@ -1361,17 +1364,31 @@ int confirm_move_wall(GameStatus *game){
 			for(i=0; i < 3000; i++){
 			}
 			cancel_value_on_screen("Wall already present",40,242);
-		} else {
+		} else{
+			
 			game->walls.walls[game->walls.tempX][game->walls.tempY].type = game->walls.walls[game->walls.tempX][game->walls.tempY].type * WALL_TOP;
 			game->walls.walls[game->walls.tempX][game->walls.tempY-1].type = game->walls.walls[game->walls.tempX][game->walls.tempY-1].type * WALL_BOTTOM;
 			game->walls.walls[game->walls.tempX+1][game->walls.tempY].type = game->walls.walls[game->walls.tempX+1][game->walls.tempY].type * WALL_TOP;
 			game->walls.walls[game->walls.tempX+1][game->walls.tempY-1].type = game->walls.walls[game->walls.tempX+1][game->walls.tempY-1].type * WALL_BOTTOM;
-			draw_wall(game, game->walls.tempPixelX, game->walls.tempPixelY);
-			gameMove.Vertical_Horizontal = 1;
-			gameMove.X = game->walls.tempX;
-			gameMove.Y = game->walls.tempY;
-			save_move_into_variable();
-			change_player_turn_after_confirm(game);
+			
+			player1CanWin = can_player_reach_opposite_border(game, 1, game->players.player1.x, game->players.player1.y);
+			player2CanWin = can_player_reach_opposite_border(game, 2, game->players.player2.x, game->players.player2.y);
+			
+			if(player1CanWin && player2CanWin){
+				draw_wall(game, game->walls.tempPixelX, game->walls.tempPixelY);
+				gameMove.Vertical_Horizontal = 1;
+				gameMove.X = game->walls.tempX;
+				gameMove.Y = game->walls.tempY;
+				save_move_into_variable();
+				change_player_turn_after_confirm(game);
+			} else {
+				game->walls.walls[game->walls.tempX][game->walls.tempY].type = game->walls.walls[game->walls.tempX][game->walls.tempY].type / WALL_TOP;
+				game->walls.walls[game->walls.tempX][game->walls.tempY-1].type = game->walls.walls[game->walls.tempX][game->walls.tempY-1].type / WALL_BOTTOM;
+				game->walls.walls[game->walls.tempX+1][game->walls.tempY].type = game->walls.walls[game->walls.tempX+1][game->walls.tempY].type / WALL_TOP;
+				game->walls.walls[game->walls.tempX+1][game->walls.tempY-1].type = game->walls.walls[game->walls.tempX+1][game->walls.tempY-1].type / WALL_BOTTOM;
+			}
+			
+			
 		}
 	} else { // CASO MURO VERTICALE
 		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 5) == 0) || ((game->walls.walls[game->walls.tempX][game->walls.tempY+1].type % 5) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7) == 0) && ((game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7)== 0))){
@@ -1379,18 +1396,28 @@ int confirm_move_wall(GameStatus *game){
 			for(i=0; i < 3000; i++){
 			}
 			cancel_value_on_screen("Wall already present",40,242);
-		} else {
-			//if(((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 5) != 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY+1].type % 5) != 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7) != 0) && ((game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7)!= 0))
+		} else{
 			game->walls.walls[game->walls.tempX][game->walls.tempY].type = game->walls.walls[game->walls.tempX][game->walls.tempY].type * WALL_LEFT;
 			game->walls.walls[game->walls.tempX-1][game->walls.tempY].type = game->walls.walls[game->walls.tempX-1][game->walls.tempY].type * WALL_RIGHT;
 			game->walls.walls[game->walls.tempX][game->walls.tempY+1].type = game->walls.walls[game->walls.tempX][game->walls.tempY+1].type * WALL_LEFT;
 			game->walls.walls[game->walls.tempX-1][game->walls.tempY+1].type = game->walls.walls[game->walls.tempX-1][game->walls.tempY+1].type * WALL_RIGHT;
-			draw_wall(game, game->walls.tempPixelX, game->walls.tempPixelY);
-			gameMove.Vertical_Horizontal = 0;
-			gameMove.X = game->walls.tempX;
-			gameMove.Y = game->walls.tempY;
-			save_move_into_variable();
-			change_player_turn_after_confirm(game);
+			
+			player1CanWin = can_player_reach_opposite_border(game, 1, game->players.player1.x, game->players.player1.y);
+			player2CanWin = can_player_reach_opposite_border(game, 2, game->players.player2.x, game->players.player2.y);
+			
+			if(player1CanWin && player2CanWin){
+				draw_wall(game, game->walls.tempPixelX, game->walls.tempPixelY);
+				gameMove.Vertical_Horizontal = 0;
+				gameMove.X = game->walls.tempX;
+				gameMove.Y = game->walls.tempY;
+				save_move_into_variable();
+				change_player_turn_after_confirm(game);
+			} else {
+			game->walls.walls[game->walls.tempX][game->walls.tempY].type = game->walls.walls[game->walls.tempX][game->walls.tempY].type / WALL_LEFT;
+			game->walls.walls[game->walls.tempX-1][game->walls.tempY].type = game->walls.walls[game->walls.tempX-1][game->walls.tempY].type / WALL_RIGHT;
+			game->walls.walls[game->walls.tempX][game->walls.tempY+1].type = game->walls.walls[game->walls.tempX][game->walls.tempY+1].type / WALL_LEFT;
+			game->walls.walls[game->walls.tempX-1][game->walls.tempY+1].type = game->walls.walls[game->walls.tempX-1][game->walls.tempY+1].type / WALL_RIGHT;				
+			}
 		}
 	}
 }
@@ -1637,3 +1664,70 @@ void restore_vertical_wall_movement(GameStatus *game, int direction){
 }
 
 //bool canPlayerReachOppositeBorder
+
+/*
+Step preliminare: creo una matrice 7x7 di zeri, e ci inserisco 1 nella casella dove si trova il giocatore
+
+Il valore della casella significa:
+0: non ho ancora raggiunto quella casella
+1: ho raggiunto quella casella, ma non ho ancora esplorato i suoi dintorni
+2: ho raggiunto quella casella e ho esplorato i dintorni
+
+Step iterativo: scorro tutta la tabella: quando trovo un 1, cerco di esplorare le celle vicine:
+Per ogni direzione, vedo se posso spostarmi in quella direzione. Se sì, e se la casella è 0, la segno come 1.
+
+Quando ho finito un'iterazione del passo iterativo ricomincio, perchè ragionevolmente è cambiata la posizione degli 1
+
+Termino il ciclo quando (una delle condizioni):
+•?  ?sono arrivato alla riga terminale (c'è un percorso)
+•?  ?in un passo iterativo non ho scritto nessun 1 (ho esplorato tutto l'esplorabile, e non sono arrivato a destinazione: non c'è un percorso)
+*/
+
+bool can_player_reach_opposite_border(GameStatus *game, int target, int x, int y){
+	int i, j, cellUp, cellDown, cellLeft, cellRight;
+	int board[BOARD_SIZE][BOARD_SIZE];
+	bool flag = true;
+	for ( i = 0; i < BOARD_SIZE; i++){
+		for (j = 0; j < BOARD_SIZE; j++){
+			if(i == x && j == y)
+				board[i][j] = 1;
+			else
+				board[i][j] = 0;
+		}	
+	}
+	while(flag){
+		flag = false; 
+		for (i = 0; i < BOARD_SIZE; i++){
+			for (j = 0; j < BOARD_SIZE; j++){
+				if(board[i][j] == 1){
+					if(i == 0 && target == 1)
+						return true;
+					else if (i == BOARD_SIZE-1 && target == 2)
+						return true;
+					
+					cellUp = is_cell_free(game,i,j-1,1,0);
+					if((cellUp == EMPTY || cellUp == ANOTHER_PLAYER) && board[i][j-1] == 0){
+						board[i][j-1] = 1;
+						flag = true;
+					}
+					cellDown = is_cell_free(game,i,j+1,1,1);
+					if((cellDown == EMPTY || cellDown == ANOTHER_PLAYER) && board[i][j+1] == 0){
+						board[i][j+1] = 1;
+						flag = true;
+					}
+					cellLeft = is_cell_free(game,i-1,j,0,0);
+					if((cellLeft == EMPTY || cellLeft == ANOTHER_PLAYER) && board[i-1][j] == 0){
+						board[i-1][j] = 1;
+						flag = true;
+					}
+					cellRight = is_cell_free(game,i+1,j,0,1);
+					if((cellRight == EMPTY || cellRight == ANOTHER_PLAYER) && board[i+1][j] == 0){
+						board[i+1][j] = 1;
+						flag = true;
+					}
+				}
+			}	
+		}
+	}
+	return false;
+} 

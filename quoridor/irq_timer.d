@@ -14,3 +14,4 @@
 .\irq_timer.o: timer\../game_functions.h
 .\irq_timer.o: timer\../game_structures.h
 .\irq_timer.o: timer\../game_constants.h
+.\irq_timer.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdbool.h

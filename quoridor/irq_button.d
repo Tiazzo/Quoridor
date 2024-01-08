@@ -11,3 +11,4 @@
 .\irq_button.o: button_EXINT\../game_constants.h
 .\irq_button.o: button_EXINT\../game_functions.h
 .\irq_button.o: button_EXINT\../game_structures.h
+.\irq_button.o: C:\Keil_v5\ARM\ARMCLANG5\Bin\..\include\stdbool.h
