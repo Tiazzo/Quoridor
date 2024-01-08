@@ -50,5 +50,15 @@ typedef struct {
 	uint8_t rountTimer;
 } GameStatus;
 
+typedef struct {
+	unsigned int PlayerID;
+	unsigned int PlayerMove_WallPlacement;
+	unsigned int Vertical_Horizontal;
+	unsigned int Y;
+	unsigned int X;
+} GameMove;
+
 extern GameStatus game;
+extern GameMove gameMove;
+extern unsigned int move;
 #endif 

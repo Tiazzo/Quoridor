@@ -131,10 +131,8 @@ void RIT_IRQHandler (void)
 			case 1:
 				if(game.gameMode == MOVE_MODE)
 					conferm_player_move(&game);
-				else {
-					confirm_move_wall(&game);
-				}
-					
+				else
+					confirm_move_wall(&game);		
 				break;
 			default:
 				break;

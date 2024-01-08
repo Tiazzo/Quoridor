@@ -21,6 +21,8 @@ int firstTimePlayer1 = 1;
 int firstTimePlayer2 = 1;
 
 GameStatus game;
+GameMove gameMove;
+unsigned int move;
 
 
 void draw_boardgame(void){
@@ -669,25 +671,53 @@ void availablePlayerCells (GameStatus *game){
 	}
 }
 
-//Change turn due to end of timer 
+//Change turn due to end of timer for both modes
 void change_player_turn(GameStatus *game){
-	restore_available_player_cells_no_confirmation(game, 0);
-	if(game->currentPlayer == 1){
-		draw_new_token_position(game, game->players.player1.pixelX, game->players.player1.pixelY);
-		game->players.player1.tempX = game->players.player1.x;
-		game->players.player1.tempPixelX = game->players.player1.pixelX;
-		game->players.player1.tempY = game->players.player1.y;
-		game->players.player1.tempPixelY = game->players.player1.pixelY;
-		game->currentPlayer = 2;
+	if(game->gameMode == MOVE_MODE){
+		restore_available_player_cells_no_confirmation(game, 0);
+		if(game->currentPlayer == 1){
+			gameMove.PlayerID = 0;
+			draw_new_token_position(game, game->players.player1.pixelX, game->players.player1.pixelY);
+			//restore initial round values
+			game->players.player1.tempX = game->players.player1.x;
+			game->players.player1.tempPixelX = game->players.player1.pixelX;
+			game->players.player1.tempY = game->players.player1.y;
+			game->players.player1.tempPixelY = game->players.player1.pixelY;
+			game->currentPlayer = 2;
+		}else{
+			gameMove.PlayerID = 1;
+			draw_new_token_position(game, game->players.player2.pixelX, game->players.player2.pixelY);
+			game->players.player2.tempX = game->players.player2.x;
+			game->players.player2.tempPixelX = game->players.player2.pixelX;
+			game->players.player2.tempY = game->players.player2.y;
+			game->players.player2.tempPixelY = game->players.player2.pixelY;
+			game->currentPlayer = 1;
+		}
 	}else{
-		draw_new_token_position(game, game->players.player2.pixelX, game->players.player2.pixelY);
-		game->players.player2.tempX = game->players.player2.x;
-		game->players.player2.tempPixelX = game->players.player2.pixelX;
-		game->players.player2.tempY = game->players.player2.y;
-		game->players.player2.tempPixelY = game->players.player2.pixelY;
-		game->currentPlayer = 1;
+		if(game->currentPlayer == 1){
+			gameMove.PlayerID = 0;
+			if (game->walls.wallVerse == HORIZONTAL_WALL){
+				restore_horizontal_wall_movement(game,0);
+			}else{
+				restore_vertical_wall_movement(game,0);
+			}
+			game->currentPlayer = 2;
+		}else{
+			gameMove.PlayerID = 1;
+			if (game->walls.wallVerse == HORIZONTAL_WALL){
+				restore_horizontal_wall_movement(game,0);
+			}else{
+				restore_vertical_wall_movement(game,0);
+			}
+			game->currentPlayer = 1;
+		}
 	}
-	//TODO Invoke timer 20s
+	gameMove.PlayerMove_WallPlacement = 0;
+	gameMove.Vertical_Horizontal = 1;
+	gameMove.X = game->players.player2.x;
+	gameMove.Y = game->players.player2.y;
+	save_move_into_variable();
+	
 	availablePlayerCells(game);
 	game->gameMode = MOVE_MODE;
 	enable_timer(0);
@@ -714,11 +744,11 @@ void change_player_turn_after_confirm(GameStatus *game){
 			game->currentPlayer = 1;	
 		}
 	}
-
-	//TODO Invoke timer 20s
-	game->gameMode = MOVE_MODE;
 	availablePlayerCells(game);
-	
+	game->gameMode = MOVE_MODE;
+	game->rountTimer = 20;
+	reset_timer(0);
+	enable_timer(0);
 }
 
 void start_game(){
@@ -780,62 +810,78 @@ void set_initial_player_positions(GameStatus *game){
 void conferm_player_move(GameStatus *game){
 	int byPassed;
 	if(game->currentPlayer == 1){
-		if(game->players.player1.tempY == 0 && game->board.cells[game->players.player1.tempX][game->players.player1.tempY].type != PLAYER2){
-			winner_player(game);
-		} else {
-			if((game->players.player1.tempX == game->players.player1.x) && (game->players.player1.tempY == game->players.player1.y-2)){
-				byPassed = UP;
-			}else if((game->players.player1.tempX == game->players.player1.x) && (game->players.player1.tempY == game->players.player1.y+2)){
-				byPassed = DOWN;
-			} else if((game->players.player1.tempX == game->players.player1.x-2) && (game->players.player1.tempY == game->players.player1.y)){
-				byPassed = LEFT;
-			} else if((game->players.player1.tempX == game->players.player1.x+2) && (game->players.player1.tempY == game->players.player1.y)){
-				byPassed = RIGHT;
+		if((game->players.player1.x != game->players.player1.tempX) && (game->players.player1.y != game->players.player1.tempY)){
+			if(game->players.player1.tempY == 0 && game->board.cells[game->players.player1.tempX][game->players.player1.tempY].type != PLAYER2){
+				winner_player(game);
+			} else {
+				if((game->players.player1.tempX == game->players.player1.x) && (game->players.player1.tempY == game->players.player1.y-2)){
+					byPassed = UP;
+				}else if((game->players.player1.tempX == game->players.player1.x) && (game->players.player1.tempY == game->players.player1.y+2)){
+					byPassed = DOWN;
+				} else if((game->players.player1.tempX == game->players.player1.x-2) && (game->players.player1.tempY == game->players.player1.y)){
+					byPassed = LEFT;
+				} else if((game->players.player1.tempX == game->players.player1.x+2) && (game->players.player1.tempY == game->players.player1.y)){
+					byPassed = RIGHT;
+				}
+				restore_available_player_cells(game, byPassed);
+				
+				set_new_board_player_position(game);
+				game->players.player1.x = game->players.player1.tempX;
+				game->players.player1.y = game->players.player1.tempY;
+				
+				game->players.player1.pixelX = game->players.player1.tempPixelX;
+				game->players.player1.pixelY = game->players.player1.tempPixelY;
+				
+				game->players.player1.tempX = game->players.player1.x;
+				game->players.player1.tempY = game->players.player1.y;
+				game->players.player1.tempPixelX = game->players.player1.pixelX; 
+				game->players.player1.tempPixelY = game->players.player1.pixelY; 
+				
+				draw_new_token_position(game,game->players.player1.tempPixelX, game->players.player1.tempPixelY);
+				gameMove.PlayerID = 0;
+				gameMove.PlayerMove_WallPlacement = 0;
+				gameMove.Vertical_Horizontal = 0;
+				gameMove.X = game->players.player1.x;
+				gameMove.X = game->players.player1.y;
+				save_move_into_variable();
+				change_player_turn_after_confirm(game);
 			}
-			restore_available_player_cells(game, byPassed);
-			
-			set_new_board_player_position(game);
-			game->players.player1.x = game->players.player1.tempX;
-			game->players.player1.y = game->players.player1.tempY;
-			
-			game->players.player1.pixelX = game->players.player1.tempPixelX;
-			game->players.player1.pixelY = game->players.player1.tempPixelY;
-			
-			game->players.player1.tempX = game->players.player1.x;
-			game->players.player1.tempY = game->players.player1.y;
-			game->players.player1.tempPixelX = game->players.player1.pixelX; 
-			game->players.player1.tempPixelY = game->players.player1.pixelY; 
-			
-			draw_new_token_position(game,game->players.player1.tempPixelX, game->players.player1.tempPixelY);
-			change_player_turn_after_confirm(game);
 		}
 	} else {
-		if(game->players.player2.tempY == BOARD_SIZE-1 && game->board.cells[game->players.player2.tempX][game->players.player2.tempY].type != PLAYER1){
-			winner_player(game);
-		} else {
-			if((game->players.player2.tempX == game->players.player2.x) && (game->players.player2.tempY == game->players.player2.y-2)){
-				byPassed = UP;
-			}else if((game->players.player2.tempX == game->players.player2.x) && (game->players.player2.tempY == game->players.player2.y+2)){
-				byPassed = DOWN;
-			} else if((game->players.player2.tempX == game->players.player2.x-2) && (game->players.player2.tempY == game->players.player2.y)){
-				byPassed = LEFT;
-			} else if((game->players.player2.tempX == game->players.player2.x+2) && (game->players.player2.tempY == game->players.player2.y)){
-				byPassed = RIGHT;
+		if((game->players.player2.x != game->players.player2.tempX) && (game->players.player2.y != game->players.player2.tempY)){
+			if(game->players.player2.tempY == BOARD_SIZE-1 && game->board.cells[game->players.player2.tempX][game->players.player2.tempY].type != PLAYER1){
+				winner_player(game);
+			} else {
+				if((game->players.player2.tempX == game->players.player2.x) && (game->players.player2.tempY == game->players.player2.y-2)){
+					byPassed = UP;
+				}else if((game->players.player2.tempX == game->players.player2.x) && (game->players.player2.tempY == game->players.player2.y+2)){
+					byPassed = DOWN;
+				} else if((game->players.player2.tempX == game->players.player2.x-2) && (game->players.player2.tempY == game->players.player2.y)){
+					byPassed = LEFT;
+				} else if((game->players.player2.tempX == game->players.player2.x+2) && (game->players.player2.tempY == game->players.player2.y)){
+					byPassed = RIGHT;
+				}
+				restore_available_player_cells(game, byPassed);
+				set_new_board_player_position(game);
+				game->players.player2.x = game->players.player2.tempX;
+				game->players.player2.y = game->players.player2.tempY;
+				game->players.player2.pixelX = game->players.player2.tempPixelX;
+				game->players.player2.pixelY = game->players.player2.tempPixelY;
+				
+				game->players.player2.tempX = game->players.player2.x;
+				game->players.player2.tempY = game->players.player2.y;
+				game->players.player2.tempPixelX = game->players.player2.pixelX; 
+				game->players.player2.tempPixelY = game->players.player2.pixelY; 
+				
+				draw_new_token_position(game,game->players.player2.tempPixelX, game->players.player2.tempPixelY);
+				gameMove.PlayerID = 1;
+				gameMove.PlayerMove_WallPlacement = 0;
+				gameMove.Vertical_Horizontal = 0;
+				gameMove.X = game->players.player2.x;
+				gameMove.X = game->players.player2.y;
+				save_move_into_variable();
+				change_player_turn_after_confirm(game);
 			}
-			restore_available_player_cells(game, byPassed);
-			set_new_board_player_position(game);
-			game->players.player2.x = game->players.player2.tempX;
-			game->players.player2.y = game->players.player2.tempY;
-			game->players.player2.pixelX = game->players.player2.tempPixelX;
-			game->players.player2.pixelY = game->players.player2.tempPixelY;
-			
-			game->players.player2.tempX = game->players.player2.x;
-			game->players.player2.tempY = game->players.player2.y;
-			game->players.player2.tempPixelX = game->players.player2.pixelX; 
-			game->players.player2.tempPixelY = game->players.player2.pixelY; 
-			
-			draw_new_token_position(game,game->players.player2.tempPixelX, game->players.player2.tempPixelY);
-			change_player_turn_after_confirm(game);
 		}
 	}
 }
@@ -1041,37 +1087,19 @@ void winner_player(GameStatus *game){
 	//TODO stop the program
 }
 
-void change_game_mode_no_confirm(GameStatus *game){
-	if(game->gameMode == MOVE_MODE){
-		restore_available_player_cells_no_confirmation(game, 0);
-		game->gameMode = WALLS_MODE;
-		walls_mode(game);
-	} else {
-		if(game->walls.wallVerse == HORIZONTAL_WALL){
-			/*
-			if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7 != 0){
-				restore_empty_wall(game, game->walls.tempX, game->walls.tempY);
-			}
-			else {
-				restore_wall(game, game->walls.tempX, game->walls.tempY);
-			}*/
-			restore_horizontal_wall_movement(game, 0);
-		}else{
-			restore_vertical_wall_movement(game,0);
-			//LO STESSO MA PER IL VERTICALE
-		}
-		
-		game->gameMode = MOVE_MODE;
-		availablePlayerCells(game);
-	}
-}
+
+
 void change_game_mode(GameStatus *game){
-	//Passo a modalità WALL
+	//Passo da move a modalità WALL
 	if(game->gameMode == MOVE_MODE){
 		if(game->currentPlayer == 1){
 			if(game->players.player1.walls > 0){
 				restore_available_player_cells_no_confirmation(game, 0);
 				draw_new_token_position(game, game->players.player1.pixelX, game->players.player1.pixelY);
+				game->players.player1.tempX = game->players.player1.x;
+				game->players.player1.tempPixelX = game->players.player1.pixelX;
+				game->players.player1.tempY = game->players.player1.y;
+				game->players.player1.tempPixelY = game->players.player1.pixelY;
 				game->gameMode = WALLS_MODE;
 				walls_mode(game);
 			} else {	
@@ -1081,20 +1109,37 @@ void change_game_mode(GameStatus *game){
 			if(game->players.player2.walls > 0){
 				restore_available_player_cells_no_confirmation(game, 0);
 				draw_new_token_position(game, game->players.player2.pixelX, game->players.player2.pixelY);
+				game->players.player2.tempX = game->players.player2.x;
+				game->players.player2.tempPixelX = game->players.player2.pixelX;
+				game->players.player2.tempY = game->players.player2.y;
+				game->players.player2.tempPixelY = game->players.player2.pixelY;
 				game->gameMode = WALLS_MODE;
 				walls_mode(game);
 			} else {
 				print_value_on_screen("No walls available, move the token",70,242);
 			}
 		}
-	} else {	//Passo a modalità move
-		restore_empty_wall(game, game->walls.tempPixelX, game->walls.tempPixelY);
+	} else {	//Passo da wall a modalità move
+		if (game->walls.wallVerse == HORIZONTAL_WALL)
+				restore_horizontal_wall_movement(game,0);
+		else
+				restore_vertical_wall_movement(game,0);
 		game->gameMode = MOVE_MODE;
 		availablePlayerCells(game);
 	}
 }
 
+void decode_move(void){
+	gameMove.PlayerID = (move >> 24);
+	gameMove.PlayerMove_WallPlacement = (move >> 20) & 0x0000000F;
+	gameMove.Vertical_Horizontal = (move >> 16) & 0x0000000F;
+	gameMove.Y = (move >> 8) & 0x000000FF;
+	gameMove.X = move & 0x000000FF;
+}
 
+void save_move_into_variable(void){
+	move = ((gameMove.PlayerID) << 24) + ((gameMove.PlayerMove_WallPlacement) << 20) + ((gameMove.Vertical_Horizontal) << 16) + ((gameMove.Y) << 8) + ((gameMove.X) << 0);
+}
 
 
 /********* WALLS FUNCTIONS *********/
@@ -1210,18 +1255,8 @@ void set_temp_cordinates_wall(GameStatus *game, int tempX, int tempY, int tempPi
 }	
 
 
-//aggiungere secondo me direzione e cordinate come parametri
+
 int check_wall_presence(GameStatus *game, int x, int y, int direction){		
-		/*	
-		//Controllo per vedere se non viene posizionato dove spawna
-		if(x == 3 && y == 3){
-			if((game->walls.wallVerse == HORIZONTAL_WALL) && ((game->walls.walls[x][y].type % 7) != 0)){
-				return EMPTY;
-			} else {
-				return WALL_ALREADY_PRESENT;
-			}
-		}
-		*/
 	if(game->walls.wallVerse == HORIZONTAL_WALL){
 		// Coordinate non valide
 		if (x < 0 || x >= BOARD_SIZE-1 || y < 0 || y >= BOARD_SIZE)
@@ -1311,6 +1346,14 @@ int check_wall_presence(GameStatus *game, int x, int y, int direction){
 int confirm_move_wall(GameStatus *game){
 	int i;
 	char str2[20];
+	if(game->currentPlayer == 1){
+		gameMove.PlayerID = 0;
+	}else{ 
+		gameMove.PlayerID = 1;
+	}
+	gameMove.PlayerMove_WallPlacement = 1;
+	
+	
 	
 	if(game->walls.wallVerse == HORIZONTAL_WALL){
 		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 2) == 0) || ((game->walls.walls[game->walls.tempX+1][game->walls.tempY].type % 2) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 3) == 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY-1].type % 3)== 0))){
@@ -1324,6 +1367,10 @@ int confirm_move_wall(GameStatus *game){
 			game->walls.walls[game->walls.tempX+1][game->walls.tempY].type = game->walls.walls[game->walls.tempX+1][game->walls.tempY].type * WALL_TOP;
 			game->walls.walls[game->walls.tempX+1][game->walls.tempY-1].type = game->walls.walls[game->walls.tempX+1][game->walls.tempY-1].type * WALL_BOTTOM;
 			draw_wall(game, game->walls.tempPixelX, game->walls.tempPixelY);
+			gameMove.Vertical_Horizontal = 1;
+			gameMove.X = game->walls.tempX;
+			gameMove.Y = game->walls.tempY;
+			save_move_into_variable();
 			change_player_turn_after_confirm(game);
 		}
 	} else { // CASO MURO VERTICALE
@@ -1339,6 +1386,10 @@ int confirm_move_wall(GameStatus *game){
 			game->walls.walls[game->walls.tempX][game->walls.tempY+1].type = game->walls.walls[game->walls.tempX][game->walls.tempY+1].type * WALL_LEFT;
 			game->walls.walls[game->walls.tempX-1][game->walls.tempY+1].type = game->walls.walls[game->walls.tempX-1][game->walls.tempY+1].type * WALL_RIGHT;
 			draw_wall(game, game->walls.tempPixelX, game->walls.tempPixelY);
+			gameMove.Vertical_Horizontal = 0;
+			gameMove.X = game->walls.tempX;
+			gameMove.Y = game->walls.tempY;
+			save_move_into_variable();
 			change_player_turn_after_confirm(game);
 		}
 	}

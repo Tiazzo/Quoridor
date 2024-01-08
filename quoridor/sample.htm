@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\sample.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\sample.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sun Jan 07 18:36:05 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jan 08 18:00:33 2024
 <BR><P>
 <H3>Maximum Stack Usage =        248 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -446,124 +446,119 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1f]"></a>EINT0_IRQHandler</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, irq_button.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = EINT0_IRQHandler &rArr; change_player_turn &rArr; restore_available_player_cells_no_confirmation &rArr; restore_highlighted_cells &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+<P><STRONG><a name="[1f]"></a>EINT0_IRQHandler</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, irq_button.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
+<P><STRONG><a name="[20]"></a>EINT1_IRQHandler</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, irq_button.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = EINT1_IRQHandler &rArr; change_game_mode &rArr; restore_available_player_cells_no_confirmation &rArr; restore_highlighted_cells &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+</UL>
+<BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_DisableIRQ
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
-<P><STRONG><a name="[20]"></a>EINT1_IRQHandler</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, irq_button.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
-<LI>Call Chain = EINT1_IRQHandler &rArr; confirm_move_wall &rArr; change_player_turn_after_confirm &rArr; write_remaining_walls_player1 &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
+<P><STRONG><a name="[21]"></a>EINT2_IRQHandler</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, irq_button.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = EINT2_IRQHandler &rArr; rotate_wall &rArr; restore_horizontal_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_DisableIRQ
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
-</UL>
-<P><STRONG><a name="[21]"></a>EINT2_IRQHandler</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, irq_button.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = EINT2_IRQHandler &rArr; change_game_mode &rArr; restore_available_player_cells_no_confirmation &rArr; restore_highlighted_cells &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
-</UL>
-<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_DisableIRQ
+<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_DisableIRQ
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
 <P><STRONG><a name="[47]"></a>BUTTON_init</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, lib_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = BUTTON_init &rArr; __NVIC_SetPriority
 </UL>
-<BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_SetPriority
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_SetPriority
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[75]"></a>enable_timer</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, lib_timer.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_game
+<BR><BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_game
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
 </UL>
 
 <P><STRONG><a name="[c6]"></a>disable_timer</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, lib_timer.o(.text), UNUSED)
 
 <P><STRONG><a name="[50]"></a>reset_timer</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, lib_timer.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
+<BR><BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
 <P><STRONG><a name="[48]"></a>init_timer</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, lib_timer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = init_timer
 </UL>
-<BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[5a]"></a>GetASCIICode</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, asciilib.o(.text))
+<P><STRONG><a name="[58]"></a>GetASCIICode</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, asciilib.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = GetASCIICode
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
+<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
 </UL>
 
 <P><STRONG><a name="[46]"></a>LCD_Initialization</STRONG> (Thumb, 12014 bytes, Stack size 24 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = LCD_Initialization
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Configuration
+<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Configuration
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[60]"></a>LCD_Clear</STRONG> (Thumb, 1520 bytes, Stack size 24 bytes, glcd.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<P><STRONG><a name="[5e]"></a>LCD_Clear</STRONG> (Thumb, 1520 bytes, Stack size 24 bytes, glcd.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
 </UL>
 
-<P><STRONG><a name="[61]"></a>LCD_GetPoint</STRONG> (Thumb, 994 bytes, Stack size 40 bytes, glcd.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_BGR2RGB
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<P><STRONG><a name="[5f]"></a>LCD_GetPoint</STRONG> (Thumb, 994 bytes, Stack size 40 bytes, glcd.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_BGR2RGB
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
 </UL>
 
-<P><STRONG><a name="[63]"></a>LCD_SetPoint</STRONG> (Thumb, 206 bytes, Stack size 24 bytes, glcd.o(.text))
+<P><STRONG><a name="[61]"></a>LCD_SetPoint</STRONG> (Thumb, 206 bytes, Stack size 24 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
 
-<P><STRONG><a name="[64]"></a>LCD_DrawLine</STRONG> (Thumb, 250 bytes, Stack size 40 bytes, glcd.o(.text))
+<P><STRONG><a name="[62]"></a>LCD_DrawLine</STRONG> (Thumb, 250 bytes, Stack size 40 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = LCD_DrawLine &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_boardgame
 </UL>
 
-<P><STRONG><a name="[65]"></a>PutChar</STRONG> (Thumb, 100 bytes, Stack size 56 bytes, glcd.o(.text))
+<P><STRONG><a name="[63]"></a>PutChar</STRONG> (Thumb, 100 bytes, Stack size 56 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetASCIICode
+<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetASCIICode
 </UL>
-<BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
 </UL>
 
-<P><STRONG><a name="[66]"></a>GUI_Text</STRONG> (Thumb, 80 bytes, Stack size 32 bytes, glcd.o(.text))
+<P><STRONG><a name="[64]"></a>GUI_Text</STRONG> (Thumb, 80 bytes, Stack size 32 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
+<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PutChar
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;winner_player
+<BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;winner_player
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cancel_value_on_screen
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_remaining_walls_player1
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_remaining_walls_player2
@@ -571,18 +566,18 @@ Global Symbols
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_boardgame
 </UL>
 
-<P><STRONG><a name="[67]"></a>LCD_DrawArray</STRONG> (Thumb, 64 bytes, Stack size 32 bytes, glcd.o(.text))
+<P><STRONG><a name="[65]"></a>LCD_DrawArray</STRONG> (Thumb, 64 bytes, Stack size 32 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_wall
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_empty_wall
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spawn_center_wall
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_empty_wall
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_wall
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spawn_center_wall
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_highlighted_cells
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_new_token_position
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cancel_actual_token_position
@@ -591,29 +586,29 @@ Global Symbols
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_boardgame
 </UL>
 
-<P><STRONG><a name="[68]"></a>LCD_DrawVerticalArray</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, glcd.o(.text))
+<P><STRONG><a name="[66]"></a>LCD_DrawVerticalArray</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_wall
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_empty_wall
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_empty_wall
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_wall
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
 </UL>
 
 <P><STRONG><a name="[2a]"></a>RIT_IRQHandler</STRONG> (Thumb, 622 bytes, Stack size 8 bytes, irq_rit.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216 + Unknown Stack Size
 <LI>Call Chain = RIT_IRQHandler &rArr; preview_move_token &rArr; availablePlayerCells &rArr; highlight_cell &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
+<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
@@ -638,9 +633,9 @@ Global Symbols
 <LI>Call Chain = write_remaining_walls_player2 &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_game
 </UL>
 
@@ -649,16 +644,16 @@ Global Symbols
 <LI>Call Chain = write_remaining_walls_player1 &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_game
 </UL>
 
 <P><STRONG><a name="[6f]"></a>highlight_cell</STRONG> (Thumb, 510 bytes, Stack size 32 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = highlight_cell &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;availablePlayerCells
 </UL>
@@ -670,7 +665,7 @@ Global Symbols
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_available_player_cells_no_confirmation
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_token_up
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;availablePlayerCells
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
 </UL>
 
 <P><STRONG><a name="[70]"></a>availablePlayerCells</STRONG> (Thumb, 212 bytes, Stack size 40 bytes, game.o(.text))
@@ -679,19 +674,18 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_cell_free
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;highlight_cell
 </UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode_no_confirm
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_initial_player_positions
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
 </UL>
 
 <P><STRONG><a name="[72]"></a>set_initial_player_positions</STRONG> (Thumb, 186 bytes, Stack size 16 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = set_initial_player_positions &rArr; availablePlayerCells &rArr; highlight_cell &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;availablePlayerCells
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
 </UL>
 <BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_game
 </UL>
@@ -727,9 +721,9 @@ Global Symbols
 <LI>Call Chain = draw_boardgame &rArr; start_game &rArr; initialize_game &rArr; set_initial_player_positions &rArr; availablePlayerCells &rArr; highlight_cell &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;start_game
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -737,41 +731,41 @@ Global Symbols
 <P><STRONG><a name="[4f]"></a>print_value_on_screen</STRONG> (Thumb, 30 bytes, Stack size 24 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = print_value_on_screen &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
+<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
+<LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
 </UL>
 
 <P><STRONG><a name="[77]"></a>cancel_value_on_screen</STRONG> (Thumb, 30 bytes, Stack size 24 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = cancel_value_on_screen &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
+<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
 </UL>
 
 <P><STRONG><a name="[78]"></a>cancel_actual_token_position</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = cancel_actual_token_position &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_token_up
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
 </UL>
 
 <P><STRONG><a name="[79]"></a>draw_new_token_position</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = draw_new_token_position &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_token_up
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
 </UL>
 
 <P><STRONG><a name="[7a]"></a>move_token_up</STRONG> (Thumb, 338 bytes, Stack size 32 bytes, game.o(.text), UNUSED)
@@ -783,7 +777,7 @@ Global Symbols
 <P><STRONG><a name="[7b]"></a>restore_highlighted_cells</STRONG> (Thumb, 590 bytes, Stack size 40 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = restore_highlighted_cells &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_available_player_cells
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_available_player_cells_no_confirmation
@@ -795,9 +789,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_highlighted_cells
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_cell_free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode_no_confirm
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
+<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
 </UL>
 
 <P><STRONG><a name="[7d]"></a>restore_available_player_cells</STRONG> (Thumb, 1064 bytes, Stack size 48 bytes, game.o(.text))
@@ -806,22 +799,54 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_highlighted_cells
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_cell_free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
 </UL>
 
-<P><STRONG><a name="[51]"></a>change_player_turn</STRONG> (Thumb, 162 bytes, Stack size 8 bytes, game.o(.text))
+<P><STRONG><a name="[80]"></a>save_move_into_variable</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, game.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
+</UL>
+
+<P><STRONG><a name="[7e]"></a>restore_vertical_wall_movement</STRONG> (Thumb, 664 bytes, Stack size 40 bytes, game.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = restore_vertical_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+</UL>
+<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+</UL>
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
+</UL>
+
+<P><STRONG><a name="[7f]"></a>restore_horizontal_wall_movement</STRONG> (Thumb, 736 bytes, Stack size 40 bytes, game.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = restore_horizontal_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+</UL>
+<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+</UL>
+<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
+</UL>
+
+<P><STRONG><a name="[51]"></a>change_player_turn</STRONG> (Thumb, 298 bytes, Stack size 8 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = change_player_turn &rArr; restore_available_player_cells_no_confirmation &rArr; restore_highlighted_cells &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_available_player_cells_no_confirmation
+<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_move_into_variable
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_available_player_cells_no_confirmation
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_new_token_position
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;availablePlayerCells
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
-<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[7e]"></a>change_player_turn_after_confirm</STRONG> (Thumb, 112 bytes, Stack size 8 bytes, game.o(.text))
+<P><STRONG><a name="[81]"></a>change_player_turn_after_confirm</STRONG> (Thumb, 130 bytes, Stack size 8 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
 <LI>Call Chain = change_player_turn_after_confirm &rArr; write_remaining_walls_player1 &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -829,47 +854,49 @@ Global Symbols
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;availablePlayerCells
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_remaining_walls_player1
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_remaining_walls_player2
+<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_timer
+<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_timer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
-</UL>
-
-<P><STRONG><a name="[80]"></a>set_new_board_player_position</STRONG> (Thumb, 114 bytes, Stack size 0 bytes, game.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
+<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
 </UL>
 
-<P><STRONG><a name="[7f]"></a>winner_player</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, game.o(.text))
+<P><STRONG><a name="[83]"></a>set_new_board_player_position</STRONG> (Thumb, 114 bytes, Stack size 0 bytes, game.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
+</UL>
+
+<P><STRONG><a name="[82]"></a>winner_player</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = winner_player &rArr; GUI_Text &rArr; PutChar &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
+<BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Text
 </UL>
-<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
 </UL>
 
-<P><STRONG><a name="[53]"></a>conferm_player_move</STRONG> (Thumb, 590 bytes, Stack size 16 bytes, game.o(.text))
+<P><STRONG><a name="[6a]"></a>conferm_player_move</STRONG> (Thumb, 756 bytes, Stack size 16 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
 <LI>Call Chain = conferm_player_move &rArr; change_player_turn_after_confirm &rArr; write_remaining_walls_player1 &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;winner_player
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_new_board_player_position
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;winner_player
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_new_board_player_position
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_move_into_variable
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_available_player_cells
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_new_token_position
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
-<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[81]"></a>set_temp_cordinates_player</STRONG> (Thumb, 60 bytes, Stack size 12 bytes, game.o(.text))
+<P><STRONG><a name="[84]"></a>set_temp_cordinates_player</STRONG> (Thumb, 60 bytes, Stack size 12 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = set_temp_cordinates_player
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
+<BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
 </UL>
 
-<P><STRONG><a name="[69]"></a>preview_move_token</STRONG> (Thumb, 1080 bytes, Stack size 56 bytes, game.o(.text))
+<P><STRONG><a name="[67]"></a>preview_move_token</STRONG> (Thumb, 1054 bytes, Stack size 56 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = preview_move_token &rArr; availablePlayerCells &rArr; highlight_cell &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_temp_cordinates_player
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_temp_cordinates_player
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_new_token_position
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cancel_actual_token_position
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;availablePlayerCells
@@ -878,155 +905,123 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[82]"></a>restore_vertical_wall_movement</STRONG> (Thumb, 664 bytes, Stack size 40 bytes, game.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = restore_vertical_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
-</UL>
-<BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
-</UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode_no_confirm
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
-<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
-</UL>
-
-<P><STRONG><a name="[83]"></a>restore_horizontal_wall_movement</STRONG> (Thumb, 724 bytes, Stack size 40 bytes, game.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = restore_horizontal_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
-</UL>
-<BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
-</UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode_no_confirm
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
-<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
-</UL>
-
-<P><STRONG><a name="[84]"></a>spawn_center_wall</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, game.o(.text))
+<P><STRONG><a name="[85]"></a>spawn_center_wall</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = spawn_center_wall &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
 </UL>
-<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;walls_mode
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;walls_mode
 </UL>
 
-<P><STRONG><a name="[85]"></a>walls_mode</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, game.o(.text))
+<P><STRONG><a name="[86]"></a>walls_mode</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = walls_mode &rArr; spawn_center_wall &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spawn_center_wall
+<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spawn_center_wall
 </UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode_no_confirm
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
-</UL>
-
-<P><STRONG><a name="[86]"></a>change_game_mode_no_confirm</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, game.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;walls_mode
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_available_player_cells_no_confirmation
-<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;availablePlayerCells
+<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
 </UL>
 
-<P><STRONG><a name="[87]"></a>restore_empty_wall</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, game.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = restore_empty_wall &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
-</UL>
-<BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
-</UL>
-<BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_game_mode
-</UL>
-
-<P><STRONG><a name="[56]"></a>change_game_mode</STRONG> (Thumb, 160 bytes, Stack size 8 bytes, game.o(.text))
+<P><STRONG><a name="[52]"></a>change_game_mode</STRONG> (Thumb, 254 bytes, Stack size 8 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = change_game_mode &rArr; restore_available_player_cells_no_confirmation &rArr; restore_highlighted_cells &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_empty_wall
-<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;walls_mode
+<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;walls_mode
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_available_player_cells_no_confirmation
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_new_token_position
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;availablePlayerCells
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_value_on_screen
 </UL>
+<BR>[Called By]<UL><LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT1_IRQHandler
+</UL>
+
+<P><STRONG><a name="[c9]"></a>decode_move</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, game.o(.text), UNUSED)
+
+<P><STRONG><a name="[87]"></a>draw_wall_preview</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, game.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = draw_wall_preview &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+</UL>
+<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+</UL>
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
+</UL>
+
+<P><STRONG><a name="[54]"></a>rotate_wall</STRONG> (Thumb, 168 bytes, Stack size 8 bytes, game.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = rotate_wall &rArr; restore_horizontal_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
+</UL>
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
+</UL>
 <BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[88]"></a>draw_wall_preview</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, game.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = draw_wall_preview &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
-</UL>
-<BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
-</UL>
-<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
-<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotate_wall
-</UL>
-
-<P><STRONG><a name="[52]"></a>rotate_wall</STRONG> (Thumb, 168 bytes, Stack size 8 bytes, game.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = rotate_wall &rArr; restore_horizontal_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
-</UL>
-<BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
-</UL>
-<BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT0_IRQHandler
-</UL>
-
-<P><STRONG><a name="[89]"></a>draw_wall</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, game.o(.text))
+<P><STRONG><a name="[88]"></a>draw_wall</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = draw_wall &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
+<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
 </UL>
 
-<P><STRONG><a name="[8a]"></a>restore_wall</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, game.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+<P><STRONG><a name="[89]"></a>restore_wall</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, game.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
+</UL>
+
+<P><STRONG><a name="[8a]"></a>restore_empty_wall</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, game.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
 </UL>
 
 <P><STRONG><a name="[8c]"></a>set_temp_cordinates_wall</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = set_temp_cordinates_wall
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
 </UL>
 
-<P><STRONG><a name="[8b]"></a>check_wall_presence</STRONG> (Thumb, 1192 bytes, Stack size 20 bytes, game.o(.text))
+<P><STRONG><a name="[8b]"></a>check_wall_presence</STRONG> (Thumb, 1194 bytes, Stack size 20 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = check_wall_presence
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_vertical_wall
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_preview_horizontal_wall
 </UL>
 
-<P><STRONG><a name="[54]"></a>confirm_move_wall</STRONG> (Thumb, 868 bytes, Stack size 16 bytes, game.o(.text))
+<P><STRONG><a name="[6b]"></a>confirm_move_wall</STRONG> (Thumb, 940 bytes, Stack size 16 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
 <LI>Call Chain = confirm_move_wall &rArr; change_player_turn_after_confirm &rArr; write_remaining_walls_player1 &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn_after_confirm
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_move_into_variable
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cancel_value_on_screen
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_value_on_screen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
-<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[6a]"></a>move_preview_horizontal_wall</STRONG> (Thumb, 552 bytes, Stack size 56 bytes, game.o(.text))
+<P><STRONG><a name="[68]"></a>move_preview_horizontal_wall</STRONG> (Thumb, 556 bytes, Stack size 56 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = move_preview_horizontal_wall &rArr; restore_horizontal_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_wall_presence
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_temp_cordinates_wall
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_horizontal_wall_movement
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[6b]"></a>move_preview_vertical_wall</STRONG> (Thumb, 526 bytes, Stack size 56 bytes, game.o(.text))
+<P><STRONG><a name="[69]"></a>move_preview_vertical_wall</STRONG> (Thumb, 526 bytes, Stack size 56 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = move_preview_vertical_wall &rArr; restore_vertical_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_wall_presence
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_temp_cordinates_wall
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_wall_preview
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_vertical_wall_movement
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
@@ -1077,15 +1072,15 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[5b]"></a>__aeabi_memcpy</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memcpy_v6.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetASCIICode
+<P><STRONG><a name="[59]"></a>__aeabi_memcpy</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memcpy_v6.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetASCIICode
 </UL>
 
 <P><STRONG><a name="[92]"></a>__rt_memcpy</STRONG> (Thumb, 138 bytes, Stack size 0 bytes, rt_memcpy_v6.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 
-<P><STRONG><a name="[c9]"></a>_memcpy_lastbytes</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_v6.o(.text), UNUSED)
+<P><STRONG><a name="[ca]"></a>_memcpy_lastbytes</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_v6.o(.text), UNUSED)
 
 <P><STRONG><a name="[8e]"></a>_printf_int_common</STRONG> (Thumb, 178 bytes, Stack size 32 bytes, _printf_intcommon.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = _printf_int_common &rArr; _printf_post_padding
@@ -1114,11 +1109,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memcpy
 </UL>
 
-<P><STRONG><a name="[ca]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
+<P><STRONG><a name="[cb]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[cb]"></a>__rt_memcpy_w</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
+<P><STRONG><a name="[cc]"></a>__rt_memcpy_w</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[cc]"></a>_memcpy_lastbytes_aligned</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_w.o(.text), UNUSED)
+<P><STRONG><a name="[cd]"></a>_memcpy_lastbytes_aligned</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_w.o(.text), UNUSED)
 
 <P><STRONG><a name="[3b]"></a>__user_setup_stackheap</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
@@ -1139,13 +1134,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[cd]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[ce]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[96]"></a>__user_perproc_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
-<P><STRONG><a name="[ce]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[cf]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[44]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
@@ -1158,53 +1153,53 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[55]"></a>__NVIC_DisableIRQ</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, irq_button.o(.text))
+<P><STRONG><a name="[53]"></a>__NVIC_DisableIRQ</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, irq_button.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT2_IRQHandler
 <LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EINT1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[57]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, lib_button.o(.text))
+<P><STRONG><a name="[55]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, lib_button.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUTTON_init
 </UL>
 
-<P><STRONG><a name="[58]"></a>__NVIC_SetPriority</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, lib_button.o(.text))
+<P><STRONG><a name="[56]"></a>__NVIC_SetPriority</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, lib_button.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __NVIC_SetPriority
 </UL>
 <BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BUTTON_init
 </UL>
 
-<P><STRONG><a name="[59]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, lib_timer.o(.text))
+<P><STRONG><a name="[57]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, lib_timer.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_timer
 </UL>
 
-<P><STRONG><a name="[5e]"></a>LCD_Configuration</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, glcd.o(.text))
+<P><STRONG><a name="[5c]"></a>LCD_Configuration</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, glcd.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Initialization
 </UL>
 
-<P><STRONG><a name="[5d]"></a>wait_delay</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, glcd.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
-<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
+<P><STRONG><a name="[5b]"></a>wait_delay</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, glcd.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Initialization
 </UL>
 
-<P><STRONG><a name="[5c]"></a>LCD_SetCursor</STRONG> (Thumb, 1356 bytes, Stack size 24 bytes, glcd.o(.text))
+<P><STRONG><a name="[5a]"></a>LCD_SetCursor</STRONG> (Thumb, 1356 bytes, Stack size 24 bytes, glcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = LCD_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
+<BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
-<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
+<BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetPoint
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
 </UL>
 
-<P><STRONG><a name="[5f]"></a>delay_ms</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, glcd.o(.text))
+<P><STRONG><a name="[5d]"></a>delay_ms</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, glcd.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Initialization
 </UL>
 
-<P><STRONG><a name="[62]"></a>LCD_BGR2RGB</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, glcd.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
+<P><STRONG><a name="[60]"></a>LCD_BGR2RGB</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, glcd.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GetPoint
 </UL>
 
 <P><STRONG><a name="[6c]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, irq_rit.o(.text))

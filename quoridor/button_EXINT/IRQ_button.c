@@ -9,11 +9,7 @@ int down_2;
 
 void EINT0_IRQHandler (void)	  	/* INT0														 */
 {
-	if(game.gameMode == MOVE_MODE)
-		change_player_turn(&game);
-	else {
-		rotate_wall(&game);
-	}
+
 	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
 }
 
@@ -21,12 +17,8 @@ void EINT0_IRQHandler (void)	  	/* INT0														 */
 void EINT1_IRQHandler (void)	  	/* KEY1														 */
 {
 	down_1=1;
-	if(game.gameMode == MOVE_MODE)
-		conferm_player_move(&game);
-	else {
-		confirm_move_wall(&game);
-	}
-	//conferm_player_move(&game);
+	change_game_mode(&game);
+	
 	NVIC_DisableIRQ(EINT1_IRQn);		/* disable Button interrupts			 */
 	LPC_PINCON->PINSEL4    &= ~(1 << 22);     /* GPIO pin selection */
 	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt         */
@@ -35,7 +27,10 @@ void EINT1_IRQHandler (void)	  	/* KEY1														 */
 void EINT2_IRQHandler (void)	  	/* KEY2														 */
 {
 	down_2=1;
-	change_game_mode(&game);
+	if(game.gameMode == WALLS_MODE){
+		rotate_wall(&game);
+	}
+
 	NVIC_DisableIRQ(EINT2_IRQn);		/* disable Button interrupts			 */
 	LPC_PINCON->PINSEL4    &= ~(1 << 24);     /* GPIO pin selection */
   LPC_SC->EXTINT &= (1 << 2);     /* clear pending interrupt         */    

@@ -47,7 +47,7 @@ int main(void)
 	//init_timer(0, 0x4E2 ); 						    /* 500us * 25MHz = 1.25*10^3 = 0x4E2 */
 	
 	// init_timer(0, 0x17d7840); 
-	init_timer(0, 0x00012840); 
+	init_timer(0, 0x00052120); 
 
 	BUTTON_init();												/* BUTTON Initialization              */
 	joystick_init();											/* Joystick Initialization            */

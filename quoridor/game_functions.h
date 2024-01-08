@@ -16,6 +16,8 @@ void conferm_player_move(GameStatus* );
 void set_new_board_player_position(GameStatus *);
 void winner_player(GameStatus *game);
 void change_game_mode(GameStatus *);
+void save_move_into_variable(void);
+void decode_move(void);
 
 //DRAWING FUNCTIONS
 void draw_boardgame(void);
