@@ -72,6 +72,7 @@
 #define Yellow         0xFFE0
 #define Orange				 0xFD47	
 #define Violet				 0xA3FD
+#define LightViolet		 0xF6DF
 
 /******************************************************************************
 * Function Name  : RGB565CONVERT

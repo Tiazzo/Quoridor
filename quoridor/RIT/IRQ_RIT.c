@@ -151,12 +151,30 @@ void RIT_IRQHandler (void)
 	}
 	
 	/* button management */
+	if(down_0!=0){ 
+		if((LPC_GPIO2->FIOPIN & (1<<10)) == 0){	/* KEY0 pressed */
+			down_0++;				
+			switch(down_0){
+				case 2:				/* pay attention here: please see slides to understand value 2 */
+					start_game();
+					break;
+				default:
+					break;
+			}
+		}
+		else {	/* button released */
+			down_0=0;			
+			NVIC_EnableIRQ(EINT0_IRQn);							 /* enable Button interrupts			*/
+			LPC_PINCON->PINSEL4    |= (1 << 20);     /* External interrupt 0 pin selection */
+		}
+	}
 	
 	if(down_1!=0){ 
 		if((LPC_GPIO2->FIOPIN & (1<<11)) == 0){	/* KEY1 pressed */
 			down_1++;				
 			switch(down_1){
 				case 2:				/* pay attention here: please see slides to understand value 2 */
+					change_game_mode(&game);
 					break;
 				default:
 					break;
@@ -170,10 +188,13 @@ void RIT_IRQHandler (void)
 	}
 	
 	if(down_2!=0){ 
-		if((LPC_GPIO2->FIOPIN & (1<<12)) == 0){	/* KEY1 pressed */
+		if((LPC_GPIO2->FIOPIN & (1<<12)) == 0){	/* KEY2 pressed */
 			down_2++;				
 			switch(down_2){
 				case 2:				/* pay attention here: please see slides to understand value 2 */
+					if(game.gameMode == WALLS_MODE){
+						rotate_wall(&game);
+					}
 					break;
 				default:
 					break;

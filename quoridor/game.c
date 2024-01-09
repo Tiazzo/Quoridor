@@ -15,8 +15,6 @@
 #include "game_structures.h"
 #include "game_draw.h"
 
-//int walls_player_one = 9;
-//int walls_player_two = 9;
 int firstTimePlayer1 = 1;
 int firstTimePlayer2 = 1;
 
@@ -33,7 +31,7 @@ void draw_boardgame(void){
 	int start_x = 7;
 	int start_y = 260;
 	
-	
+	LCD_Clear(LightViolet);
 	for(i=0; i <= 204; i=i+34){
 			for(j=0; j<=204; j=j+34){
 			LCD_DrawArray(cell_background,30,30,i+3,j+3);
@@ -52,9 +50,9 @@ void draw_boardgame(void){
 			LCD_DrawLine(x1, y0, x1, y1, Violet);  // Linea destra
 			LCD_DrawLine(x0, y1, x1, y1, Violet);  // Linea inferiore
 			if(k==0){
-				GUI_Text(x0+7, y0+2, (uint8_t *) "P1 Wall",Black, White );
+				GUI_Text(x0+7, y0+2, (uint8_t *) "P1 Wall",Black, LightViolet );
 			} else if (k==2){
-				GUI_Text(x0+7, y0+2, (uint8_t *) "P2 Wall",Black, White );
+				GUI_Text(x0+7, y0+2, (uint8_t *) "P2 Wall",Black, LightViolet );
 			}
 	}
 	print_value_on_screen("Press INT0 to start the match",5,242);
@@ -68,7 +66,7 @@ void write_remaining_walls_player1(GameStatus *game){
 		game->players.player1.walls--;
 	
 	sprintf(str1, "%d", game->players.player1.walls);
-	GUI_Text(40, 280, (uint8_t *) str1, Black, White );
+	GUI_Text(40, 280, (uint8_t *) str1, Black, LightViolet );
 }
 void write_remaining_walls_player2(GameStatus *game){
 	char str2[20];
@@ -77,16 +75,16 @@ void write_remaining_walls_player2(GameStatus *game){
 	else
 		game->players.player2.walls--;
 	sprintf(str2, "%d", game->players.player2.walls);
-	GUI_Text(192, 280,(uint8_t *) str2, Black, White );
+	GUI_Text(192, 280,(uint8_t *) str2, Black, LightViolet );
 }
 
 
 void print_value_on_screen (char str2[], int x, int y){
-	GUI_Text(x, y,(uint8_t *) str2, Red, White );
+	GUI_Text(x, y,(uint8_t *) str2, Red, LightViolet );
 }
 	
 void cancel_value_on_screen(char str2[], int x, int y){
-	GUI_Text(x, y,(uint8_t *) str2, White, White );
+	GUI_Text(x, y,(uint8_t *) str2, LightViolet, LightViolet );
 }
 
 
@@ -1063,12 +1061,25 @@ void preview_move_token (GameStatus *game, int direction){
 
 void winner_player(GameStatus *game){
 	if(game->currentPlayer == 1) {
-		GUI_Text(70, 242,(uint8_t *) "Player 1 win", Green, White );
+		GUI_Text(70, 242,(uint8_t *) "Player 1 win", Green, LightViolet );
 	}else {
-		GUI_Text(70, 242,(uint8_t *) "Player 2 win", Green, White );
+		GUI_Text(70, 242,(uint8_t *) "Player 2 win", Green, LightViolet );
 	}
 	
-	//TODO stop the program
+	disable_timer(0);
+	
+	NVIC_DisableIRQ(EINT0_IRQn);		/* disable Button interrupts			 */
+	LPC_PINCON->PINSEL4    &= ~(1 << 20);     /* GPIO pin selection */
+	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
+		
+	NVIC_DisableIRQ(EINT1_IRQn);		/* disable Button interrupts			 */
+	LPC_PINCON->PINSEL4    &= ~(1 << 22);     /* GPIO pin selection */
+	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt         */
+	
+	NVIC_DisableIRQ(EINT2_IRQn);		/* disable Button interrupts			 */
+	LPC_PINCON->PINSEL4    &= ~(1 << 24);     /* GPIO pin selection */
+  LPC_SC->EXTINT &= (1 << 2);     /* clear pending interrupt         */    
+	disable_RIT();
 }
 
 
