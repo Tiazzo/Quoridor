@@ -130,7 +130,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGDARM</Key>
-          <Name>(1010=22,109,397,655,0)(1007=36,258,213,523,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=249,476,488,720,0)(250=-1,-1,-1,-1,0)(270=37,106,229,237,0)(313=0,75,864,600,0)(291=868,545,1171,720,0)(302=1250,122,1512,571,1)(110=944,4,1280,322,0)(113=-1,-1,-1,-1,0)(320=1049,332,1280,650,0)(210=-1,-1,-1,-1,0)(330=22,102,403,729,0)(332=-1,-1,-1,-1,0)(333=116,345,704,540,0)(334=513,525,1101,720,0)(335=-1,-1,-1,-1,0)(336=-1,-1,-1,-1,0)(345=-1,-1,-1,-1,0)(346=-1,-1,-1,-1,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(197=-1,-1,-1,-1,0)(198=-1,-1,-1,-1,0)(191=-1,-1,-1,-1,0)(192=-1,-1,-1,-1,0)(199=-1,-1,-1,-1,0)(180=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(121=372,441,898,945,0)(122=-1,-1,-1,-1,0)(123=-1,-1,-1,-1,0)(124=-1,-1,-1,-1,0)(170=1259,669,1512,945,1)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(160=-1,-1,-1,-1,0)(280=672,145,1114,720,0)(240=747,258,1114,455,0)(1000=709,105,1512,717,0)</Name>
+          <Name>(1010=22,109,397,655,0)(1007=36,258,213,523,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=249,476,488,720,0)(250=-1,-1,-1,-1,0)(270=37,106,229,237,0)(313=0,75,864,600,0)(291=868,545,1171,720,0)(302=1250,122,1512,571,1)(110=944,4,1280,322,0)(113=-1,-1,-1,-1,0)(320=1049,332,1280,650,0)(210=-1,-1,-1,-1,0)(330=22,102,403,729,0)(332=-1,-1,-1,-1,0)(333=116,345,704,540,0)(334=513,525,1101,720,0)(335=-1,-1,-1,-1,0)(336=-1,-1,-1,-1,0)(345=-1,-1,-1,-1,0)(346=-1,-1,-1,-1,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(197=-1,-1,-1,-1,0)(198=-1,-1,-1,-1,0)(191=-1,-1,-1,-1,0)(192=-1,-1,-1,-1,0)(199=-1,-1,-1,-1,0)(180=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(121=372,441,898,945,0)(122=-1,-1,-1,-1,0)(123=-1,-1,-1,-1,0)(124=-1,-1,-1,-1,0)(170=1259,669,1512,945,1)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(160=-1,-1,-1,-1,0)(280=672,145,1114,720,0)(240=747,258,1114,455,0)(1000=709,105,1512,717,1)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -152,9 +152,57 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
+          <LineNumber>191</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>21312</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\game.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\sample\game.c\191</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>174</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>21224</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\game.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\sample\game.c\174</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>170</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>488</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\startup_LPC17xx.s</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\sample\startup_LPC17xx.s\170</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
           <LineNumber>187</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>21058</Address>
+          <Address>21290</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -166,11 +214,11 @@
           <Expression>\\sample\game.c\187</Expression>
         </Bp>
         <Bp>
-          <Number>1</Number>
+          <Number>4</Number>
           <Type>0</Type>
           <LineNumber>173</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>20986</Address>
+          <Address>21218</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -182,11 +230,11 @@
           <Expression>\\sample\game.c\173</Expression>
         </Bp>
         <Bp>
-          <Number>2</Number>
+          <Number>5</Number>
           <Type>0</Type>
           <LineNumber>189</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>21066</Address>
+          <Address>21298</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -198,57 +246,9 @@
           <Expression>\\sample\game.c\189</Expression>
         </Bp>
         <Bp>
-          <Number>3</Number>
-          <Type>0</Type>
-          <LineNumber>170</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>.\game.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>4</Number>
-          <Type>0</Type>
-          <LineNumber>172</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>.\game.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>5</Number>
-          <Type>0</Type>
-          <LineNumber>172</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>.\startup_LPC17xx.s</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
           <Number>6</Number>
           <Type>0</Type>
-          <LineNumber>174</LineNumber>
+          <LineNumber>172</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -257,14 +257,14 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>.\startup_LPC17xx.s</Filename>
+          <Filename>.\game.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
         <Bp>
           <Number>7</Number>
           <Type>0</Type>
-          <LineNumber>191</LineNumber>
+          <LineNumber>172</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>

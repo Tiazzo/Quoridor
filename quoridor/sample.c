@@ -51,6 +51,15 @@ int main(void)
 	
 	
 	BUTTON_init();												/* BUTTON Initialization              */
+	
+	//Disable buttons before start the game
+	NVIC_DisableIRQ(EINT1_IRQn);		/* disable Button interrupts			 */
+	LPC_PINCON->PINSEL4    &= ~(1 << 22);     /* GPIO pin selection */
+	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt         */
+	NVIC_DisableIRQ(EINT2_IRQn);		/* disable Button interrupts			 */
+	LPC_PINCON->PINSEL4    &= ~(1 << 24);     /* GPIO pin selection */
+  LPC_SC->EXTINT &= (1 << 2);     /* clear pending interrupt         */
+	
 	joystick_init();											/* Joystick Initialization            */
 	init_RIT(0x186a0);									/* RIT Initialization 50 msec       	*/
 	enable_RIT();													/* RIT enabled												*/

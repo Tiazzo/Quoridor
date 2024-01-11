@@ -25,7 +25,7 @@
 **
 ******************************************************************************/
 
-extern char led_value;
+bool firstTime = false;
 
 void RIT_IRQHandler (void)
 {					
@@ -35,7 +35,7 @@ void RIT_IRQHandler (void)
 	static int J_left = 0;
 	static int J_down = 0;
 		
-	if((LPC_GPIO1->FIOPIN & (1<<29)) == 0){		
+	if((LPC_GPIO1->FIOPIN & (1<<29)) == 0 && firstTime){		
 		J_right = 0;
 		J_left = 0;
 		J_down = 0;
@@ -57,7 +57,7 @@ void RIT_IRQHandler (void)
 				break;
 		}
 	}
-	else if((LPC_GPIO1->FIOPIN & (1<<28)) == 0){	
+	else if((LPC_GPIO1->FIOPIN & (1<<28)) == 0 && firstTime){	
 		J_up = 0;
 		J_left = 0;
 		J_down = 0;
@@ -79,7 +79,7 @@ void RIT_IRQHandler (void)
 				break;
 		}
 	}
-	else if((LPC_GPIO1->FIOPIN & (1<<27)) == 0){	
+	else if((LPC_GPIO1->FIOPIN & (1<<27)) == 0 && firstTime){	
 		J_up = 0;
 		J_right = 0;
 		J_down = 0;
@@ -101,7 +101,7 @@ void RIT_IRQHandler (void)
 				break;
 		}
 	}
-	else if((LPC_GPIO1->FIOPIN & (1<<26)) == 0){	
+	else if((LPC_GPIO1->FIOPIN & (1<<26)) == 0 && firstTime){	
 		/* Joytick J_Select pressed p1.25*/
 		/* Joytick J_Down pressed p1.26 --> using J_DOWN due to emulator issues*/
 		J_up = 0;
@@ -125,7 +125,7 @@ void RIT_IRQHandler (void)
 				break;
 		}
 	}
-	else if((LPC_GPIO1->FIOPIN & (1<<25)) == 0){
+	else if((LPC_GPIO1->FIOPIN & (1<<25)) == 0 && firstTime){
 		J_up = 0;
 		J_right = 0;
 		J_left = 0;
@@ -156,6 +156,7 @@ void RIT_IRQHandler (void)
 			down_0++;				
 			switch(down_0){
 				case 2:				/* pay attention here: please see slides to understand value 2 */
+					firstTime = true;
 					start_game();
 					break;
 				default:
@@ -167,9 +168,7 @@ void RIT_IRQHandler (void)
 			NVIC_EnableIRQ(EINT0_IRQn);							 /* enable Button interrupts			*/
 			LPC_PINCON->PINSEL4    |= (1 << 20);     /* External interrupt 0 pin selection */
 		}
-	}
-	
-	if(down_1!=0){ 
+	} else if(down_1!=0){ 
 		if((LPC_GPIO2->FIOPIN & (1<<11)) == 0){	/* KEY1 pressed */
 			down_1++;				
 			switch(down_1){
@@ -185,9 +184,7 @@ void RIT_IRQHandler (void)
 			NVIC_EnableIRQ(EINT1_IRQn);							 /* enable Button interrupts			*/
 			LPC_PINCON->PINSEL4    |= (1 << 22);     /* External interrupt 0 pin selection */
 		}
-	}
-	
-	if(down_2!=0){ 
+	} else if(down_2!=0){ 
 		if((LPC_GPIO2->FIOPIN & (1<<12)) == 0){	/* KEY2 pressed */
 			down_2++;				
 			switch(down_2){

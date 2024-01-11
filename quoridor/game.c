@@ -734,6 +734,13 @@ void change_player_turn_after_confirm(GameStatus *game){
 
 void start_game(){
 	cancel_value_on_screen("Press INT0 to start the match",5,242);
+	//Enable buttons
+	//enable_timer(0);
+	NVIC_EnableIRQ(EINT1_IRQn);							 /* enable Button interrupts			*/
+	LPC_PINCON->PINSEL4    |= (1 << 22);     /* External interrupt 0 pin selection */
+	NVIC_EnableIRQ(EINT2_IRQn);							 /* enable Button interrupts			*/
+	LPC_PINCON->PINSEL4    |= (1 << 24);     /* External interrupt 0 pin selection */
+	
 	initialize_game(&game);
 }
 
@@ -886,6 +893,12 @@ void initialize_game(GameStatus *game){
 			game->walls.walls[i][j].type = NO_WALL;
 		}
 	}
+	
+	//Disable INT0
+	NVIC_DisableIRQ(EINT0_IRQn);		/* disable Button interrupts			 */
+	LPC_PINCON->PINSEL4    &= ~(1 << 20);     /* GPIO pin selection */
+	LPC_SC->EXTINT &= (1 << 0);     /* clear pending interrupt         */
+	
 	game->gameMode = MOVE_MODE;
 	game->players.player1.walls = 8;
 	game->players.player2.walls = 8;
