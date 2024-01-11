@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\sample.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\sample.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Jan 11 16:15:49 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Jan 11 17:09:38 2024
 <BR><P>
 <H3>Maximum Stack Usage =        308 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -782,7 +782,7 @@ Global Symbols
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
 </UL>
 
-<P><STRONG><a name="[7b]"></a>restore_vertical_wall_movement</STRONG> (Thumb, 572 bytes, Stack size 40 bytes, game.o(.text))
+<P><STRONG><a name="[7b]"></a>restore_vertical_wall_movement</STRONG> (Thumb, 728 bytes, Stack size 40 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = restore_vertical_wall_movement &rArr; LCD_DrawVerticalArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawVerticalArray
@@ -793,7 +793,7 @@ Global Symbols
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_player_turn
 </UL>
 
-<P><STRONG><a name="[7c]"></a>restore_horizontal_wall_movement</STRONG> (Thumb, 620 bytes, Stack size 40 bytes, game.o(.text))
+<P><STRONG><a name="[7c]"></a>restore_horizontal_wall_movement</STRONG> (Thumb, 770 bytes, Stack size 40 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = restore_horizontal_wall_movement &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawArray
@@ -831,7 +831,7 @@ Global Symbols
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
 </UL>
 
-<P><STRONG><a name="[7f]"></a>set_initial_player_positions</STRONG> (Thumb, 186 bytes, Stack size 16 bytes, game.o(.text))
+<P><STRONG><a name="[7f]"></a>set_initial_player_positions</STRONG> (Thumb, 226 bytes, Stack size 16 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = set_initial_player_positions &rArr; availablePlayerCells &rArr; highlight_cell &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;availablePlayerCells
@@ -868,7 +868,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RIT_IRQHandler
 </UL>
 
-<P><STRONG><a name="[87]"></a>set_new_board_player_position</STRONG> (Thumb, 158 bytes, Stack size 0 bytes, game.o(.text))
+<P><STRONG><a name="[87]"></a>set_new_board_player_position</STRONG> (Thumb, 114 bytes, Stack size 0 bytes, game.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
 </UL>
 
@@ -883,7 +883,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conferm_player_move
 </UL>
 
-<P><STRONG><a name="[69]"></a>conferm_player_move</STRONG> (Thumb, 704 bytes, Stack size 16 bytes, game.o(.text))
+<P><STRONG><a name="[69]"></a>conferm_player_move</STRONG> (Thumb, 764 bytes, Stack size 16 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
 <LI>Call Chain = conferm_player_move &rArr; change_player_turn_after_confirm &rArr; write_remaining_walls_player2 &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -903,7 +903,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preview_move_token
 </UL>
 
-<P><STRONG><a name="[66]"></a>preview_move_token</STRONG> (Thumb, 1102 bytes, Stack size 56 bytes, game.o(.text))
+<P><STRONG><a name="[66]"></a>preview_move_token</STRONG> (Thumb, 1054 bytes, Stack size 56 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = preview_move_token &rArr; availablePlayerCells &rArr; highlight_cell &rArr; LCD_DrawArray &rArr; LCD_SetPoint &rArr; LCD_SetCursor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_temp_cordinates_player
@@ -1009,7 +1009,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;confirm_move_wall
 </UL>
 
-<P><STRONG><a name="[6a]"></a>confirm_move_wall</STRONG> (Thumb, 1532 bytes, Stack size 24 bytes, game.o(.text))
+<P><STRONG><a name="[6a]"></a>confirm_move_wall</STRONG> (Thumb, 1530 bytes, Stack size 24 bytes, game.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 300 + Unknown Stack Size
 <LI>Call Chain = confirm_move_wall &rArr; can_player_reach_opposite_border &rArr; is_cell_free
 </UL>

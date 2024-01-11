@@ -1574,8 +1574,14 @@ void restore_horizontal_wall_movement(GameStatus *game, int direction){
 			}
 		} else if (game->walls.walls[currentWallX][currentWallY].type % 2 == 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 != 0){
 				LCD_DrawArray(restore_left_wall,4, 64, currentWallPixelX, currentWallPixelY);
+				if(game->walls.walls[currentWallX][currentWallY-1].type % 3 == 0 && game->walls.walls[currentWallX][currentWallY].type % 3 == 0){
+					LCD_DrawArray(dot,4, 4, currentWallPixelX+30, currentWallPixelY);	
+				}
 		} else if (game->walls.walls[currentWallX][currentWallY].type % 2 != 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 == 0){
-				LCD_DrawArray(restore_right_wall,4, 64, currentWallPixelX, currentWallPixelY);	
+				LCD_DrawArray(restore_right_wall,4, 64, currentWallPixelX, currentWallPixelY);
+				if(game->walls.walls[currentWallX][currentWallY-1].type % 3 == 0 && game->walls.walls[currentWallX][currentWallY].type % 3 == 0){
+				LCD_DrawArray(dot,4, 4, currentWallPixelX+30, currentWallPixelY);	
+				}
 		} else {
 			for(i=0;i<currentWallX;i++){
 					if(game->walls.walls[i][currentWallY].type % 2 == 0)
@@ -1649,8 +1655,14 @@ void restore_vertical_wall_movement(GameStatus *game, int direction){
 			}
 		} else if(game->walls.walls[currentWallX][currentWallY].type % 5 == 0 && game->walls.walls[currentWallX][currentWallY+1].type % 5 != 0){
 				LCD_DrawVerticalArray(restore_left_wall,64, 4, currentWallPixelX, currentWallPixelY);
+				if(game->walls.walls[currentWallX][currentWallY].type % 7 == 0 && game->walls.walls[currentWallX-1][currentWallY].type % 7 == 0){
+					LCD_DrawVerticalArray(dot,4, 4, currentWallPixelX, currentWallPixelY+30);
+				}
 		} else if(game->walls.walls[currentWallX][currentWallY].type % 5 != 0 && game->walls.walls[currentWallX][currentWallY+1].type % 5 == 0){
-				LCD_DrawVerticalArray(restore_right_wall,64, 4, currentWallPixelX, currentWallPixelY);	
+				LCD_DrawVerticalArray(restore_right_wall,64, 4, currentWallPixelX, currentWallPixelY);
+				if(game->walls.walls[currentWallX][currentWallY].type % 7 == 0 && game->walls.walls[currentWallX-1][currentWallY].type % 7 == 0){
+					LCD_DrawVerticalArray(dot,4, 4, currentWallPixelX, currentWallPixelY+30);
+				}
 		} else {
 				for(i=0;i<currentWallY;i++){
 					if(game->walls.walls[currentWallX][i].type % 5 == 0)
