@@ -39,28 +39,15 @@ int main(void)
 {
   SystemInit();  												/* System Initialization (i.e., PLL)  */
 	LCD_Initialization();
-	//BUTTON_init();
 
 	draw_boardgame();
-	//init_timer(0, 0x1312D0 ); 						/* 50ms * 25MHz = 1.25*10^6 = 0x1312D0 */
-	//init_timer(0, 0x6108 ); 						  /* 1ms * 25MHz = 25*10^3 = 0x6108 */
-	//init_timer(0, 0x4E2 ); 						    /* 500us * 25MHz = 1.25*10^3 = 0x4E2 */
 	
-	// init_timer(0, 0x17d7840); 
-	init_timer(0, 0x00052120); 
+	// init_timer(0, 0x17d7840); 						//Scheda
+	init_timer(0, 0x00052120); 						//Paralles
+	//init_timer(0, 0x000123120); 						//Windows
 	
 	
 	BUTTON_init();												/* BUTTON Initialization              */
-	
-	//Disable buttons before start the game
-	/*
-	NVIC_DisableIRQ(EINT1_IRQn);		
-	LPC_PINCON->PINSEL4    &= ~(1 << 22);    
-	LPC_SC->EXTINT &= (1 << 1);     
-	NVIC_DisableIRQ(EINT2_IRQn);	
-	LPC_PINCON->PINSEL4    &= ~(1 << 24);    
-  LPC_SC->EXTINT &= (1 << 2);    
-	*/
 	
 	joystick_init();											/* Joystick Initialization            */
 	init_RIT(0x186a0);									/* RIT Initialization 50 msec       	*/

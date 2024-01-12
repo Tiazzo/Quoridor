@@ -278,7 +278,7 @@ void highlight_cell(GameStatus *game, int cellUp, int cellDown, int cellLeft, in
         }
         else if (cellLeft == ANOTHER_PLAYER)
         {
-            LCD_DrawArray(highlighted_cell, 30, 30, game->players.player2.pixelX - 38, game->players.player2.pixelY);
+            LCD_DrawArray(highlighted_cell, 30, 30, game->players.player2.pixelX - 68, game->players.player2.pixelY);
         }
         if (cellRight == EMPTY)
         {
@@ -372,7 +372,7 @@ void restore_highlighted_cells(GameStatus *game, int cellUp, int cellDown, int c
         {
             if (!(byPassed == LEFT))
             {
-                LCD_DrawArray(cell_background, 30, 30, game->players.player2.pixelX - 38, game->players.player2.pixelY);
+                LCD_DrawArray(cell_background, 30, 30, game->players.player2.pixelX - 68, game->players.player2.pixelY);
             }
         }
         if (cellRight == EMPTY)
@@ -511,13 +511,14 @@ void restore_available_player_cells(GameStatus *game, int byPassed)
             cellLeft = is_cell_free(game, currentX - 1, currentY, 0, 0);
             cellRight = is_cell_free(game, currentX + 1, currentY, 0, 1);
         }
-        else if ((game->players.player1.tempX == currentX - 1 && game->players.player1.tempY == currentY) || (game->players.player1.tempX - 2 == currentX && game->players.player1.tempY == currentY))
+				//left
+        else if ((game->players.player1.tempX == currentX - 1 && game->players.player1.tempY == currentY) || (game->players.player1.tempX  == currentX - 2 && game->players.player1.tempY == currentY))
         {
             cellUp = is_cell_free(game, currentX, currentY - 1, 1, 0);
             cellDown = is_cell_free(game, currentX, currentY + 1, 1, 1);
             cellRight = is_cell_free(game, currentX + 1, currentY, 0, 1);
         }
-        else if ((game->players.player1.tempX == currentX + 1 && game->players.player1.tempY == currentY) || (game->players.player1.tempX + 2 == currentX && game->players.player1.tempY == currentY))
+        else if ((game->players.player1.tempX == currentX + 1 && game->players.player1.tempY == currentY) || (game->players.player1.tempX == currentX+ 2 && game->players.player1.tempY == currentY))
         {
             cellUp = is_cell_free(game, currentX, currentY - 1, 1, 0);
             cellDown = is_cell_free(game, currentX, currentY + 1, 1, 1);
@@ -549,13 +550,13 @@ void restore_available_player_cells(GameStatus *game, int byPassed)
             cellLeft = is_cell_free(game, currentX - 1, currentY, 0, 0);
             cellRight = is_cell_free(game, currentX + 1, currentY, 0, 1);
         }
-        else if ((game->players.player2.tempX == currentX - 1 && game->players.player2.tempY == currentY) || (game->players.player2.tempX - 2 == currentX && game->players.player2.tempY == currentY))
+        else if ((game->players.player2.tempX == currentX - 1 && game->players.player2.tempY == currentY) || (game->players.player2.tempX  == currentX - 2 && game->players.player2.tempY == currentY))
         {
             cellUp = is_cell_free(game, currentX, currentY - 1, 1, 0);
             cellDown = is_cell_free(game, currentX, currentY + 1, 1, 1);
             cellRight = is_cell_free(game, currentX + 1, currentY, 0, 1);
         }
-        else if ((game->players.player2.tempX == currentX + 1 && game->players.player2.tempY == currentY) || (game->players.player2.tempX + 2 == currentX && game->players.player2.tempY == currentY))
+        else if ((game->players.player2.tempX == currentX + 1 && game->players.player2.tempY == currentY) || (game->players.player2.tempX  == currentX + 2 && game->players.player2.tempY == currentY))
         {
             cellUp = is_cell_free(game, currentX, currentY - 1, 1, 0);
             cellDown = is_cell_free(game, currentX, currentY + 1, 1, 1);
@@ -762,7 +763,7 @@ void set_initial_player_positions(GameStatus *game)
 }
 
 void conferm_player_move(GameStatus *game)
-{
+ {
     int byPassed;
     if (game->currentPlayer == 1)
     {
@@ -1127,6 +1128,7 @@ void winner_player(GameStatus *game)
 
 void change_game_mode(GameStatus *game)
 {
+	int i;
     // Passo da move a modalità WALL
     if (game->gameMode == MOVE_MODE)
     {
@@ -1145,7 +1147,16 @@ void change_game_mode(GameStatus *game)
             }
             else
             {
-                print_value_on_screen("No walls available, move the token", 5, 242);
+							  print_value_on_screen("No walls available", 20, 242);
+								for (i = 0; i < 3000; i++)
+								{
+								}
+								cancel_value_on_screen("No walls available", 20, 242);
+								print_value_on_screen("move the token", 20, 242);
+								for (i = 0; i < 3000; i++)
+								{
+								}
+								cancel_value_on_screen("move the token", 20, 242);
             }
         }
         else
@@ -1163,7 +1174,16 @@ void change_game_mode(GameStatus *game)
             }
             else
             {
-                print_value_on_screen("No walls available, move the token", 5, 242);
+								print_value_on_screen("No walls available", 20, 242);
+								for (i = 0; i < 3000; i++)
+								{
+								}
+								cancel_value_on_screen("No walls available", 20, 242);
+								print_value_on_screen("move the token", 20, 242);
+								for (i = 0; i < 3000; i++)
+								{
+								}
+								cancel_value_on_screen("move the token", 20, 242);
             }
         }
     }
