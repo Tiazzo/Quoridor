@@ -167,68 +167,6 @@ void draw_new_token_position(GameStatus *game, int x, int y){
 	}
 }
 
-
-
-//Da chiamare quando clicclo select 
-void move_token_up(GameStatus *game){
-	if(game->currentPlayer == 1){
-		int currentX = game->players.player1.x;
-		int currentY = game->players.player1.y;
-		int newX = currentX - 1;
-    int newY = currentY;
-
-		int cellUp = is_cell_free(game,newX, newY, 1, 0);
-		
-		if(cellUp == EMPTY){
-			//Restore cell to empty 
-			game->board.cells[currentX][currentY].type = EMPTY;
-			//Cancel token from actual position LCD
-			cancel_actual_token_position(game);
-			game-> players.player1.x = newX;
-			game-> players.player1.y = newY;
-			game->players.player1.pixelY = game->players.player1.pixelY - 34;
-			//Update cell to Player1
-			game->board.cells[game->players.player1.x][game->players.player1.y].type = PLAYER1;
-			//TODO: Call token_drawing() function
-			draw_new_token_position(game, game->players.player1.pixelX, game->players.player1.pixelY);
-		} else if (cellUp == ANOTHER_PLAYER){	//poi modificare
-			//Restore cell to empty 
-			game->board.cells[currentX][currentY].type = EMPTY;
-			game-> players.player1.x = newX-1;
-			game-> players.player1.y = newY;
-			//Update cell to Player1
-			game->board.cells[game->players.player1.x][game->players.player1.y].type = PLAYER1;
-			//TODO: Call token_drawing() function
-
-		}
-	} else {
-		int currentX = game->players.player2.x;
-		int currentY = game->players.player2.y;
-		int newX = currentX-1;
-    int newY = currentY;
-
-		int cellUp = is_cell_free(game,newX, newY,1,0);
-		
-		if(cellUp == EMPTY){
-			//Restore cell to empty 
-			game->board.cells[currentX][currentY].type = EMPTY;
-			game-> players.player2.x = newX;
-			game-> players.player2.y = newY;
-			//Update cell to Player2
-			game->board.cells[game->players.player2.x][game->players.player2.y].type = PLAYER1;
-			//TODO: Call token_drawing() function
-		} else if (cellUp == ANOTHER_PLAYER){	//poi modificare
-			//Restore cell to empty 
-			game->board.cells[currentX][currentY].type = EMPTY;
-			game-> players.player2.x = newX-1;
-			game-> players.player2.y = newY;
-			//Update cell to Player1
-			game->board.cells[game->players.player2.x][game->players.player2.y].type = PLAYER1;
-			//TODO: Call token_drawing() function
-		}
-	}
-}
-
 void highlight_cell(GameStatus *game,int cellUp, int cellDown, int cellLeft, int cellRight){
 	if(game->currentPlayer == 1){
 		if(cellUp == EMPTY){
@@ -277,59 +215,6 @@ void highlight_cell(GameStatus *game,int cellUp, int cellDown, int cellLeft, int
 
 void restore_highlighted_cells(GameStatus *game,int cellUp, int cellDown, int cellLeft, int cellRight, int byPassed, int confirm){
 	if(game->currentPlayer == 1){
-		/*
-		if((game->players.player1.x == game->players.player1.tempX) && (game->players.player1.y == game->players.player1.tempY)){
-			if(game->players.player1.y == 0){
-				if(game->players.player2.x == 0){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX , game-> players.player1.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
-				} else if(game->players.player2.x == BOARD_SIZE-1){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX , game-> players.player1.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
-				}	else{			
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX , game-> players.player1.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
-				}
-			} else if(game->players.player1.y == BOARD_SIZE-1){
-				if(game->players.player2.x == 0){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
-				} else if(game->players.player2.x == BOARD_SIZE-1){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
-				}	else{			
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
-				}
-			} else if(game->players.player1.x == 0) {
-				if(game->players.player2.y == 0){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
-				} else if(game->players.player2.y == BOARD_SIZE-1){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
-				}	else{			
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX+34, game-> players.player1.pixelY);
-				}
-			}	else if(game->players.player1.x == BOARD_SIZE-1){
-				if(game->players.player2.y == 0){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
-				} else if(game->players.player2.y == BOARD_SIZE-1){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
-				}	else{			
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX-34, game-> players.player1.pixelY);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY+34);
-				}
-			} 
-		}
-		*/
 		if(cellUp == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player1.pixelX, game-> players.player1.pixelY-34);
 		} else if(cellUp == ANOTHER_PLAYER){
@@ -359,59 +244,6 @@ void restore_highlighted_cells(GameStatus *game,int cellUp, int cellDown, int ce
 			}
 		}
 	}else{
-		/*
-		if((game->players.player2.x == game->players.player2.tempX) && (game->players.player2.y == game->players.player2.tempY)){
-			if(game->players.player2.y == 0){
-				if(game->players.player2.x == 0){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX , game-> players.player2.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
-				} else if(game->players.player2.x == BOARD_SIZE-1){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX , game-> players.player2.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
-				}	else{			
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX , game-> players.player2.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
-				}
-			} else if(game->players.player2.y == BOARD_SIZE-1){
-				if(game->players.player2.x == 0){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
-				} else if(game->players.player2.x == BOARD_SIZE-1){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
-				}	else{			
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
-				}
-			} else if(game->players.player2.x == 0) {
-				if(game->players.player2.y == 0){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
-				} else if(game->players.player2.y == BOARD_SIZE-1){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
-				}	else{			
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX+34, game-> players.player2.pixelY);
-				}
-			}	else if(game->players.player2.x == BOARD_SIZE-1){
-				if(game->players.player2.y == 0){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
-				} else if(game->players.player2.y == BOARD_SIZE-1){
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
-				}	else{			
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX-34, game-> players.player2.pixelY);
-					LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY+34);
-				}
-			}	
-		}
-		*/
 		if(cellUp == EMPTY){
 			LCD_DrawArray(cell_background, 30, 30, game-> players.player2.pixelX, game-> players.player2.pixelY-34);
 		} else if(cellUp == ANOTHER_PLAYER){
@@ -482,26 +314,6 @@ void restore_available_player_cells_no_confirmation(GameStatus *game, int byPass
 			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
 			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
 		}
-		
-		/*
-		if((game->players.player1.tempX == currentX && game->players.player1.tempY == currentY-1) || (game->players.player1.tempX == currentX && game->players.player1.tempY == currentY-2)){
-			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
-			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
-			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		} else if ((game->players.player1.tempX == currentX && game->players.player1.tempY == currentY+1) || (game->players.player1.tempX == currentX && game->players.player1.tempY == currentY+2)){
-			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
-			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
-			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		} else if((game->players.player1.tempX == currentX-1 && game->players.player1.tempY == currentY) || (game->players.player1.tempX-2 == currentX && game->players.player1.tempY == currentY)) {
-			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
-			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
-			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		}	else if((game->players.player1.tempX == currentX+1 && game->players.player1.tempY == currentY) || (game->players.player1.tempX+2 == currentX && game->players.player1.tempY == currentY)) {
-			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
-			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
-			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
-		}
-		*/
 		restore_highlighted_cells(game, cellUp, cellDown, cellLeft, cellRight, byPassed, 0);
 	} else {
 		currentX = game->players.player2.x;
@@ -533,27 +345,6 @@ void restore_available_player_cells_no_confirmation(GameStatus *game, int byPass
 			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
 			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
 		}
-		
-		/*
-		if((game->players.player2.tempX == currentX && game->players.player2.tempY == currentY-1) || (game->players.player2.tempX == currentX && game->players.player2.tempY == currentY-2)){
-			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
-			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
-			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		} else if ((game->players.player2.tempX == currentX && game->players.player2.tempY == currentY+1) || (game->players.player2.tempX == currentX && game->players.player2.tempY == currentY+2)){
-			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
-			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
-			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		} else if((game->players.player2.tempX == currentX-1 && game->players.player2.tempY == currentY) || (game->players.player2.tempX-2 == currentX && game->players.player2.tempY == currentY)) {
-			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
-			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
-			cellRight = is_cell_free(game,currentX+1,currentY,0,1);
-		}	else if((game->players.player2.tempX == currentX+1 && game->players.player2.tempY == currentY) || (game->players.player2.tempX+2 == currentX && game->players.player2.tempY == currentY)) {
-			cellUp = is_cell_free(game,currentX,currentY-1,1,0);
-			cellDown = is_cell_free(game,currentX,currentY+1,1,1);
-			cellLeft = is_cell_free(game,currentX-1,currentY,0,0);
-		}
-		*/
-		
 		restore_highlighted_cells(game, cellUp, cellDown, cellLeft, cellRight, byPassed, 0);
 	}
 }
@@ -734,14 +525,7 @@ void change_player_turn_after_confirm(GameStatus *game){
 
 void start_game(){
 	cancel_value_on_screen("Press INT0 to start the match",5,242);
-	//Enable buttons
 	//enable_timer(0);
-	/*
-	NVIC_EnableIRQ(EINT1_IRQn);							
-	LPC_PINCON->PINSEL4    |= (1 << 22);     
-	NVIC_EnableIRQ(EINT2_IRQn);							 
-	LPC_PINCON->PINSEL4    |= (1 << 24);     
-	*/
 	initialize_game(&game);
 }
 
@@ -785,16 +569,6 @@ void set_initial_player_positions(GameStatus *game){
 	LCD_DrawArray(player2_draw, 30, 30, 105, 3);
 	
 	availablePlayerCells(game);
-	/*
-	LCD_DrawArray(highlighted_cell, 30, 30, 139, 3);
-	LCD_DrawArray(highlighted_cell, 30, 30, 71, 3);
-	LCD_DrawArray(highlighted_cell, 30, 30, 105, 37);
-	
-	
-	LCD_DrawArray(highlighted_cell, 30, 30, 139, 207);
-	LCD_DrawArray(highlighted_cell, 30, 30, 71, 207);
-	LCD_DrawArray(highlighted_cell, 30, 30, 105, 173);
-	*/
 }
 
 void conferm_player_move(GameStatus *game){
@@ -877,9 +651,7 @@ void conferm_player_move(GameStatus *game){
 }
 
 void starting_player(GameStatus *game){
-	//srand(time(NULL));
-	//game->currentPlayer = rand() % 2 + 1;
-	game->currentPlayer = 2;
+	game->currentPlayer = 1;
 }
 
 void initialize_game(GameStatus *game){
@@ -1154,25 +926,6 @@ void save_move_into_variable(void){
 void rotate_wall(GameStatus *game){
 	//Da orizzontale a verticale
 	if (game->walls.wallVerse == HORIZONTAL_WALL){
-		//controllo che non ruoto sopra a un muro posizionato
-		/*
-		if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 2 == 0 && game->walls.walls[game->walls.tempX+1][game->walls.tempY].type % 2 == 0){
-			restore_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
-			game->walls.wallVerse = VERTICAL_WALL;
-			draw_wall_preview(game, game->walls.tempPixelX+30,game->walls.tempPixelY-30);
-			game->walls.tempPixelX = game->walls.tempPixelX+30;
-			game->walls.tempPixelY = game->walls.tempPixelY-30;
-			game->walls.tempX = game->walls.tempX+1;
-			game->walls.tempY = game->walls.tempY-1;
-		} else {
-			restore_empty_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
-			game->walls.wallVerse = VERTICAL_WALL;
-			draw_wall_preview(game, game->walls.tempPixelX+30,game->walls.tempPixelY-30);
-			game->walls.tempPixelX = game->walls.tempPixelX+30;
-			game->walls.tempPixelY = game->walls.tempPixelY-30;
-			game->walls.tempX = game->walls.tempX+1;
-			game->walls.tempY = game->walls.tempY-1;
-		}*/	
 			restore_horizontal_wall_movement(game, 0);
 			game->walls.wallVerse = VERTICAL_WALL;
 			draw_wall_preview(game, game->walls.tempPixelX+30,game->walls.tempPixelY-30);
@@ -1181,24 +934,6 @@ void rotate_wall(GameStatus *game){
 			game->walls.tempX = game->walls.tempX+1;
 			game->walls.tempY = game->walls.tempY-1;
 	}else{	//Da verticale a orizzontale
-		/*
-		if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 5 == 0 && game->walls.walls[game->walls.tempX][game->walls.tempY+1].type % 5 == 0){
-			restore_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
-			game->walls.wallVerse = HORIZONTAL_WALL;
-			draw_wall_preview(game, game->walls.tempPixelX-30,game->walls.tempPixelY+30);
-			game->walls.tempPixelX = game->walls.tempPixelX-30;
-			game->walls.tempPixelY = game->walls.tempPixelY+30;
-			game->walls.tempX = game->walls.tempX-1;
-			game->walls.tempY = game->walls.tempY+1;
-		}else {
-			restore_empty_wall(game, game->walls.tempPixelX,game->walls.tempPixelY);
-			game->walls.wallVerse = HORIZONTAL_WALL;
-			draw_wall_preview(game, game->walls.tempPixelX-30,game->walls.tempPixelY+30);
-			game->walls.tempPixelX = game->walls.tempPixelX-30;
-			game->walls.tempPixelY = game->walls.tempPixelY+30;
-			game->walls.tempX = game->walls.tempX-1;
-			game->walls.tempY = game->walls.tempY+1;
-		}*/
 		restore_vertical_wall_movement(game,0);
 		game->walls.wallVerse = HORIZONTAL_WALL;
 		draw_wall_preview(game, game->walls.tempPixelX-30,game->walls.tempPixelY+30);
@@ -1620,45 +1355,9 @@ void restore_horizontal_wall_movement(GameStatus *game, int direction){
 					else
 						LCD_DrawArray(restore_two_separate_walls,4, 64, currentWallPixelX, currentWallPixelY);
 		}
-		
-		/*
-		if ((direction == UP && game->walls.tempY-1 > 0) || (direction == DOWN && game->walls.tempY+1 < BOARD_SIZE) || (direction == LEFT && game->walls.tempX-1 >= 0) || (direction == RIGHT && game->walls.tempX+2 < BOARD_SIZE) || direction == 0){
-			if(game->walls.walls[currentWallX][currentWallY].type % 2 == 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 == 0){
-				for(i=0;i<currentWallX;i++){
-					if(game->walls.walls[i][currentWallY].type % 2 == 0)
-						previousWall++;
-				}
-				if(previousWall % 2 == 0)
-					LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX, currentWallPixelY);
-				else 
-					LCD_DrawArray(restore_two_separate_walls,4, 64, currentWallPixelX, currentWallPixelY);			
-			} 
-			if (game->walls.walls[currentWallX][currentWallY].type % 2 != 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 != 0){
-				LCD_DrawArray(empty_horizontal_wall,4, 64, currentWallPixelX, currentWallPixelY);
-			} 		
-			if (game->walls.walls[currentWallX][currentWallY].type % 2 == 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 != 0){
-				LCD_DrawArray(restore_left_wall,4, 64, currentWallPixelX, currentWallPixelY);
-			}  
-			if (game->walls.walls[currentWallX][currentWallY].type % 2 != 0 && game->walls.walls[currentWallX+1][currentWallY].type % 2 == 0){
-				LCD_DrawArray(restore_right_wall,4, 64, currentWallPixelX, currentWallPixelY);	
-			}
-			if (game->walls.walls[currentWallX][currentWallY].type % 3 == 0 && game->walls.walls[currentWallX][currentWallY-1].type % 3 == 0){
-				if(game->walls.walls[currentWallX][currentWallY].type % 2 == 0){
-					LCD_DrawArray(restore_left_wall,4, 64, currentWallPixelX, currentWallPixelY);
-					LCD_DrawVerticalArray(vertical_wall,64, 4, currentWallPixelX+30, currentWallPixelY-30);
-				} else if(game->walls.walls[currentWallX+1][currentWallY].type % 2 == 0){
-					LCD_DrawArray(restore_right_wall,4, 64, currentWallPixelX, currentWallPixelY);
-					LCD_DrawVerticalArray(vertical_wall,64, 4, currentWallPixelX+30, currentWallPixelY-30);
-				} else {
-					LCD_DrawArray(empty_horizontal_wall,4, 64, currentWallPixelX, currentWallPixelY);
-					LCD_DrawVerticalArray(vertical_wall,64, 4, currentWallPixelX+30, currentWallPixelY-30);
-				}
-			}  		
-		}
-		*/
 		}
 }
-//TODO: fixare i casi riportati su notion
+
 void restore_vertical_wall_movement(GameStatus *game, int direction){
 	int currentWallX = game->walls.tempX;
 	int	currentWallY = game->walls.tempY;
@@ -1704,43 +1403,6 @@ void restore_vertical_wall_movement(GameStatus *game, int direction){
 					else 
 						LCD_DrawVerticalArray(restore_two_separate_walls,64, 4, currentWallPixelX, currentWallPixelY);
 		}
-		
-	/*
-	if((direction == UP && game->walls.tempY > 0) || (direction == DOWN && game->walls.tempY < BOARD_SIZE-2) || (direction == LEFT && game->walls.tempX > 1) || (direction == RIGHT && game->walls.tempX < BOARD_SIZE-1) || direction == 0){
-		if(game->walls.walls[currentWallX][currentWallY].type % 5 == 0 && game->walls.walls[currentWallX][currentWallY+1].type % 5 == 0){
-			for(i=0;i<currentWallY;i++){
-				if(game->walls.walls[currentWallX][i].type % 5 == 0)
-					previousWall++;
-			}
-			if(previousWall % 2 == 0)
-				LCD_DrawVerticalArray(vertical_wall,64, 4, currentWallPixelX, currentWallPixelY);
-			else 
-				LCD_DrawVerticalArray(restore_two_separate_walls,64, 4, currentWallPixelX, currentWallPixelY);
-		}
-		if (game->walls.walls[currentWallX][currentWallY].type % 5 != 0 && game->walls.walls[currentWallX][currentWallY+1].type % 5 != 0){
-			LCD_DrawVerticalArray(empty_vertical_wall,64, 4, currentWallPixelX, currentWallPixelY);
-		} 		
-
-		if (game->walls.walls[currentWallX][currentWallY].type % 5 == 0 && game->walls.walls[currentWallX][currentWallY+1].type % 5 != 0){
-			LCD_DrawVerticalArray(restore_left_wall,64, 4, currentWallPixelX, currentWallPixelY);
-		} 
-		if (game->walls.walls[currentWallX][currentWallY].type % 5 != 0 && game->walls.walls[currentWallX][currentWallY+1].type % 5 == 0){
-			LCD_DrawVerticalArray(restore_right_wall,64, 4, currentWallPixelX, currentWallPixelY);	
-		}
-		if (game->walls.walls[currentWallX][currentWallY].type % 7 == 0 && game->walls.walls[currentWallX-1][currentWallY].type % 7 == 0){
-			LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);
-			if(game->walls.walls[currentWallX][currentWallY].type % 5 == 0){
-				LCD_DrawVerticalArray(restore_left_wall,64, 4, currentWallPixelX, currentWallPixelY);
-				//LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);
-			}else if(game->walls.walls[currentWallX][currentWallY+1].type % 5 == 0){
-				LCD_DrawVerticalArray(restore_right_wall,64, 4, currentWallPixelX, currentWallPixelY);
-				//LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);			
-			} else {
-				LCD_DrawVerticalArray(empty_vertical_wall,64, 4, currentWallPixelX, currentWallPixelY);
-				LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX-30, currentWallPixelY+30);
-			}
-		} 		
-	}*/
 	}
 }
 
