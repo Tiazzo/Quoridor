@@ -32,7 +32,7 @@ void preview_move_token(GameStatus*, int);
 void walls_mode(GameStatus *);
 void move_preview_horizontal_wall(GameStatus *, int);
 void move_preview_vertical_wall(GameStatus *, int);
-int confirm_move_wall(GameStatus *game);
+void confirm_move_wall(GameStatus *game);
 void restore_wall(GameStatus *, int, int);
 void restore_empty_wall(GameStatus *, int, int);
 void rotate_wall(GameStatus *);

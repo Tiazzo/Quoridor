@@ -736,11 +736,12 @@ void start_game(){
 	cancel_value_on_screen("Press INT0 to start the match",5,242);
 	//Enable buttons
 	//enable_timer(0);
-	NVIC_EnableIRQ(EINT1_IRQn);							 /* enable Button interrupts			*/
-	LPC_PINCON->PINSEL4    |= (1 << 22);     /* External interrupt 0 pin selection */
-	NVIC_EnableIRQ(EINT2_IRQn);							 /* enable Button interrupts			*/
-	LPC_PINCON->PINSEL4    |= (1 << 24);     /* External interrupt 0 pin selection */
-	
+	/*
+	NVIC_EnableIRQ(EINT1_IRQn);							
+	LPC_PINCON->PINSEL4    |= (1 << 22);     
+	NVIC_EnableIRQ(EINT2_IRQn);							 
+	LPC_PINCON->PINSEL4    |= (1 << 24);     
+	*/
 	initialize_game(&game);
 }
 
@@ -1348,13 +1349,15 @@ int check_wall_presence(GameStatus *game, int x, int y, int direction){
 			}
 		}
 	}
+	return INVALID_MOVE;
 }
 
-int confirm_move_wall(GameStatus *game){
+void confirm_move_wall(GameStatus *game){
 	int i;
-	char str2[20];
 	bool player1CanWin;
 	bool player2CanWin;
+	int previousWall = 0;
+	bool isCross = false;
 	if(game->currentPlayer == 1){
 		gameMove.PlayerID = 0;
 	}else{ 
@@ -1364,7 +1367,18 @@ int confirm_move_wall(GameStatus *game){
 	
 	
 	if(game->walls.wallVerse == HORIZONTAL_WALL){
-		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 2) == 0) || ((game->walls.walls[game->walls.tempX+1][game->walls.tempY].type % 2) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 3) == 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY-1].type % 3)== 0))){
+		
+		if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 3 == 0 && game->walls.walls[game->walls.tempX][game->walls.tempY-1].type % 3 == 0){
+				for(i=0;i<game->walls.tempY-1;i++){
+					if(game->walls.walls[game->walls.tempX][i].type % 3 == 0)
+						previousWall++;
+				}
+				if(previousWall % 2 == 0)
+					isCross = true;
+				else 
+					isCross = false;
+		}
+		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 2) == 0) || ((game->walls.walls[game->walls.tempX+1][game->walls.tempY].type % 2) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 3) == 0) && ((game->walls.walls[game->walls.tempX][game->walls.tempY-1].type % 3)== 0) && isCross)){
 			print_value_on_screen("Wall already present",40,242);
 			for(i=0; i < 3000; i++){
 			}
@@ -1396,7 +1410,18 @@ int confirm_move_wall(GameStatus *game){
 			
 		}
 	} else { // CASO MURO VERTICALE
-		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 5) == 0) || ((game->walls.walls[game->walls.tempX][game->walls.tempY+1].type % 5) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7) == 0) && ((game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7)== 0))){
+		
+		if(game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7 == 0 && game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7 == 0){
+				for(i=0;i<game->walls.tempX-1;i++){
+					if(game->walls.walls[i][game->walls.tempY].type % 7 == 0)
+						previousWall++;
+				}
+				if(previousWall % 2 == 0)
+					isCross = true;
+				else 
+					isCross = false;
+		}
+		if((((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 5) == 0) || ((game->walls.walls[game->walls.tempX][game->walls.tempY+1].type % 5) == 0)) || (((game->walls.walls[game->walls.tempX][game->walls.tempY].type % 7) == 0) && ((game->walls.walls[game->walls.tempX-1][game->walls.tempY].type % 7)== 0) && isCross)){
 			print_value_on_screen("Wall already present",40,242);
 			for(i=0; i < 3000; i++){
 			}
@@ -1589,8 +1614,11 @@ void restore_horizontal_wall_movement(GameStatus *game, int direction){
 				}
 			if(previousWall % 2 == 0)
 				LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX, currentWallPixelY);
-			else 
-				LCD_DrawArray(restore_two_separate_walls,4, 64, currentWallPixelX, currentWallPixelY);
+			else
+					if(game->walls.walls[currentWallX][currentWallY].type % 3 == 0 && game->walls.walls[currentWallX][currentWallY-1].type % 3 == 0)
+						LCD_DrawArray(horizontal_wall,4, 64, currentWallPixelX, currentWallPixelY);
+					else
+						LCD_DrawArray(restore_two_separate_walls,4, 64, currentWallPixelX, currentWallPixelY);
 		}
 		
 		/*
@@ -1671,7 +1699,10 @@ void restore_vertical_wall_movement(GameStatus *game, int direction){
 				if(previousWall % 2 == 0)
 					LCD_DrawVerticalArray(vertical_wall,64, 4, currentWallPixelX, currentWallPixelY);
 				else 
-					LCD_DrawVerticalArray(restore_two_separate_walls,64, 4, currentWallPixelX, currentWallPixelY);
+					if(game->walls.walls[currentWallX][currentWallY].type % 5 == 0 && game->walls.walls[currentWallX][currentWallY+1].type % 5 == 0)
+						LCD_DrawVerticalArray(vertical_wall,64, 4, currentWallPixelX, currentWallPixelY);
+					else 
+						LCD_DrawVerticalArray(restore_two_separate_walls,64, 4, currentWallPixelX, currentWallPixelY);
 		}
 		
 	/*

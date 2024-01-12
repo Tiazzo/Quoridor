@@ -12,7 +12,7 @@ I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Inc
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h)(0x626FAD4E)
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626FAD4E)
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
-F (.\sample.c)(0x659FFE4D)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_-o .\sample.o --omf_browse .\sample.crf --depend .\sample.d)
+F (.\sample.c)(0x65A113A2)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_-o .\sample.o --omf_browse .\sample.crf --depend .\sample.d)
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\LPC17xx.h)(0x5E1DC4B4)
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626FAD4E)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdint.h)(0x5E8E9F32)
@@ -26,7 +26,7 @@ I (timer/timer.h)(0x658DBA35)
 I (RIT/RIT.h)(0x658DBA35)
 I (button_EXINT/button.h)(0x659D2848)
 I (joystick/joystick.h)(0x658DBA35)
-I (game_functions.h)(0x659C37A3)
+I (game_functions.h)(0x65A1128F)
 I (game_structures.h)(0x659C7204)
 I (game_constants.h)(0x65995CD3)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdbool.h)(0x5E8E9F32)
@@ -42,7 +42,7 @@ I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Inc
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626FAD4E)
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (button_EXINT\../game_constants.h)(0x65995CD3)
-I (button_EXINT\../game_functions.h)(0x659C37A3)
+I (button_EXINT\../game_functions.h)(0x65A1128F)
 I (button_EXINT\../game_structures.h)(0x659C7204)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdbool.h)(0x5E8E9F32)
 F (.\button_EXINT\lib_button.c)(0x658DBA35)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_-o .\lib_button.o --omf_browse .\lib_button.crf --depend .\lib_button.d)
@@ -89,7 +89,7 @@ I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Inc
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\mpu_armv7.h)(0x626FAD4E)
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (timer\timer.h)(0x658DBA35)
-I (timer\../game_functions.h)(0x659C37A3)
+I (timer\../game_functions.h)(0x65A1128F)
 I (timer\../game_structures.h)(0x659C7204)
 I (timer\../game_constants.h)(0x65995CD3)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdbool.h)(0x5E8E9F32)
@@ -126,7 +126,7 @@ F (.\GLCD\HzLib.c)(0x658DBA35)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\
 I (GLCD\HzLib.h)(0x658DBA35)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\string.h)(0x5E8E9F32)
 F (.\GLCD\HzLib.h)(0x658DBA35)()
-F (.\RIT\IRQ_RIT.c)(0x65A002D0)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_-o .\irq_rit.o --omf_browse .\irq_rit.crf --depend .\irq_rit.d)
+F (.\RIT\IRQ_RIT.c)(0x65A11479)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_-o .\irq_rit.o --omf_browse .\irq_rit.crf --depend .\irq_rit.d)
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626FAD4E)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdint.h)(0x5E8E9F32)
@@ -139,7 +139,7 @@ I (RIT\RIT.h)(0x658DBA35)
 I (RIT\../led/led.h)(0x658DBA35)
 I (RIT\../button_EXINT/button.h)(0x659D2848)
 I (RIT\../game_constants.h)(0x65995CD3)
-I (RIT\../game_functions.h)(0x659C37A3)
+I (RIT\../game_functions.h)(0x65A1128F)
 I (RIT\../game_structures.h)(0x659C7204)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdbool.h)(0x5E8E9F32)
 F (.\RIT\lib_RIT.c)(0x658DBA35)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_-o .\lib_rit.o --omf_browse .\lib_rit.crf --depend .\lib_rit.d)
@@ -175,7 +175,7 @@ I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Inc
 I (C:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (joystick\joystick.h)(0x658DBA35)
 F (.\joystick\joystick.h)(0x658DBA35)()
-F (.\game.c)(0x65A011CC)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_-o .\game.o --omf_browse .\game.crf --depend .\game.d)
+F (.\game.c)(0x65A124ED)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\mattiacarlino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DLPC175x_6x -D_RTE_-o .\game.o --omf_browse .\game.crf --depend .\game.d)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdio.h)(0x5E8E9F32)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdint.h)(0x5E8E9F32)
 I (C:\Keil_v5\ARM\ARMCLANG5\include\stdlib.h)(0x5E8E9F32)
@@ -194,10 +194,10 @@ I (RIT/RIT.h)(0x658DBA35)
 I (button_EXINT/button.h)(0x659D2848)
 I (joystick/joystick.h)(0x658DBA35)
 I (game_constants.h)(0x65995CD3)
-I (game_functions.h)(0x659C37A3)
+I (game_functions.h)(0x65A1128F)
 I (game_structures.h)(0x659C7204)
-I (game_draw.h)(0x65A00804)
+I (game_draw.h)(0x65A11ED5)
 F (.\game_constants.h)(0x65995CD3)()
 F (.\game_structures.h)(0x659C7204)()
-F (.\game_functions.h)(0x659C37A3)()
-F (.\game_draw.h)(0x65A00804)()
+F (.\game_functions.h)(0x65A1128F)()
+F (.\game_draw.h)(0x65A11ED5)()

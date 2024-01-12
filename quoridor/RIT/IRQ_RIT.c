@@ -168,7 +168,7 @@ void RIT_IRQHandler (void)
 			NVIC_EnableIRQ(EINT0_IRQn);							 /* enable Button interrupts			*/
 			LPC_PINCON->PINSEL4    |= (1 << 20);     /* External interrupt 0 pin selection */
 		}
-	} else if(down_1!=0){ 
+	} else if(down_1!=0 && firstTime){ 
 		if((LPC_GPIO2->FIOPIN & (1<<11)) == 0){	/* KEY1 pressed */
 			down_1++;				
 			switch(down_1){
@@ -184,7 +184,7 @@ void RIT_IRQHandler (void)
 			NVIC_EnableIRQ(EINT1_IRQn);							 /* enable Button interrupts			*/
 			LPC_PINCON->PINSEL4    |= (1 << 22);     /* External interrupt 0 pin selection */
 		}
-	} else if(down_2!=0){ 
+	} else if(down_2!=0 && firstTime){ 
 		if((LPC_GPIO2->FIOPIN & (1<<12)) == 0){	/* KEY2 pressed */
 			down_2++;				
 			switch(down_2){
