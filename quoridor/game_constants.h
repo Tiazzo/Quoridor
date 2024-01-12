@@ -18,7 +18,6 @@
 #define RIGHT 4
 #define SELECT 5
 
-
 #define CELL_SIZE 33
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 320
